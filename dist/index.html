@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#081d35">
+  <meta name="description" content="MotoMart India — bike and scooter parts, riding gear and accessories with fitment guidance.">
+  <title>MotoMart India | Bike & Scooter Parts</title>
+  <link rel="preconnect" href="https://images.rawpixel.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to products</a>
+  <div id="announcement" class="announcement"><span>⚡</span> Grand Garage Days: extra 10% off on selected essentials <button data-scroll="deals">Shop offers</button></div>
+
+  <header class="site-header" id="top">
+    <div class="topbar">
+      <button class="icon-button menu-button" id="menuButton" aria-label="Open navigation">☰</button>
+      <a class="brand" href="#home" aria-label="MotoMart home">
+        <span class="brand-mark">M</span>
+        <span class="brand-name">moto<span>mart</span><small>.in</small></span>
+      </a>
+      <button class="deliver-to" id="locationButton" aria-label="Change delivery location">
+        <span class="pin">⌖</span><span><small>Delivering to</small><strong id="deliveryText">Bengaluru 560001</strong></span>
+      </button>
+
+      <form class="search" id="searchForm" role="search">
+        <label class="sr-only" for="categorySelect">Category</label>
+        <select id="categorySelect" aria-label="Choose product category">
+          <option value="all">All</option><option value="Helmets">Helmets</option><option value="Engine & Oils">Engine & Oils</option>
+          <option value="Brakes">Brakes</option><option value="Lighting">Lighting</option><option value="Accessories">Accessories</option>
+          <option value="Tyres">Tyres</option><option value="Riding Gear">Riding Gear</option>
+        </select>
+        <label class="sr-only" for="searchInput">Search MotoMart</label>
+        <input id="searchInput" type="search" autocomplete="off" placeholder="Search bike parts, brands and models" aria-expanded="false" aria-controls="searchSuggestions">
+        <button type="submit" aria-label="Search">⌕</button>
+        <div class="search-suggestions" id="searchSuggestions" role="listbox"></div>
+      </form>
+
+      <label class="language-control" aria-label="Choose language">
+        <span>🇮🇳</span>
+        <select id="languageSelect"><option value="en">EN</option><option value="hi">हिन्दी</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="bn">বাংলা</option><option value="mr">मराठी</option></select>
+      </label>
+      <button class="account-button" id="accountButton"><small data-i18n="hello">Hello, sign in</small><strong data-i18n="account">Account & Lists⌄</strong></button>
+      <button class="orders-button"><small data-i18n="returns">Returns</small><strong data-i18n="orders">& Orders</strong></button>
+      <button class="cart-button" id="cartButton" aria-label="Open shopping cart"><span class="cart-icon">🛒</span><span class="cart-count" id="cartCount">0</span><strong data-i18n="cart">Cart</strong></button>
+    </div>
+    <nav class="nav-strip" aria-label="Main navigation">
+      <button id="allMenuButton">☰ All</button>
+      <a href="#deals">Today's Deals</a><a href="#categories">Bike Parts</a><a href="#categories">Scooter Parts</a>
+      <a href="#products" data-filter-link="Helmets">Helmets</a><a href="#products" data-filter-link="Engine & Oils">Engine Oils</a>
+      <a href="#products" data-filter-link="Tyres">Tyres & Wheels</a><a href="#products" data-filter-link="Riding Gear">Riding Gear</a>
+      <button id="tradeButton">Sell / Trade-In</button><a href="#help">Customer Service</a>
+    </nav>
+    <nav class="vehicle-strip" aria-label="Vehicle type navigation">
+      <strong>MotoMart Auto</strong><a href="#categories">Motorcycle</a><a href="#categories">Scooter</a><a href="#garage">Shop by vehicle</a><a href="#products">Maintenance</a><a href="#products">Electrical</a><a href="#products">Body parts</a><a href="#products">Travel accessories</a>
+    </nav>
+  </header>
+
+  <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-head"><strong>Hello, rider</strong><button data-close-menu aria-label="Close navigation">×</button></div>
+    <div class="mobile-menu-content"><h3>Shop by category</h3><a href="#categories">Bike parts</a><a href="#categories">Scooter parts</a><a href="#products">Helmets</a><a href="#products">Engine oils</a><a href="#products">Riding gear</a><hr><h3>Help & account</h3><button id="mobileLocation">Change location</button><button id="mobileTrade">Sell / Trade-In</button><button>Sign in</button></div>
+  </aside>
+
+  <main id="main">
+    <div id="homeView">
+      <section class="hero" aria-label="Featured offers">
+        <div class="hero-slides" id="heroSlides">
+          <article class="hero-slide active" style="--hero-image:url('https://cdn.bikedekho.com/upload/userfiles/images/68246488005d9.jpg?tr=w-1200')">
+            <div class="hero-content"><span class="eyebrow">Grand Garage Days</span><h1>Upgrade every ride.</h1><p>Top-rated essentials for bikes and scooters, starting at ₹149.</p><button class="primary-cta" data-scroll="deals">Explore deals</button></div>
+          </article>
+          <article class="hero-slide" style="--hero-image:url('https://d26dp53kz39178.cloudfront.net/media/uploads/products/Bike-trip-2_Y4cwJBM.jpg')">
+            <div class="hero-content"><span class="eyebrow">Touring season</span><h2>Built for the long way home.</h2><p>Helmets, gloves, phone mounts and luggage for every kilometre.</p><button class="primary-cta" data-filter-button="Riding Gear">Shop riding gear</button></div>
+          </article>
+          <article class="hero-slide" style="--hero-image:url('https://boongg-rental-cdn.s3.ap-south-1.amazonaws.com/student_bike_rental_pune_college_5e5c45d4e3.jpg')">
+            <div class="hero-content"><span class="eyebrow">Scooter care</span><h2>Small upgrades. Smoother commutes.</h2><p>Everyday maintenance and smart accessories for city riders.</p><button class="primary-cta" data-filter-button="Accessories">Shop accessories</button></div>
+          </article>
+        </div>
+        <button class="hero-arrow prev" id="heroPrev" aria-label="Previous offer">‹</button><button class="hero-arrow next" id="heroNext" aria-label="Next offer">›</button>
+        <div class="hero-dots" id="heroDots" aria-label="Choose featured offer"></div>
+      </section>
+
+      <section class="garage-card page-shell" id="garage">
+        <div class="garage-heading"><span class="garage-icon">🏍</span><div><small>YOUR GARAGE</small><h2>Find parts that fit your vehicle</h2></div></div>
+        <form id="garageForm" class="garage-form">
+          <label><span>Vehicle type</span><select id="vehicleType"><option>Motorcycle</option><option>Scooter</option></select></label>
+          <label><span>Brand</span><select id="vehicleBrand"><option value="">Choose brand</option><option>Hero</option><option>Honda</option><option>TVS</option><option>Bajaj</option><option>Royal Enfield</option><option>Yamaha</option><option>Suzuki</option><option>KTM</option></select></label>
+          <label><span>Model</span><select id="vehicleModel"><option value="">Choose model</option></select></label>
+          <button type="submit">Find compatible parts</button>
+        </form>
+        <p class="garage-result" id="garageResult" aria-live="polite"></p>
+      </section>
+
+      <section class="section page-shell" id="categories">
+        <div class="section-title"><div><span class="eyebrow dark">SHOP YOUR WAY</span><h2>Everything your two-wheeler needs</h2></div><a href="#products">See all categories <span>→</span></a></div>
+        <div class="category-grid" id="categoryGrid"></div>
+      </section>
+
+      <section class="section deal-section" id="deals">
+        <div class="page-shell"><div class="section-title light"><div><span class="eyebrow">LIMITED-TIME PRICES</span><h2>Today’s garage deals</h2></div><div class="deal-timer"><span>Ends in</span><strong id="dealTimer">08:42:16</strong></div></div><div class="product-scroller" id="dealScroller"></div></div>
+      </section>
+
+      <section class="section page-shell" id="products">
+        <div class="section-title"><div><span class="eyebrow dark">POPULAR WITH RIDERS</span><h2 id="productsTitle">Best sellers for bikes & scooters</h2></div><div class="section-actions"><button class="scroll-btn" data-scroll-row="prev" aria-label="Scroll products left">‹</button><button class="scroll-btn" data-scroll-row="next" aria-label="Scroll products right">›</button></div></div>
+        <div class="product-row" id="productRow"></div>
+      </section>
+
+      <section class="brand-promo page-shell">
+        <div class="promo-copy"><span class="eyebrow">RIDER PROTECT</span><h2>Gear that works as hard as you ride.</h2><p>ISI-certified helmets, CE-rated gloves and high-visibility essentials from trusted riding brands.</p><button class="outline-cta" data-filter-button="Riding Gear">Explore protective gear</button></div>
+        <div class="promo-visual"><img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTAxL3Jhd3BpeGVsX29mZmljZV80Ml80NV9kZWdyZWVfYW5nbGVfaW1hZ2Vfb2ZfZnVsbC1mYWNlX21vdG9yY3ljbF84MDcwZGQ3OS1lMDg2LTQ4NzItYjU2YS0yZjEyNjhkOWI5MGJfMS5qcGc.jpg" alt="White full-face motorcycle helmet" loading="lazy"><div class="floating-stat"><strong>4.5★</strong><span>average rider rating</span></div></div>
+      </section>
+
+      <section class="section page-shell">
+        <div class="section-title"><div><span class="eyebrow dark">ESSENTIAL MAINTENANCE</span><h2>Keep your ride road-ready</h2></div><a href="#products">View maintenance store <span>→</span></a></div>
+        <div class="maintenance-grid"><button data-filter-button="Engine & Oils"><span>01</span><strong>Engine care</strong><small>Oils, filters & spark plugs</small></button><button data-filter-button="Brakes"><span>02</span><strong>Brake service</strong><small>Pads, discs & fluids</small></button><button data-filter-button="Lighting"><span>03</span><strong>Electrical</strong><small>Lights, batteries & horns</small></button><button data-filter-button="Tyres"><span>04</span><strong>Tyres & wheels</strong><small>Grip for every road</small></button></div>
+      </section>
+
+      <section class="trust-strip" aria-label="Shopping benefits"><div><span>✓</span><strong>Verified fitment</strong><small>Vehicle-compatible parts</small></div><div><span>↩</span><strong>10-day returns</strong><small>Easy replacement support</small></div><div><span>⚡</span><strong>Fast delivery</strong><small>Across 18,000+ pin codes</small></div><div><span>🛡</span><strong>Secure payments</strong><small>UPI, cards & pay on delivery</small></div></section>
+    </div>
+    <div id="productView" class="product-view" hidden></div>
+    <div id="searchView" class="search-view page-shell" hidden></div>
+  </main>
+
+  <section class="signin-banner"><h2>See personalised picks for your ride</h2><button id="signInButton">Sign in securely</button><small>New to MotoMart? <button id="registerButton">Create an account</button></small></section>
+  <footer id="help">
+    <button class="back-top" data-scroll="top">Back to top ↑</button>
+    <div class="footer-main page-shell"><div><h3>Get to know us</h3><a href="#help">About MotoMart</a><a href="#help">Careers</a><a href="#help">Press releases</a></div><div><h3>Connect with us</h3><a href="#help">Instagram</a><a href="#help">YouTube</a><a href="#help">Facebook</a></div><div><h3>Make money with us</h3><button id="footerTrade">Sell or trade parts</button><a href="#help">Become a seller</a><a href="#help">Advertise products</a></div><div><h3>Let us help you</h3><a href="#help">Your account</a><a href="#help">Returns centre</a><a href="#help">Fitment help</a><a href="#help">Contact us</a></div></div>
+    <div class="footer-brand"><a class="brand" href="#home"><span class="brand-mark">M</span><span class="brand-name">moto<span>mart</span><small>.in</small></span></a><button id="footerLanguage">🌐 English</button><button>🇮🇳 India</button></div>
+    <div class="footer-bottom"><a href="#help">Conditions of use</a><a href="#help">Privacy notice</a><a href="#help">Interest-based ads</a><span>© 2026 MotoMart Commerce</span></div>
+  </footer>
+
+  <div class="overlay" id="overlay" hidden></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true"><div class="drawer-head"><div><small>YOUR CART</small><h2>Ready for the road</h2></div><button id="closeCart" aria-label="Close cart">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-footer"><div><span>Subtotal</span><strong id="cartSubtotal">₹0</strong></div><small>Taxes included. Delivery calculated at checkout.</small><button id="checkoutButton">Proceed to checkout</button><button class="continue-button" id="continueButton">Continue shopping</button></div></aside>
+
+  <div class="modal" id="locationModal" role="dialog" aria-modal="true" aria-labelledby="locationTitle" hidden><button class="modal-close" data-close-modal aria-label="Close">×</button><h2 id="locationTitle">Choose your location</h2><p>Enter a PIN code to see delivery options and local availability.</p><form id="locationForm"><input id="pincodeInput" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="6-digit PIN code" required><button type="submit">Apply</button></form></div>
+  <div class="modal" id="tradeModal" role="dialog" aria-modal="true" aria-labelledby="tradeTitle" hidden><button class="modal-close" data-close-modal aria-label="Close">×</button><span class="eyebrow dark">MOTOMART TRADE-IN</span><h2 id="tradeTitle">Turn old parts into ride credits</h2><p>Tell us what you want to sell. We’ll share an estimated exchange value.</p><form id="tradeForm"><label>Item type<select required><option value="">Choose an item</option><option>Helmet</option><option>Exhaust</option><option>Alloy wheel</option><option>Riding jacket</option><option>Other part</option></select></label><label>Condition<select required><option value="">Choose condition</option><option>Like new</option><option>Good</option><option>Well used</option></select></label><label>Your mobile number<input inputmode="tel" placeholder="10-digit number" pattern="[0-9]{10}" required></label><button type="submit">Get estimate</button></form></div>
+  <div class="modal compact" id="signinModal" role="dialog" aria-modal="true" aria-labelledby="signinTitle" hidden><button class="modal-close" data-close-modal aria-label="Close">×</button><div class="signin-logo">M</div><h2 id="signinTitle">Sign in to MotoMart</h2><form id="signinForm"><label>Email or mobile number<input type="text" required placeholder="Enter email or mobile"></label><button type="submit">Continue</button></form><small>By continuing, you agree to MotoMart’s Conditions of Use and Privacy Notice.</small></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
