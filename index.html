@@ -6,7 +6,6 @@
   <meta name="theme-color" content="#081d35">
   <meta name="description" content="MotoMart India — bike and scooter parts, riding gear and accessories with fitment guidance.">
   <title>MotoMart India | Bike & Scooter Parts</title>
-  <link rel="preconnect" href="https://images.rawpixel.com">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -29,7 +28,8 @@
         <select id="categorySelect" aria-label="Choose product category">
           <option value="all">All</option><option value="Helmets">Helmets</option><option value="Engine & Oils">Engine & Oils</option>
           <option value="Brakes">Brakes</option><option value="Lighting">Lighting</option><option value="Accessories">Accessories</option>
-          <option value="Tyres">Tyres</option><option value="Riding Gear">Riding Gear</option>
+          <option value="Tyres">Tyres</option><option value="Riding Gear">Riding Gear</option><option value="Batteries">Batteries</option>
+          <option value="Filters">Filters</option><option value="Luggage">Luggage</option><option value="Bike Care">Bike Care</option><option value="Electrical">Electrical</option><option value="Body & Styling">Body & Styling</option>
         </select>
         <label class="sr-only" for="searchInput">Search MotoMart</label>
         <input id="searchInput" type="search" autocomplete="off" placeholder="Search bike parts, brands and models" aria-expanded="false" aria-controls="searchSuggestions">
@@ -64,20 +64,36 @@
 
   <main id="main">
     <div id="homeView">
-      <section class="hero" aria-label="Featured offers">
-        <div class="hero-slides" id="heroSlides">
-          <article class="hero-slide active" style="--hero-image:url('https://cdn.bikedekho.com/upload/userfiles/images/68246488005d9.jpg?tr=w-1200')">
-            <div class="hero-content"><span class="eyebrow">Grand Garage Days</span><h1>Upgrade every ride.</h1><p>Top-rated essentials for bikes and scooters, starting at ₹149.</p><button class="primary-cta" data-scroll="deals">Explore deals</button></div>
+      <section class="market-hero" aria-label="Featured auto-parts offers">
+        <div class="market-hero-track" id="heroSlides">
+          <article class="promo-tile promo-dark">
+            <div class="promo-copy-top"><p>Rider safety kits</p><h1>Up to 35% off</h1><span>Helmets, gloves & mounts</span></div>
+            <img src="assets/ai-riding-essentials.png" alt="AI-generated helmet, riding gloves and phone mount product arrangement">
+            <button data-filter-button="Riding Gear">Shop safety gear</button>
           </article>
-          <article class="hero-slide" style="--hero-image:url('https://d26dp53kz39178.cloudfront.net/media/uploads/products/Bike-trip-2_Y4cwJBM.jpg')">
-            <div class="hero-content"><span class="eyebrow">Touring season</span><h2>Built for the long way home.</h2><p>Helmets, gloves, phone mounts and luggage for every kilometre.</p><button class="primary-cta" data-filter-button="Riding Gear">Shop riding gear</button></div>
+          <article class="promo-tile promo-silver">
+            <div class="promo-copy-top"><p>Service essentials</p><h2>Starting ₹399</h2><span>Chains, brakes, oils & plugs</span></div>
+            <img src="assets/ai-maintenance-parts.png" alt="AI-generated motorcycle maintenance parts arrangement">
+            <button data-filter-button="Engine & Oils">See maintenance deals</button>
           </article>
-          <article class="hero-slide" style="--hero-image:url('https://boongg-rental-cdn.s3.ap-south-1.amazonaws.com/student_bike_rental_pune_college_5e5c45d4e3.jpg')">
-            <div class="hero-content"><span class="eyebrow">Scooter care</span><h2>Small upgrades. Smoother commutes.</h2><p>Everyday maintenance and smart accessories for city riders.</p><button class="primary-cta" data-filter-button="Accessories">Shop accessories</button></div>
+          <article class="promo-tile promo-peach">
+            <div class="promo-copy-top"><p>Commuter upgrades</p><h2>Under ₹1,999</h2><span>Lights, mirrors & inflators</span></div>
+            <img src="assets/ai-commuter-accessories.png" alt="AI-generated commuter bike accessories arrangement">
+            <button data-filter-button="Accessories">Explore accessories</button>
+          </article>
+          <article class="promo-tile promo-amber">
+            <div class="promo-copy-top"><p>Helmet clearance</p><h2>Up to 40% off</h2><span>ISI-rated protection</span></div>
+            <img src="assets/ai-riding-essentials.png" alt="Full-face helmet and protective riding equipment">
+            <button data-filter-button="Helmets">Shop helmets</button>
+          </article>
+          <article class="promo-tile promo-white">
+            <div class="promo-copy-top"><p>Engine care store</p><h2>From ₹425</h2><span>Everyday oils for every ride</span></div>
+            <img src="assets/ai-maintenance-parts.png" alt="Motorcycle engine care products">
+            <button data-filter-button="Engine & Oils">Shop engine care</button>
           </article>
         </div>
-        <button class="hero-arrow prev" id="heroPrev" aria-label="Previous offer">‹</button><button class="hero-arrow next" id="heroNext" aria-label="Next offer">›</button>
-        <div class="hero-dots" id="heroDots" aria-label="Choose featured offer"></div>
+        <button class="market-arrow market-prev" id="heroPrev" aria-label="Previous offer">‹</button>
+        <button class="market-arrow market-next" id="heroNext" aria-label="Next offer">›</button>
       </section>
 
       <section class="garage-card page-shell" id="garage">
@@ -107,7 +123,7 @@
 
       <section class="brand-promo page-shell">
         <div class="promo-copy"><span class="eyebrow">RIDER PROTECT</span><h2>Gear that works as hard as you ride.</h2><p>ISI-certified helmets, CE-rated gloves and high-visibility essentials from trusted riding brands.</p><button class="outline-cta" data-filter-button="Riding Gear">Explore protective gear</button></div>
-        <div class="promo-visual"><img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTAxL3Jhd3BpeGVsX29mZmljZV80Ml80NV9kZWdyZWVfYW5nbGVfaW1hZ2Vfb2ZfZnVsbC1mYWNlX21vdG9yY3ljbF84MDcwZGQ3OS1lMDg2LTQ4NzItYjU2YS0yZjEyNjhkOWI5MGJfMS5qcGc.jpg" alt="White full-face motorcycle helmet" loading="lazy"><div class="floating-stat"><strong>4.5★</strong><span>average rider rating</span></div></div>
+        <div class="promo-visual"><img src="assets/ai-riding-essentials.png" alt="AI-generated motorcycle helmet, gloves and phone mount" loading="lazy"><div class="floating-stat"><strong>4.5★</strong><span>average rider rating</span></div></div>
       </section>
 
       <section class="section page-shell">
@@ -119,6 +135,7 @@
     </div>
     <div id="productView" class="product-view" hidden></div>
     <div id="searchView" class="search-view page-shell" hidden></div>
+    <div id="cartPageView" class="cart-page-view page-shell" hidden></div>
   </main>
 
   <section class="signin-banner"><h2>See personalised picks for your ride</h2><button id="signInButton">Sign in securely</button><small>New to MotoMart? <button id="registerButton">Create an account</button></small></section>
