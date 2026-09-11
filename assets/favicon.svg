@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Deep midnight badge gradient -->
+    <linearGradient id="bgPlate" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c232e" />
+      <stop offset="40%" stop-color="#0e131a" />
+      <stop offset="100%" stop-color="#040608" />
+    </linearGradient>
+
+    <!-- Metallic bevel border gradient -->
+    <linearGradient id="plateBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#64748b" />
+      <stop offset="35%" stop-color="#334155" />
+      <stop offset="70%" stop-color="#1e293b" />
+      <stop offset="92%" stop-color="#ff9900" />
+      <stop offset="100%" stop-color="#ff5500" />
+    </linearGradient>
+
+    <!-- Racing amber / electric orange gradient -->
+    <linearGradient id="raceOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffbe1a" />
+      <stop offset="50%" stop-color="#ff8c00" />
+      <stop offset="100%" stop-color="#e04000" />
+    </linearGradient>
+
+    <!-- Pure silver chrome highlight gradient -->
+    <linearGradient id="chromeLight" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="40%" stop-color="#e2e8f0" />
+      <stop offset="80%" stop-color="#cbd5e1" />
+      <stop offset="100%" stop-color="#94a3b8" />
+    </linearGradient>
+
+    <!-- Chrome shadow facet gradient -->
+    <linearGradient id="chromeDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#94a3b8" />
+      <stop offset="50%" stop-color="#475569" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Glowing center aura -->
+    <radialGradient id="centerAura" cx="50%" cy="45%" r="45%">
+      <stop offset="0%" stop-color="#ff8c00" stop-opacity="0.25" />
+      <stop offset="60%" stop-color="#ff6600" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Master 3D drop shadow -->
+    <filter id="masterShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.8" />
+    </filter>
+
+    <!-- Inner bevel glow -->
+    <filter id="glowSubtle" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Base Badge: Precision rounded squircle -->
+  <rect x="22" y="22" width="468" height="468" rx="116" fill="url(#bgPlate)" stroke="url(#plateBorder)" stroke-width="8" />
+  <rect x="30" y="30" width="452" height="452" rx="108" fill="url(#centerAura)" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.12" />
+
+  <!-- Speed Chevrons / Aerodynamic Wing Accents in Badge Corners -->
+  <g opacity="0.22" stroke="#ffffff" stroke-width="3" stroke-linecap="round">
+    <line x1="68" y1="130" x2="120" y2="130" />
+    <line x1="56" y1="154" x2="98" y2="154" />
+    <line x1="392" y1="130" x2="444" y2="130" />
+    <line x1="414" y1="154" x2="456" y2="154" />
+  </g>
+
+  <!-- The Sculptured High-Performance "M" -->
+  <g filter="url(#masterShadow)">
+    
+    <!-- LEFT WING PINSTRIPE (Aero winglet) -->
+    <path d="M 64 365 
+             L 142 98 
+             L 168 114 
+             L 98 365 Z" 
+          fill="url(#raceOrange)" />
+
+    <!-- RIGHT WING PINSTRIPE (Aero winglet) -->
+    <path d="M 448 365 
+             L 370 98 
+             L 344 114 
+             L 414 365 Z" 
+          fill="url(#raceOrange)" />
+
+    <!-- LEFT OUTER LEG (Chrome Light Facet) -->
+    <path d="M 98 365 
+             L 168 114 
+             L 214 148 
+             L 156 365 Z" 
+          fill="url(#chromeLight)" />
+
+    <!-- LEFT INNER LEG (Chrome Shadow Facet) -->
+    <path d="M 214 148 
+             L 256 270 
+             L 216 270 
+             L 156 365 
+             L 186 240 Z" 
+          fill="url(#chromeDark)" />
+
+    <!-- RIGHT OUTER LEG (Chrome Light Facet) -->
+    <path d="M 414 365 
+             L 344 114 
+             L 298 148 
+             L 356 365 Z" 
+          fill="url(#chromeLight)" />
+
+    <!-- RIGHT INNER LEG (Chrome Shadow Facet) -->
+    <path d="M 298 148 
+             L 256 270 
+             L 296 270 
+             L 356 365 
+             L 326 240 Z" 
+          fill="url(#chromeDark)" />
+
+    <!-- CENTRAL SUPERBIKE COWL CHEVRON (Plunging Apex 'V') -->
+    <path d="M 188 162 
+             L 256 308 
+             L 324 162 
+             L 292 142 
+             L 256 218 
+             L 220 142 Z" 
+          fill="url(#chromeLight)" />
+
+    <!-- CENTRAL APEX DUAL-LED HEADLIGHT CORE (Intense Orange) -->
+    <path d="M 226 182 
+             L 256 248 
+             L 286 182 
+             L 272 174 
+             L 256 208 
+             L 240 174 Z" 
+          fill="url(#raceOrange)" />
+
+    <!-- RACING DORSAL FIN (Top Center Notch Accent) -->
+    <path d="M 256 86 
+             L 272 124 
+             L 256 142 
+             L 240 124 Z" 
+          fill="url(#raceOrange)" />
+  </g>
+
+  <!-- LOWER AERODYNAMIC GROUND-EFFECT SPLITTER -->
+  <path d="M 116 398 
+           C 188 418, 324 418, 396 398 
+           C 344 424, 168 424, 116 398 Z" 
+        fill="url(#raceOrange)" />
+
+  <!-- PRECISION SPEED DASHES -->
+  <rect x="214" y="432" width="22" height="4" rx="2" fill="#475569" />
+  <rect x="245" y="431" width="22" height="6" rx="3" fill="#ff9900" />
+  <rect x="276" y="432" width="22" height="4" rx="2" fill="#475569" />
+</svg>

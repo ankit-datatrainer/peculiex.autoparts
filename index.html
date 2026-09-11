@@ -3,20 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#081d35">
+  <meta name="theme-color" content="#000000">
   <meta name="description" content="MotoMart India — bike and scooter parts, riding gear and accessories with fitment guidance.">
   <title>MotoMart India | Bike & Scooter Parts</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="MotoMart">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to products</a>
-  <div id="announcement" class="announcement"><span>⚡</span> Grand Garage Days: extra 10% off on selected essentials <button data-scroll="deals">Shop offers</button></div>
+  <div id="announcement" class="announcement premium-ticker" aria-label="Current offers">
+    <div class="ticker-label"><span aria-hidden="true">⚡</span><strong>LIVE DEALS</strong></div>
+    <div class="ticker-window">
+      <div class="ticker-track">
+        <span>Grand Garage Days — extra 10% off on selected essentials</span><i aria-hidden="true">◆</i>
+        <span>Free delivery on selected bike and scooter parts</span><i aria-hidden="true">◆</i>
+        <span>Verified fitment for a safer, smarter ride</span><i aria-hidden="true">◆</i>
+        <span aria-hidden="true">Grand Garage Days — extra 10% off on selected essentials</span><i aria-hidden="true">◆</i>
+        <span aria-hidden="true">Free delivery on selected bike and scooter parts</span><i aria-hidden="true">◆</i>
+        <span aria-hidden="true">Verified fitment for a safer, smarter ride</span>
+      </div>
+    </div>
+    <button data-scroll="deals">Shop offers <span aria-hidden="true">→</span></button>
+  </div>
 
   <header class="site-header" id="top">
     <div class="topbar">
       <button class="icon-button menu-button" id="menuButton" aria-label="Open navigation">☰</button>
       <a class="brand" href="#home" aria-label="MotoMart home">
-        <span class="brand-mark">M</span>
+        <span class="brand-mark"><img src="assets/site-icon.svg" alt="MotoMart logo" width="36" height="36"></span>
         <span class="brand-name">moto<span>mart</span><small>.in</small></span>
       </a>
       <button class="deliver-to" id="locationButton" aria-label="Change delivery location">
@@ -39,7 +59,7 @@
 
       <label class="language-control" aria-label="Choose language">
         <span>🇮🇳</span>
-        <select id="languageSelect"><option value="en">EN</option><option value="hi">हिन्दी</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="bn">বাংলা</option><option value="mr">मराठी</option></select>
+        <select id="languageSelect"><option value="en">English</option><option value="hi">हिन्दी</option><option value="mr">मराठी</option></select>
       </label>
       <button class="account-button" id="accountButton"><small data-i18n="hello">Hello, sign in</small><strong data-i18n="account">Account & Lists⌄</strong></button>
       <button class="orders-button"><small data-i18n="returns">Returns</small><strong data-i18n="orders">& Orders</strong></button>
@@ -140,9 +160,9 @@
 
   <section class="signin-banner"><h2>See personalised picks for your ride</h2><button id="signInButton">Sign in securely</button><small>New to MotoMart? <button id="registerButton">Create an account</button></small></section>
   <footer id="help">
-    <button class="back-top" data-scroll="top">Back to top ↑</button>
+    <button class="back-top" data-scroll="top">Back to top <span aria-hidden="true">↑</span></button>
     <div class="footer-main page-shell"><div><h3>Get to know us</h3><a href="#help">About MotoMart</a><a href="#help">Careers</a><a href="#help">Press releases</a></div><div><h3>Connect with us</h3><a href="#help">Instagram</a><a href="#help">YouTube</a><a href="#help">Facebook</a></div><div><h3>Make money with us</h3><button id="footerTrade">Sell or trade parts</button><a href="#help">Become a seller</a><a href="#help">Advertise products</a></div><div><h3>Let us help you</h3><a href="#help">Your account</a><a href="#help">Returns centre</a><a href="#help">Fitment help</a><a href="#help">Contact us</a></div></div>
-    <div class="footer-brand"><a class="brand" href="#home"><span class="brand-mark">M</span><span class="brand-name">moto<span>mart</span><small>.in</small></span></a><button id="footerLanguage">🌐 English</button><button>🇮🇳 India</button></div>
+    <div class="footer-brand"><a class="brand" href="#home"><span class="brand-mark"><img src="assets/site-icon.svg" alt="MotoMart logo" width="36" height="36"></span><span class="brand-name">moto<span>mart</span><small>.in</small></span></a><button id="footerLanguage">🌐 English</button><button>🇮🇳 India</button></div>
     <div class="footer-bottom"><a href="#help">Conditions of use</a><a href="#help">Privacy notice</a><a href="#help">Interest-based ads</a><span>© 2026 MotoMart Commerce</span></div>
   </footer>
 
@@ -151,8 +171,9 @@
 
   <div class="modal" id="locationModal" role="dialog" aria-modal="true" aria-labelledby="locationTitle" hidden><button class="modal-close" data-close-modal aria-label="Close">×</button><h2 id="locationTitle">Choose your location</h2><p>Enter a PIN code to see delivery options and local availability.</p><form id="locationForm"><input id="pincodeInput" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="6-digit PIN code" required><button type="submit">Apply</button></form></div>
   <div class="modal" id="tradeModal" role="dialog" aria-modal="true" aria-labelledby="tradeTitle" hidden><button class="modal-close" data-close-modal aria-label="Close">×</button><span class="eyebrow dark">MOTOMART TRADE-IN</span><h2 id="tradeTitle">Turn old parts into ride credits</h2><p>Tell us what you want to sell. We’ll share an estimated exchange value.</p><form id="tradeForm"><label>Item type<select required><option value="">Choose an item</option><option>Helmet</option><option>Exhaust</option><option>Alloy wheel</option><option>Riding jacket</option><option>Other part</option></select></label><label>Condition<select required><option value="">Choose condition</option><option>Like new</option><option>Good</option><option>Well used</option></select></label><label>Your mobile number<input inputmode="tel" placeholder="10-digit number" pattern="[0-9]{10}" required></label><button type="submit">Get estimate</button></form></div>
-  <div class="modal compact" id="signinModal" role="dialog" aria-modal="true" aria-labelledby="signinTitle" hidden><button class="modal-close" data-close-modal aria-label="Close">×</button><div class="signin-logo">M</div><h2 id="signinTitle">Sign in to MotoMart</h2><form id="signinForm"><label>Email or mobile number<input type="text" required placeholder="Enter email or mobile"></label><button type="submit">Continue</button></form><small>By continuing, you agree to MotoMart’s Conditions of Use and Privacy Notice.</small></div>
+  <div class="modal compact" id="signinModal" role="dialog" aria-modal="true" aria-labelledby="signinTitle" hidden><button class="modal-close" data-close-modal aria-label="Close">×</button><div class="signin-logo"><img src="assets/site-icon.svg" alt="MotoMart logo" width="54" height="54"></div><h2 id="signinTitle">Sign in to MotoMart</h2><form id="signinForm"><label>Email or mobile number<input type="text" required placeholder="Enter email or mobile"></label><button type="submit">Continue</button></form><small>By continuing, you agree to MotoMart’s Conditions of Use and Privacy Notice.</small></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <button class="floating-back-top" id="floatingBackTop" data-scroll="top" aria-label="Back to top" title="Back to top"><span aria-hidden="true">↑</span></button>
   <script src="app.js"></script>
 </body>
 </html>
