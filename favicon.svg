@@ -1,26 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <!-- Deep midnight badge gradient -->
+    <!-- Deep carbon badge gradient -->
     <linearGradient id="bgPlate" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#091540" />
-      <stop offset="40%" stop-color="#071132" />
-      <stop offset="100%" stop-color="#050b22" />
+      <stop offset="0%" stop-color="#18181b" />
+      <stop offset="40%" stop-color="#0f0f11" />
+      <stop offset="100%" stop-color="#050506" />
     </linearGradient>
 
     <!-- Metallic bevel border gradient -->
     <linearGradient id="plateBorder" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffffff" />
-      <stop offset="35%" stop-color="#dbeafe" />
-      <stop offset="70%" stop-color="#74a7ef" />
+      <stop offset="35%" stop-color="#e2e8f0" />
+      <stop offset="70%" stop-color="#94a3b8" />
       <stop offset="92%" stop-color="#ffffff" />
-      <stop offset="100%" stop-color="#091540" />
+      <stop offset="100%" stop-color="#1e293b" />
     </linearGradient>
 
-    <!-- Racing amber / electric orange gradient -->
+    <!-- Racing chrome / white winglet gradient -->
     <linearGradient id="raceOrange" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffffff" />
-      <stop offset="50%" stop-color="#dbeafe" />
-      <stop offset="100%" stop-color="#74a7ef" />
+      <stop offset="50%" stop-color="#e2e8f0" />
+      <stop offset="100%" stop-color="#cbd5e1" />
     </linearGradient>
 
     <!-- Pure silver chrome highlight gradient -->
@@ -33,15 +33,15 @@
 
     <!-- Chrome shadow facet gradient -->
     <linearGradient id="chromeDark" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#dbeafe" />
-      <stop offset="50%" stop-color="#74a7ef" />
-      <stop offset="100%" stop-color="#091540" />
+      <stop offset="0%" stop-color="#e2e8f0" />
+      <stop offset="50%" stop-color="#94a3b8" />
+      <stop offset="100%" stop-color="#334155" />
     </linearGradient>
 
     <!-- Glowing center aura -->
     <radialGradient id="centerAura" cx="50%" cy="45%" r="45%">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0.28" />
-      <stop offset="60%" stop-color="#dbeafe" stop-opacity="0.08" />
+      <stop offset="60%" stop-color="#e2e8f0" stop-opacity="0.08" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0" />
     </radialGradient>
 

@@ -60,105 +60,122 @@ body{background:#fff;color:#0f1111}.announcement{height:30px;background:#fff;bor
 .signin-logo{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto .85rem;background:transparent;overflow:hidden;filter:drop-shadow(0 4px 14px rgba(0,0,0,.35))}
 .signin-logo img{width:100%;height:100%;object-fit:contain;display:block}
 
-/* Deep navy and pure white theme */
-:root{--theme-blue:#091540;--theme-blue-hover:#050d2b;--navy:#091540;--navy-2:#091540;--ink:#1c1e21;--orange:#091540;--orange-2:#050d2b;--cream:#fff;--shadow:0 8px 24px rgba(9,21,64,.14)}
-body{background:#fff;color:#1c1e21}
-.site-header,.nav-strip,.drawer-head,.mobile-menu-head{background:#091540}
-.nav-strip{border-top:1px solid rgba(255,255,255,.22)}
+/* Red Header with Pure Black & White Website and Footer Theme */
+:root{--header-red:#c62828;--header-red-dark:#b71c1c;--header-red-hover:#9c1015;--site-black:#111111;--site-black-hover:#2a2a2a;--ink:#111827;--cream:#fff;--line:#e5e7eb;--shadow:0 8px 24px rgba(0,0,0,.12)}
+body{background:#fff;color:#111827}
+
+/* 1. Header Part is RED */
+.site-header{background:#c62828;color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.nav-strip{background:#b71c1c;border-top:1px solid rgba(255,255,255,.22);color:#fff}
 .brand-name>span{color:#fff}
-.search:focus-within{outline-color:rgba(9,21,64,.42)}
-.search>button{background:#091540;color:#fff}
-.cart-count{background:#fff;color:#091540}
-.vehicle-strip strong,.vehicle-strip a:hover,.section-title>a,.detail-brand,.breadcrumb button,.detail-benefits div,.cart-page-item h2,.cart-page-actions .remove-link,.cart-page-back,.signin-banner small button,.card-title:hover,.prime{color:#091540}
-.premium-ticker .ticker-label{background:#091540;color:#fff}
-.ticker-track i,.premium-ticker>button{color:#091540}
-.promo-dark{background:#091540}
-.promo-dark .promo-copy-top{color:#fff;background:linear-gradient(180deg,rgba(9,21,64,.99),rgba(9,21,64,.94) 68%,transparent)}
-.eyebrow,.eyebrow.dark,.section-title.light .eyebrow,.deal-timer strong,.drawer-head small{color:#091540}
-.drawer-head small{color:#fff}
-.category-card i,.maintenance-grid span,.trust-strip span,.rating span,.detail-rating .stars{color:#091540}
-.garage-heading small{color:#091540}
-.promo-tile>button,.garage-form button,.trade-form button,.signin-form button,.add-cart,.signin-banner>button,.buy-box .buy-add,.buy-box .buy-now,.search-empty button,.cart-summary button,.cart-footer #checkoutButton,.modal#locationModal form button{background:#091540;border-color:#091540;color:#fff}
-.promo-tile>button:hover,.garage-form button:hover,.trade-form button:hover,.signin-form button:hover,.add-cart:hover,.signin-banner>button:hover,.buy-box .buy-add:hover,.buy-box .buy-now:hover,.search-empty button:hover,.cart-summary button:hover,.cart-footer #checkoutButton:hover,.modal#locationModal form button:hover{background:#050d2b;border-color:#050d2b;color:#fff}
-.outline-cta{border-color:#091540;color:#091540}
-.outline-cta:hover{background:#091540;border-color:#091540;color:#fff}
-.thumb-list button.active{border-color:#091540}
-.back-top,footer,.footer-main,.footer-brand,.footer-bottom,.toast{background:#091540}
-.back-top{border-bottom:1px solid rgba(255,255,255,.22)}
-.back-top:hover{background:#050d2b}
-.footer-main a,.footer-main button,.footer-bottom{color:#fff}
-.footer-brand{border-top-color:rgba(255,255,255,.24)}
+.search:focus-within{outline-color:rgba(198,40,40,.5)}
+.search>button{background:#111111;color:#fff}
+.search>button:hover{background:#2a2a2a}
+.cart-count{background:#fff;color:#c62828;font-weight:800}
+.premium-ticker .ticker-label{background:#c62828;color:#fff}
+.ticker-track i{color:#c62828}
+.premium-ticker>button{color:#111111}
+.vehicle-strip{background:#fff;color:#111827;border-bottom:1px solid #e5e7eb}
+.vehicle-strip strong{color:#111827}
+.vehicle-strip a:hover{color:#c62828}
+
+/* 2. Website Body - NO RED COLOR ON THE WEBSITE */
+.section-title>a,.detail-brand,.breadcrumb button,.detail-benefits div,.cart-page-item h2,.cart-page-actions .remove-link,.cart-page-back,.signin-banner small button{color:#111111}
+.card-title:hover{color:#111111;text-decoration:underline}
+.prime{color:#111111}
+.promo-dark{background:#111111}
+.promo-dark .promo-copy-top{color:#fff;background:linear-gradient(180deg,rgba(17,17,17,.99),rgba(17,17,17,.94) 68%,transparent)}
+.eyebrow,.eyebrow.dark,.section-title.light .eyebrow,.garage-heading small{color:#4b5563}
+.deal-timer{background:#f4f4f5;border:1px solid #e4e4e7;color:#111827}
+.deal-timer span{color:#71717a}
+.deal-timer strong{color:#111111}
+.category-card i{background:#111111;color:#fff}
+.maintenance-grid span{color:#111111}
+.maintenance-grid strong{color:#111111}
+.trust-strip{background:#f9fafb;border-block:1px solid #e5e7eb}
+.trust-strip span{background:#fff;color:#111111;border:1px solid #e5e7eb}
+.trust-strip strong{color:#111111}
+.rating span,.detail-rating .stars{color:#eab308}
+.discount-badge{background:#111111;color:#fff}
+.price-block .discount{color:#111111;font-size:1.3rem;font-weight:700}
+.price-block .detail-price{color:#111111}
+.remove-item{color:#6b7280}
+.remove-item:hover{color:#111111}
+
+/* Website buttons: pure black and white */
+.promo-tile>button,.garage-form button,.trade-form button,.signin-form button,.add-cart,.signin-banner>button,.buy-box .buy-add,.buy-box .buy-now,.search-empty button,.cart-summary button,.cart-footer #checkoutButton,.modal#locationModal form button{background:#111111;border-color:#111111;color:#fff}
+.promo-tile>button:hover,.garage-form button:hover,.trade-form button:hover,.signin-form button:hover,.add-cart:hover,.signin-banner>button:hover,.buy-box .buy-add:hover,.buy-box .buy-now:hover,.search-empty button:hover,.cart-summary button:hover,.cart-footer #checkoutButton:hover,.modal#locationModal form button:hover{background:#2a2a2a;border-color:#2a2a2a;color:#fff}
+.outline-cta{border-color:#111111;color:#111111;background:transparent}
+.outline-cta:hover{background:#111111;border-color:#111111;color:#fff}
+.thumb-list button.active{border-color:#111111}
+.drawer-head,.mobile-menu-head{background:#111111;color:#fff}
+.drawer-head small{color:#9ca3af}
+.toast{background:#111111;color:#fff}
+
+/* 3. Footer Part is ONLY WHITE AND BLACK */
+footer,.footer-main,.footer-brand,.footer-bottom{background:#111111;color:#fff}
+.back-top{background:#1c1c1c;color:#fff;border-bottom:1px solid #282828}
+.back-top:hover{background:#2e2e2e;color:#fff}
+.footer-main{background:#111111}
+.footer-main h3{color:#fff}
+.footer-main a,.footer-main button{color:#e5e5e5}
+.footer-main a:hover,.footer-main button:hover{color:#fff;text-decoration:underline}
+.footer-brand{background:#111111;border-top:1px solid #262626;color:#fff}
+.footer-brand button{border:1px solid #444;background:transparent;color:#fff}
+.footer-brand button:hover{border-color:#fff;background:#222}
+.footer-bottom{background:#000;border-top:1px solid #1a1a1a;color:#9ca3af}
+.footer-bottom a{color:#9ca3af}
+.footer-bottom a:hover{color:#fff}
 
 /* Left-side quick actions */
 .left-fab-stack{position:fixed;z-index:350;left:22px;bottom:22px;display:flex;flex-direction:column;gap:10px;align-items:center}
-.whatsapp-fab,.floating-back-top,.chatbot-launcher{width:48px;height:48px;border:0;border-radius:50%;background:#091540;color:#fff;box-shadow:0 5px 18px rgba(9,21,64,.32);display:grid;place-items:center;transition:background .2s ease,transform .2s ease,opacity .2s ease}
-.whatsapp-fab:hover,.floating-back-top:hover,.chatbot-launcher:hover{background:#050d2b;color:#fff;transform:translateY(-2px)}
-.whatsapp-fab:focus-visible,.floating-back-top:focus-visible,.chatbot-launcher:focus-visible{outline:3px solid rgba(9,21,64,.35);outline-offset:3px}
+.whatsapp-fab{width:48px;height:48px;border:0;border-radius:50%;background:#25d366;color:#fff;box-shadow:0 4px 16px rgba(37,211,102,.35);display:grid;place-items:center;transition:background .2s ease,transform .2s ease}
+.whatsapp-fab:hover{background:#20ba5a;color:#fff;transform:translateY(-2px)}
+.whatsapp-fab:focus-visible{outline:3px solid rgba(37,211,102,.4);outline-offset:3px}
 .whatsapp-fab svg{width:27px;height:27px;fill:currentColor}
-.floating-back-top{position:static;width:48px;height:48px;background:#091540;color:#fff;box-shadow:0 5px 18px rgba(9,21,64,.32)}
+.floating-back-top{position:static;width:48px;height:48px;border:1px solid #333;border-radius:50%;background:#111111;color:#fff;box-shadow:0 4px 16px rgba(0,0,0,.25);display:grid;place-items:center;transition:background .2s ease,transform .2s ease,opacity .2s ease}
+.floating-back-top:hover{background:#2a2a2a;border-color:#444;color:#fff;transform:translateY(-2px)}
+.floating-back-top:focus-visible{outline:3px solid rgba(0,0,0,.35);outline-offset:3px}
 .floating-back-top svg{width:24px;height:24px;fill:currentColor}
 .floating-back-top.visible{transform:none}
 .floating-back-top.visible:hover{transform:translateY(-2px)}
 
-/* Predefined help chatbot */
-.chatbot-launcher{position:fixed;z-index:351;right:22px;bottom:22px}
+/* Predefined help chatbot in black & white */
+.chatbot-launcher{position:fixed;z-index:351;right:22px;bottom:22px;width:48px;height:48px;border:0;border-radius:50%;background:#111111;color:#fff;box-shadow:0 5px 18px rgba(0,0,0,.3);display:grid;place-items:center;transition:background .2s ease,transform .2s ease,opacity .2s ease}
+.chatbot-launcher:hover{background:#2a2a2a;color:#fff;transform:translateY(-2px)}
+.chatbot-launcher:focus-visible{outline:3px solid rgba(0,0,0,.35);outline-offset:3px}
 .chatbot-launcher svg{width:24px;height:24px;fill:currentColor}
-.chatbot-panel{position:fixed;z-index:550;right:22px;bottom:82px;width:min(370px,calc(100vw - 28px));max-height:min(610px,calc(100dvh - 110px));background:#fff;border:1px solid #d9dce5;border-radius:16px;box-shadow:0 18px 55px rgba(9,21,64,.22);overflow:hidden;color:#1c1e21}
+.chatbot-panel{position:fixed;z-index:550;right:22px;bottom:82px;width:min(370px,calc(100vw - 28px));max-height:min(610px,calc(100dvh - 110px));background:#fff;border:1px solid #e4e4e7;border-radius:16px;box-shadow:0 18px 55px rgba(0,0,0,.2);overflow:hidden;color:#111827}
 .chatbot-panel[hidden]{display:none}
-.chatbot-header{min-height:68px;background:#091540;color:#fff;padding:.8rem 1rem;display:flex;align-items:center;justify-content:space-between}
-.chatbot-header>div{display:flex;align-items:center;gap:.65rem}.chatbot-header strong,.chatbot-header small{display:block}.chatbot-header small{font-size:.72rem;color:#fff;opacity:.88}.chatbot-header button{border:0;background:transparent;color:#fff;font-size:1.75rem;line-height:1;padding:.25rem}
-.chatbot-status{width:11px;height:11px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.2)}
-.chatbot-messages{height:280px;overflow-y:auto;padding:1rem;background:#f7f9fc;display:flex;flex-direction:column;gap:.65rem}
+.chatbot-header{min-height:68px;background:#111111;color:#fff;padding:.8rem 1rem;display:flex;align-items:center;justify-content:space-between}
+.chatbot-header>div{display:flex;align-items:center;gap:.65rem}.chatbot-header strong,.chatbot-header small{display:block}.chatbot-header small{font-size:.72rem;color:#fff;opacity:.85}.chatbot-header button{border:0;background:transparent;color:#fff;font-size:1.75rem;line-height:1;padding:.25rem}
+.chatbot-status{width:11px;height:11px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.2)}
+.chatbot-messages{height:280px;overflow-y:auto;padding:1rem;background:#f9fafb;display:flex;flex-direction:column;gap:.65rem}
 .chat-message{max-width:86%;margin:0;padding:.7rem .85rem;border-radius:14px;font-size:.86rem;line-height:1.45;overflow-wrap:anywhere}
-.chat-message.bot{align-self:flex-start;background:#fff;border:1px solid #d9dce5;border-bottom-left-radius:4px}
-.chat-message.user{align-self:flex-end;background:#091540;color:#fff;border-bottom-right-radius:4px}
-.chatbot-quick-replies{display:flex;gap:.45rem;overflow-x:auto;padding:.7rem 1rem;border-top:1px solid #e5edf8;background:#fff;scrollbar-width:none}
+.chat-message.bot{align-self:flex-start;background:#fff;border:1px solid #e4e4e7;color:#111827;border-bottom-left-radius:4px}
+.chat-message.user{align-self:flex-end;background:#111111;color:#fff;border-bottom-right-radius:4px}
+.chatbot-quick-replies{display:flex;gap:.45rem;overflow-x:auto;padding:.7rem 1rem;border-top:1px solid #e5e7eb;background:#fff;scrollbar-width:none}
 .chatbot-quick-replies::-webkit-scrollbar{display:none}
-.chatbot-quick-replies button{flex:0 0 auto;border:1px solid #091540;background:#fff;color:#091540;border-radius:18px;padding:.42rem .7rem;font-size:.75rem;font-weight:700}
-.chatbot-quick-replies button:hover{background:#f0f1f5}
-.chatbot-form{display:grid;grid-template-columns:1fr 42px;gap:.5rem;padding:.75rem;border-top:1px solid #e5edf8;background:#fff}
-.chatbot-form input{min-width:0;height:42px;border:1px solid #c8d7eb;border-radius:21px;padding:0 .85rem;color:#1c1e21;background:#fff}
-.chatbot-form input:focus{outline:3px solid rgba(9,21,64,.18);border-color:#091540}
-.chatbot-form button{width:42px;height:42px;border:0;border-radius:50%;background:#091540;color:#fff;display:grid;place-items:center}
-.chatbot-form button:hover{background:#050d2b}.chatbot-form svg{width:20px;height:20px;fill:currentColor}
+.chatbot-quick-replies button{flex:0 0 auto;border:1px solid #111111;background:#fff;color:#111111;border-radius:18px;padding:.42rem .7rem;font-size:.75rem;font-weight:700}
+.chatbot-quick-replies button:hover{background:#f4f4f5}
+.chatbot-form{display:grid;grid-template-columns:1fr 42px;gap:.5rem;padding:.75rem;border-top:1px solid #e5e7eb;background:#fff}
+.chatbot-form input{min-width:0;height:42px;border:1px solid #d4d4d8;border-radius:21px;padding:0 .85rem;color:#111827;background:#fff}
+.chatbot-form input:focus{outline:3px solid rgba(0,0,0,.15);border-color:#111111}
+.chatbot-form button{width:42px;height:42px;border:0;border-radius:50%;background:#111111;color:#fff;display:grid;place-items:center}
+.chatbot-form button:hover{background:#2a2a2a}.chatbot-form svg{width:20px;height:20px;fill:currentColor}
 
 @media(max-width:860px){.left-fab-stack{left:14px;bottom:14px}.chatbot-launcher{right:14px;bottom:14px}.chatbot-panel{right:14px;bottom:72px}.whatsapp-fab,.floating-back-top,.chatbot-launcher{width:44px;height:44px}}
 @media(max-width:560px){.chatbot-panel{width:calc(100vw - 28px);max-height:calc(100dvh - 94px)}.chatbot-messages{height:min(310px,42dvh)}}
 
-/* Hero-inspired red, white and black art direction */
-:root{--hero-red:#e30613;--hero-red-dark:#bd0010;--hero-black:#080808;--hero-soft:#f4f4f4;--navy:#080808;--navy-2:#080808;--orange:#e30613;--orange-2:#bd0010;--red:#e30613;--ink:#0a0a0a;--muted:#5b5b5b;--line:#dedede;--shadow:0 12px 34px rgba(0,0,0,.1)}
-body{background:#fff;color:var(--hero-black)}
-.site-header{background:#fff;color:var(--hero-black);box-shadow:0 2px 10px rgba(0,0,0,.09)}
-.topbar{background:#fff}
-.topbar .deliver-to,.topbar .account-button,.topbar .orders-button,.topbar .cart-button,.topbar .icon-button{color:var(--hero-black)}
-.topbar .deliver-to small,.topbar .account-button small,.topbar .orders-button small{color:#555}
-.topbar .deliver-to:hover,.topbar .account-button:hover,.topbar .orders-button:hover,.topbar .cart-button:hover,.topbar .icon-button:hover{border-color:var(--hero-red)}
-.brand-mark{background:var(--hero-red);box-shadow:none;filter:none}
-.brand-mark img,.signin-logo img{display:none}.brand-mark::after,.signin-logo::after{content:"M";display:grid;place-items:center;width:100%;height:100%;color:#fff;font-weight:900;font-style:italic;font-size:1.25rem}.signin-logo{background:var(--hero-red);border-radius:0;filter:none}
-.brand-name{color:var(--hero-black)}.brand-name>span{color:var(--hero-red)}
-.search{border:1px solid #111;outline:3px solid transparent}.search:focus-within{outline-color:rgba(227,6,19,.2);border-color:var(--hero-red)}
-.search select{background:#f2f2f2;color:#111}.search>button{background:var(--hero-red);color:#fff}.search>button:hover{background:var(--hero-red-dark)}
-.language-control{border-color:#d8d8d8}.language-control:hover{border-color:var(--hero-red)}.language-control select{color:#111}.language-control option{background:#fff;color:#111}
-.cart-count{background:var(--hero-red);color:#fff}
-.nav-strip{background:var(--hero-black);border:0}.nav-strip a,.nav-strip button{color:#fff}.nav-strip a:hover,.nav-strip button:hover{border-color:var(--hero-red);background:#171717}
-.vehicle-strip{background:#fff;color:#111;border-bottom:1px solid #ddd}.vehicle-strip strong{color:var(--hero-red)}.vehicle-strip a:hover{color:var(--hero-red)}
+/* Expanded Catalog Section - Clean Black & White */
+.more-products-section{background:#fff;border-top:1px solid #e5e7eb}
+.more-products-title p{max-width:630px;margin:.8rem 0 0;color:#52525b}
+.more-products-title a{color:#111111;text-decoration:underline}
+.more-products-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.more-products-grid .product-card{min-width:0}
+.more-products-grid .product-image-button{height:230px}
 
-.premium-ticker{background:#fff;color:#111;border-bottom:1px solid #e3e3e3}.premium-ticker .ticker-label{background:var(--hero-red);color:#fff}.ticker-track i{color:var(--hero-red)}.premium-ticker>button{color:var(--hero-red);border-left-color:#ddd}.premium-ticker>button:hover{background:var(--hero-red);color:#fff;text-decoration:none}
-.market-hero{background:#0a0a0a;padding-top:14px;padding-bottom:14px}.promo-tile{border-radius:0;border:1px solid #2b2b2b;box-shadow:none}.promo-tile::after{content:"";position:absolute;z-index:2;left:0;right:0;bottom:0;height:4px;background:var(--hero-red)}.promo-copy-top{padding-top:18px}.promo-copy-top p{color:var(--hero-red);letter-spacing:.07em;text-transform:uppercase}.promo-copy-top h1,.promo-copy-top h2{font-weight:500;letter-spacing:-.045em}.promo-tile>button{z-index:4;background:var(--hero-red);border:1px solid var(--hero-red);color:#fff;border-radius:0;text-align:left;padding-inline:16px}.promo-tile>button::after{content:"↗";float:right}.promo-tile>button:hover{background:var(--hero-red-dark);border-color:var(--hero-red-dark)}.promo-dark .promo-copy-top{background:linear-gradient(180deg,rgba(8,8,8,.99),rgba(8,8,8,.93) 68%,transparent)}.market-arrow{background:#fff;color:#000;border-radius:0;border:0}.market-arrow:hover{outline:3px solid var(--hero-red)}
-
-.garage-card{border-radius:0;border-top:5px solid var(--hero-red);box-shadow:0 14px 34px rgba(0,0,0,.12)}.garage-icon{background:var(--hero-black);color:#fff}.garage-heading small,.eyebrow,.eyebrow.dark,.section-title.light .eyebrow{color:var(--hero-red);font-family:"Arial Narrow",Arial,sans-serif;font-weight:900;letter-spacing:.08em}.garage-form button,.trade-form button,.signin-form button{background:var(--hero-red);border-color:var(--hero-red);color:#fff;border-radius:0}.garage-form button:hover,.trade-form button:hover,.signin-form button:hover{background:var(--hero-red-dark);border-color:var(--hero-red-dark)}.garage-form select,.trade-form select,.trade-form input,.signin-form input{border-radius:0}.garage-form select:focus,.trade-form select:focus,.trade-form input:focus,.signin-form input:focus{border-color:var(--hero-red);outline:3px solid rgba(227,6,19,.16)}
-.section{padding-top:4rem;padding-bottom:4rem}.section-title{align-items:flex-end}.section-title h2,.section-title.light h2{color:var(--hero-black);font-size:clamp(2.2rem,4.7vw,4.7rem);font-weight:400;letter-spacing:-.055em}.section-title>a{color:var(--hero-red);border:1px solid var(--hero-red);padding:.75rem 1rem;text-transform:uppercase;font-size:.72rem;letter-spacing:.04em}.section-title>a:hover{background:var(--hero-red);color:#fff}.section-title>a span{color:inherit}
-.category-grid{gap:14px}.category-card{height:320px;border-radius:0;border:1px solid #e1e1e1}.category-card img{height:245px;background:#f5f5f5}.category-card-content{bottom:14px}.category-card strong{font-size:1.08rem}.category-card i{background:transparent;color:var(--hero-red);font-size:1.3rem}.category-card:hover{border-color:var(--hero-red);box-shadow:0 9px 25px rgba(227,6,19,.08)}
-.deal-section{background:var(--hero-soft);color:var(--hero-black);border-block:0}.deal-section .page-shell{position:relative}.deal-section .page-shell::before{content:"";position:absolute;top:0;left:clamp(1rem,3vw,3rem);width:70px;height:5px;background:var(--hero-red)}.deal-timer{background:var(--hero-black);border:0;border-radius:0;color:#fff}.deal-timer span,.deal-timer strong{color:#fff}.product-card{border-radius:0;border:1px solid #dedede;min-height:402px;box-shadow:none}.product-card:hover{border-color:var(--hero-red);box-shadow:0 12px 28px rgba(0,0,0,.1);transform:translateY(-3px)}.product-image-button{background:#f6f6f6}.discount-badge{background:var(--hero-red);border-radius:0}.card-title:hover,.prime{color:var(--hero-red)}.add-cart{background:var(--hero-red);border:1px solid var(--hero-red);border-radius:0;color:#fff}.add-cart:hover{background:var(--hero-red-dark);border-color:var(--hero-red-dark)}.scroll-btn{border-radius:0;border-color:#111;color:#111}.scroll-btn:hover{border-color:var(--hero-red);color:var(--hero-red)}
-.brand-promo{border-radius:0;border:0;border-left:8px solid var(--hero-red);background:var(--hero-black);color:#fff}.brand-promo .promo-copy h2{color:#fff;font-weight:400}.brand-promo .promo-copy p{color:#d5d5d5}.brand-promo .eyebrow{color:var(--hero-red)}.brand-promo .outline-cta{border-color:var(--hero-red);color:#fff;background:transparent;border-radius:0}.brand-promo .outline-cta:hover{background:var(--hero-red);color:#fff}.promo-visual{background:#151515}.floating-stat{border-radius:0;border-left:4px solid var(--hero-red)}.floating-stat strong{color:#111}
-.maintenance-grid{border-radius:0}.maintenance-grid button{border-color:#ddd}.maintenance-grid button:hover{background:#f5f5f5}.maintenance-grid span{color:var(--hero-red)}.maintenance-grid strong{color:#111}
-.more-products-section{background:#fff;border-top:1px solid #e3e3e3}.more-products-title p{max-width:630px;margin:.8rem 0 0;color:#5a5a5a}.more-products-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.more-products-grid .product-card{min-width:0}.more-products-grid .product-image-button{height:230px}
-.trust-strip{background:var(--hero-black);border:0;color:#fff}.trust-strip span{background:var(--hero-red);color:#fff}.trust-strip strong{color:#fff}.trust-strip small{color:#c9c9c9}.signin-banner{background:#fff}.signin-banner>button{background:var(--hero-red);color:#fff;border-radius:0}.signin-banner small button{color:var(--hero-red)}
-footer,.footer-main,.footer-brand,.footer-bottom,.back-top{background:var(--hero-black)}.back-top{border-bottom:1px solid #333}.back-top:hover{background:var(--hero-red)}.footer-main{border-top:4px solid var(--hero-red)}
-.buy-box .buy-add,.buy-box .buy-now,.cart-summary button,.cart-footer #checkoutButton,.search-empty button,.modal#locationModal form button{background:var(--hero-red);border-color:var(--hero-red);color:#fff;border-radius:0}.buy-box .buy-add:hover,.buy-box .buy-now:hover,.cart-summary button:hover,.cart-footer #checkoutButton:hover,.search-empty button:hover,.modal#locationModal form button:hover{background:var(--hero-red-dark);border-color:var(--hero-red-dark)}.detail-brand,.breadcrumb button,.detail-benefits div,.cart-page-item h2,.cart-page-actions .remove-link,.cart-page-back{color:var(--hero-red)}.thumb-list button.active{border-color:var(--hero-red)}
-.left-fab-stack .whatsapp-fab,.left-fab-stack .floating-back-top,.chatbot-launcher{background:var(--hero-red);box-shadow:0 7px 22px rgba(227,6,19,.28)}.left-fab-stack .whatsapp-fab:hover,.left-fab-stack .floating-back-top:hover,.chatbot-launcher:hover{background:var(--hero-red-dark)}.chatbot-header{background:var(--hero-red)}.chat-message.user,.chatbot-form button{background:var(--hero-red)}.chatbot-quick-replies button{border-color:var(--hero-red);color:var(--hero-red)}.chatbot-form input:focus{border-color:var(--hero-red);outline-color:rgba(227,6,19,.16)}.toast{background:var(--hero-black);border-left:5px solid var(--hero-red)}
-
-@media(max-width:1180px){.more-products-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.section-title h2,.section-title.light h2{font-size:clamp(2.1rem,5vw,3.7rem)}}
-@media(max-width:860px){.topbar{background:#fff}.topbar>.brand{grid-column:2}.menu-button{color:#111}.market-hero{padding-block:8px}.garage-card{border-top-width:4px}.section{padding-top:3rem;padding-bottom:3rem}.section-title h2,.section-title.light h2{font-size:clamp(2rem,8vw,3.2rem)}.more-products-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.more-products-grid .product-image-button{height:200px}}
-@media(max-width:560px){.topbar{gap:.45rem}.brand-name{display:none}.market-hero{padding:7px}.promo-tile{flex-basis:82vw}.garage-card{margin-inline:7px}.section{padding-top:2.35rem;padding-bottom:2.35rem}.section-title{display:block}.section-title h2,.section-title.light h2{font-size:2.25rem;line-height:1}.section-title>a{display:inline-flex;margin-top:1rem}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.category-card{height:235px}.category-card img{height:168px}.category-card-content{left:10px;right:10px;bottom:9px}.category-card strong{font-size:.9rem}.category-card span{font-size:.68rem}.more-products-title p{font-size:.9rem}.more-products-grid{gap:8px}.more-products-grid .product-card{min-height:350px}.more-products-grid .product-image-button{height:160px}.more-products-grid .card-info{padding:.6rem}.more-products-grid .card-title{font-size:.78rem}.more-products-grid .price{font-size:1rem}.more-products-grid .add-cart{font-size:.72rem}.trust-strip{grid-template-columns:1fr 1fr}.footer-main{grid-template-columns:1fr 1fr}}
+@media(max-width:1180px){.more-products-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:860px){.more-products-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.more-products-grid .product-image-button{height:200px}}
+@media(max-width:560px){.more-products-title p{font-size:.9rem}.more-products-grid{gap:8px}.more-products-grid .product-card{min-height:350px}.more-products-grid .product-image-button{height:160px}.more-products-grid .card-info{padding:.6rem}.more-products-grid .card-title{font-size:.78rem}.more-products-grid .price{font-size:1rem}.more-products-grid .add-cart{font-size:.72rem}}
 
