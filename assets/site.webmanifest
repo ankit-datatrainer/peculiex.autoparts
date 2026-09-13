@@ -4,8 +4,8 @@
   "description": "Bike & Scooter Parts, Riding Gear and Accessories with Fitment Guidance",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#050505",
-  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "theme_color": "#1877F2",
   "icons": [
     {
       "src": "/assets/favicon-96x96.png",

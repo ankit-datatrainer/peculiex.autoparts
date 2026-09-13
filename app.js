@@ -260,3 +260,38 @@ renderHome();renderHeroDots();resetHero();updateCart();setupGarage();startTimer(
 const floatingBackTop=qs('#floatingBackTop');
 const syncBackTop=()=>floatingBackTop.classList.toggle('visible',window.scrollY>520);
 window.addEventListener('scroll',syncBackTop,{passive:true});syncBackTop();
+
+const chatbotPanel=qs('#chatbotPanel');
+const chatbotLauncher=qs('#chatbotLauncher');
+const chatbotMessages=qs('#chatbotMessages');
+const chatbotInput=qs('#chatbotInput');
+const chatbotAnswers=[
+  {keywords:['delivery','deliver','shipping','ship','arrive'],answer:'Delivery availability depends on your PIN code. Enter your 6-digit PIN at the top of the page to see local options. MotoMart serves 18,000+ PIN codes.'},
+  {keywords:['return','refund','replace','replacement'],answer:'Eligible items have a 10-day return or replacement window. Keep the item, packaging and invoice in their original condition.'},
+  {keywords:['fit','fitment','compatible','compatibility','vehicle','model'],answer:'Use “Your Garage” to select your vehicle type, brand and model. MotoMart will then show compatible essentials for your ride.'},
+  {keywords:['payment','pay','upi','card','cod','cash'],answer:'You can pay using UPI, cards or pay on delivery where available. The exact options are shown during checkout.'},
+  {keywords:['order','track','tracking','status'],answer:'Sign in and open “Returns & Orders” to review your orders. Live tracking becomes available after an order is dispatched.'},
+  {keywords:['trade','sell','exchange','old part'],answer:'Choose “Sell / Trade-In” from the menu, describe the item and its condition, and submit your mobile number to request an estimated exchange value.'},
+  {keywords:['helmet','oil','brake','tyre','tire','part','accessory','product'],answer:'MotoMart carries helmets, engine oils, brakes, tyres, riding gear and accessories. Use the search bar or category links to find what you need.'},
+  {keywords:['contact','support','help','agent'],answer:'I can answer common questions here. For more help, use the Customer Service link in the main menu.'},
+  {keywords:['hello','hi','hey','namaste'],answer:'Hello! Ask me about delivery, returns, fitment, payments, orders, products or trade-ins.'}
+];
+
+function addChatMessage(message,type){
+  const bubble=document.createElement('p');bubble.className=`chat-message ${type}`;bubble.textContent=message;chatbotMessages.appendChild(bubble);chatbotMessages.scrollTop=chatbotMessages.scrollHeight;
+}
+function answerChatbot(question){
+  const normalized=question.toLowerCase();
+  return chatbotAnswers.find(item=>item.keywords.some(keyword=>normalized.includes(keyword)))?.answer||'I can help with delivery, returns, fitment, payments, orders, products and trade-ins. Try asking about one of those topics or choose a suggestion above.';
+}
+function sendChatbotQuestion(question){
+  const clean=question.trim();if(!clean)return;addChatMessage(clean,'user');setTimeout(()=>addChatMessage(answerChatbot(clean),'bot'),180);
+}
+function openChatbot(){chatbotPanel.hidden=false;chatbotLauncher.setAttribute('aria-expanded','true');chatbotInput.focus()}
+function closeChatbot(){chatbotPanel.hidden=true;chatbotLauncher.setAttribute('aria-expanded','false');chatbotLauncher.focus()}
+
+chatbotLauncher.addEventListener('click',()=>chatbotPanel.hidden?openChatbot():closeChatbot());
+qs('#closeChatbot').addEventListener('click',closeChatbot);
+qs('#chatbotForm').addEventListener('submit',event=>{event.preventDefault();sendChatbotQuestion(chatbotInput.value);chatbotInput.value=''});
+qsa('[data-chat-question]').forEach(button=>button.addEventListener('click',()=>sendChatbotQuestion(button.dataset.chatQuestion)));
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!chatbotPanel.hidden)closeChatbot()});

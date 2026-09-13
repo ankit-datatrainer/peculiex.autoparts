@@ -2,25 +2,25 @@
   <defs>
     <!-- Deep midnight badge gradient -->
     <linearGradient id="bgPlate" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1c232e" />
-      <stop offset="40%" stop-color="#0e131a" />
-      <stop offset="100%" stop-color="#040608" />
+      <stop offset="0%" stop-color="#1877f2" />
+      <stop offset="40%" stop-color="#166fe5" />
+      <stop offset="100%" stop-color="#0d65d9" />
     </linearGradient>
 
     <!-- Metallic bevel border gradient -->
     <linearGradient id="plateBorder" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#64748b" />
-      <stop offset="35%" stop-color="#334155" />
-      <stop offset="70%" stop-color="#1e293b" />
-      <stop offset="92%" stop-color="#ff9900" />
-      <stop offset="100%" stop-color="#ff5500" />
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="35%" stop-color="#dbeafe" />
+      <stop offset="70%" stop-color="#74a7ef" />
+      <stop offset="92%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#1877f2" />
     </linearGradient>
 
     <!-- Racing amber / electric orange gradient -->
     <linearGradient id="raceOrange" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffbe1a" />
-      <stop offset="50%" stop-color="#ff8c00" />
-      <stop offset="100%" stop-color="#e04000" />
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="50%" stop-color="#dbeafe" />
+      <stop offset="100%" stop-color="#74a7ef" />
     </linearGradient>
 
     <!-- Pure silver chrome highlight gradient -->
@@ -33,15 +33,15 @@
 
     <!-- Chrome shadow facet gradient -->
     <linearGradient id="chromeDark" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#94a3b8" />
-      <stop offset="50%" stop-color="#475569" />
-      <stop offset="100%" stop-color="#1e293b" />
+      <stop offset="0%" stop-color="#dbeafe" />
+      <stop offset="50%" stop-color="#74a7ef" />
+      <stop offset="100%" stop-color="#1877f2" />
     </linearGradient>
 
     <!-- Glowing center aura -->
     <radialGradient id="centerAura" cx="50%" cy="45%" r="45%">
-      <stop offset="0%" stop-color="#ff8c00" stop-opacity="0.25" />
-      <stop offset="60%" stop-color="#ff6600" stop-opacity="0.05" />
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.28" />
+      <stop offset="60%" stop-color="#dbeafe" stop-opacity="0.08" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0" />
     </radialGradient>
 
@@ -150,6 +150,6 @@
 
   <!-- PRECISION SPEED DASHES -->
   <rect x="214" y="432" width="22" height="4" rx="2" fill="#475569" />
-  <rect x="245" y="431" width="22" height="6" rx="3" fill="#ff9900" />
+  <rect x="245" y="431" width="22" height="6" rx="3" fill="#ffffff" />
   <rect x="276" y="432" width="22" height="4" rx="2" fill="#475569" />
 </svg>
