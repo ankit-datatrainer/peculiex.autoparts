@@ -19,6 +19,14 @@ const products = [
   ,{id:'bike-polish',brand:'Waxpol',name:'Silicone Bike Polish and Protectant Spray, 450 ml',category:'Bike Care',price:299,mrp:399,rating:4.3,reviews:3156,badge:'25% off',prime:true,image:'assets/ai-commuter-accessories.png',fit:'All painted two-wheelers',about:['Restores shine on painted surfaces','Easy spray-and-wipe application','Helps protect against dust and water spots']}
   ,{id:'dual-horn',brand:'Bosch',name:'Windtone Compact Dual Horn Set for Motorcycles, 12V',category:'Electrical',price:449,mrp:699,rating:4.2,reviews:1902,badge:'36% off',prime:true,image:'assets/ai-commuter-accessories.png',fit:'Universal 12V fitment',about:['Compact weather-resistant housing','Clear twin-tone output','Professional installation recommended']}
   ,{id:'scooter-mat',brand:'AutoKraft',name:'Anti-Skid Floor Mat for Popular Indian Scooters',category:'Body & Styling',price:399,mrp:599,rating:4.1,reviews:728,badge:'33% off',prime:false,image:'assets/ai-commuter-accessories.png',fit:'Model-specific scooter fitment',about:['Textured anti-slip surface','Easy to wash and dry','Protects the original scooter floorboard']}
+  ,{id:'spark-plug-iridium',brand:'NGK',name:'Iridium IX Performance Spark Plug for Motorcycles',category:'Engine & Oils',price:699,mrp:899,rating:4.6,reviews:1842,badge:'22% off',prime:true,image:'assets/ai-maintenance-parts.png',fit:'Selected petrol motorcycles',about:['Fine-wire iridium centre electrode','Consistent ignition and smooth starts','Confirm plug code before ordering']}
+  ,{id:'brake-pads-ceramic',brand:'Uno Minda',name:'Ceramic Front Disc Brake Pad Set for Commuter Bikes',category:'Brakes',price:579,mrp:799,rating:4.4,reviews:1276,badge:'28% off',prime:true,image:'assets/brake-disc.png',fit:'Model-specific front calipers',about:['Low-noise ceramic compound','Stable braking across city temperatures','Includes one front pad set']}
+  ,{id:'chain-lube-pro',brand:'Liqui Moly',name:'Motorbike Chain Lube Spray, White, 400 ml',category:'Bike Care',price:649,mrp:799,rating:4.7,reviews:3415,badge:'19% off',prime:true,image:'assets/oil-shell.jpg',fit:'All chain-driven motorcycles',about:['High adhesion and water resistance','Reduces chain wear and running noise','Suitable for O-ring and X-ring chains']}
+  ,{id:'compact-horn-set',brand:'Roots',name:'Vibromini Compact Dual Tone Horn Set, 12V',category:'Electrical',price:699,mrp:999,rating:4.3,reviews:2108,badge:'30% off',prime:true,image:'assets/ai-commuter-accessories.png',fit:'Universal 12V two-wheelers',about:['Compact twin-tone design','Weather-resistant construction','Professional relay installation recommended']}
+  ,{id:'portable-inflator',brand:'Grand Pitstop',name:'Portable Digital Tyre Inflator for Bikes & Scooters',category:'Tyres',price:1499,mrp:2199,rating:4.5,reviews:2687,badge:'32% off',prime:true,image:'assets/ai-commuter-accessories.png',fit:'Universal Schrader valve',about:['Digital pressure display','Compact carry-ready body','Auto-stop at selected pressure']}
+  ,{id:'helmet-visor-clear',brand:'Steelbird',name:'Scratch-Resistant Clear Helmet Visor with Quick Release',category:'Helmets',price:499,mrp:699,rating:4.2,reviews:936,badge:'29% off',prime:true,image:'assets/helmet-matte.png',fit:'Selected Steelbird helmet shells',about:['Optically clear polycarbonate visor','Tool-free quick release tabs','Confirm helmet series before ordering']}
+  ,{id:'bike-rain-cover',brand:'Godryft',name:'Waterproof Bike Cover with Heat Shield and Buckle',category:'Body & Styling',price:799,mrp:1199,rating:4.4,reviews:1769,badge:'33% off',prime:true,image:'assets/ai-riding-essentials.png',fit:'Sizes for commuter and touring bikes',about:['All-weather water-resistant fabric','Heat-shield panel near exhaust zone','Windproof lower buckle']}
+  ,{id:'usb-charger-dual',brand:'Portronics',name:'Dual USB Fast Charger with Voltmeter for Two-Wheelers',category:'Accessories',price:899,mrp:1399,rating:4.3,reviews:1458,badge:'36% off',prime:true,image:'assets/phone-pro.png',fit:'Universal 12V handlebar fit',about:['Dual protected USB outputs','Live battery voltage display','Weather cap included']}
 ];
 
 const categories = [
@@ -77,6 +85,12 @@ Object.assign(translations.hi,{
 });
 Object.assign(translations.mr,{
   'Full-face, open-face & modular':'फुल-फेस, ओपन-फेस आणि मॉड्युलर','Pads, shoes, discs & fluids':'पॅड, शू, डिस्क आणि फ्लुइड','LED headlights & indicators':'LED हेडलाइट आणि इंडिकेटर','Mounts, mirrors & comfort':'माउंट, मिरर आणि आराम','City, touring & performance':'सिटी, टूरिंग आणि परफॉर्मन्स','Gloves, jackets & protection':'ग्लोव्हज, जॅकेट आणि सुरक्षा','Chains, sprockets & clutch':'चेन, स्प्रॉकेट आणि क्लच','Reliable starts, every morning':'दर सकाळी विश्वसनीय स्टार्ट','Air, oil & fuel filters':'एअर, ऑइल आणि फ्युएल फिल्टर','Tail bags & touring storage':'टेल बॅग आणि टूरिंग स्टोरेज','Cleaners, polish & protection':'क्लीनर, पॉलिश आणि सुरक्षा','Batteries, horns & wiring':'बॅटरी, हॉर्न आणि वायरिंग','Mats, guards & panels':'मॅट, गार्ड आणि पॅनेल','Drivetrain':'ड्राइव्हट्रेन'
+});
+Object.assign(translations.hi,{
+  'MORE FOR YOUR RIDE':'आपकी राइड के लिए और भी','Built to go the distance':'लंबे सफ़र के लिए तैयार','Hand-picked essentials for everyday commutes, weekend rides and workshop care.':'रोज़ के सफ़र, वीकेंड राइड और वर्कशॉप के लिए चुना हुआ ज़रूरी सामान।','Explore all products':'सभी प्रोडक्ट देखें'
+});
+Object.assign(translations.mr,{
+  'MORE FOR YOUR RIDE':'तुमच्या राइडसाठी आणखी','Built to go the distance':'लांब प्रवासासाठी सज्ज','Hand-picked essentials for everyday commutes, weekend rides and workshop care.':'रोजचा प्रवास, वीकेंड राइड आणि वर्कशॉपसाठी निवडक आवश्यक वस्तू.','Explore all products':'सर्व उत्पादने पाहा'
 });
 
 const currency = value => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(value);
@@ -139,7 +153,8 @@ function productCard(product){return `<article class="product-card" data-product
 function renderHome(){
   qs('#categoryGrid').innerHTML=categories.map(c=>`<button class="category-card" data-filter-button="${c.name}"><img src="${c.image}" alt="${c.name}" loading="lazy" onerror="${imgError}"><span class="category-card-content"><strong>${tr(c.name)}</strong><span>${tr(c.copy)}</span><i>→</i></span></button>`).join('');
   qs('#dealScroller').innerHTML=products.slice(0,8).map(productCard).join('');
-  qs('#productRow').innerHTML=products.slice(5).concat(products.slice(0,5)).map(productCard).join('');
+  qs('#productRow').innerHTML=products.slice(5,20).concat(products.slice(0,5)).map(productCard).join('');
+  qs('#moreProductsGrid').innerHTML=products.slice(-8).map(productCard).join('');
   if(garage){qs('#deliveryText').textContent=garage.pin || qs('#deliveryText').textContent;}
   translateTextNodes(qs('#homeView'));
 }
