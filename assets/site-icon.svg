@@ -2,9 +2,9 @@
   <defs>
     <!-- Deep midnight badge gradient -->
     <linearGradient id="bgPlate" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1877f2" />
-      <stop offset="40%" stop-color="#166fe5" />
-      <stop offset="100%" stop-color="#0d65d9" />
+      <stop offset="0%" stop-color="#166fe5" />
+      <stop offset="40%" stop-color="#0d65d9" />
+      <stop offset="100%" stop-color="#0b55b7" />
     </linearGradient>
 
     <!-- Metallic bevel border gradient -->
@@ -13,7 +13,7 @@
       <stop offset="35%" stop-color="#dbeafe" />
       <stop offset="70%" stop-color="#74a7ef" />
       <stop offset="92%" stop-color="#ffffff" />
-      <stop offset="100%" stop-color="#1877f2" />
+      <stop offset="100%" stop-color="#166fe5" />
     </linearGradient>
 
     <!-- Racing amber / electric orange gradient -->
@@ -35,7 +35,7 @@
     <linearGradient id="chromeDark" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#dbeafe" />
       <stop offset="50%" stop-color="#74a7ef" />
-      <stop offset="100%" stop-color="#1877f2" />
+      <stop offset="100%" stop-color="#166fe5" />
     </linearGradient>
 
     <!-- Glowing center aura -->
