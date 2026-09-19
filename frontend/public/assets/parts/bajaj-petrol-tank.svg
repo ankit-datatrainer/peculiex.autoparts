@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+    <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#B0BEC5" />
+      <stop offset="50%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#78909C" />
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="400" height="400" rx="20" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Technical Grid Overlay -->
+  <g stroke="#94A3B8" stroke-width="0.75" stroke-dasharray="4 6" opacity="0.4">
+    <line x1="40" y1="0" x2="40" y2="400"/>
+    <line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="360" y1="0" x2="360" y2="400"/>
+    <line x1="0" y1="40" x2="400" y2="40"/>
+    <line x1="0" y1="200" x2="400" y2="200"/>
+    <line x1="0" y1="360" x2="400" y2="360"/>
+  </g>
+
+  <!-- Top Brand Watermark Banner -->
+  <rect x="20" y="16" width="160" height="30" rx="6" fill="#00539B" filter="url(#cardShadow)"/>
+  <text x="100" y="36" fill="#FFFFFF" font-size="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" letter-spacing="1" text-anchor="middle">BAJAJ</text>
+
+  <!-- Genuine OEM Guarantee Holographic Stamp -->
+  <g transform="translate(330, 32)">
+    <circle r="20" fill="#FEF08A" stroke="#CA8A04" stroke-width="2"/>
+    <circle r="16" fill="none" stroke="#EAB308" stroke-width="1" stroke-dasharray="3 2"/>
+    <text x="0" y="-3" fill="#854D0E" font-size="6" font-family="'Segoe UI', sans-serif" font-weight="900" text-anchor="middle">100%</text>
+    <text x="0" y="6" fill="#854D0E" font-size="6" font-family="'Segoe UI', sans-serif" font-weight="900" text-anchor="middle">GENUINE</text>
+    <text x="0" y="13" fill="#854D0E" font-size="5" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="middle">OEM</text>
+  </g>
+
+  <!-- Technical Part Drawing -->
+  
+    <g transform="translate(200, 195)">
+      <!-- Sculpted Fuel Tank Body -->
+      <path d="M-125,25 C-135,-55 -80,-105 10,-105 C85,-105 135,-65 140,25 C140,75 55,95 -20,95 C-85,95 -120,70 -125,25 Z" fill="#00539B" stroke="#0F172A" stroke-width="6"/>
+      <!-- Glossy Reflection Highlight -->
+      <path d="M-90,-20 C-60,-75 10,-85 60,-80 C-10,-70 -50,-50 -75,-10 Z" fill="#FFFFFF" opacity="0.35"/>
+      <!-- Knee Recess Grip Pads (Left & Right) -->
+      <path d="M-105,25 C-105,-15 -80,-30 -50,-30 C-65,5 -75,35 -90,45 Z" fill="#18181B" stroke="#27272A" stroke-width="2"/>
+      <!-- Chrome Flip-up Fuel Filler Cap -->
+      <ellipse cx="20" cy="-75" rx="28" ry="16" fill="#E2E8F0" stroke="#334155" stroke-width="3"/>
+      <ellipse cx="20" cy="-75" rx="16" ry="9" fill="#94A3B8"/>
+      <circle cx="16" cy="-75" r="3" fill="#0F172A"/>
+      <!-- OEM 3D Brand Monogram Badge -->
+      <rect x="-35" y="10" width="70" height="24" rx="5" fill="#1E293B" stroke="#F8FAFC" stroke-width="2"/>
+      <text x="0" y="26" fill="#F8FAFC" font-size="11" font-family="Arial, sans-serif" font-weight="bold" text-anchor="middle">GENUINE</text>
+      <!-- Bottom Fuel Petcock Cock valve -->
+      <rect x="-80" y="85" width="20" height="20" fill="#64748B" rx="3"/>
+      <line x1="-70" y1="105" x2="-70" y2="120" stroke="#64748B" stroke-width="6" stroke-linecap="round"/>
+    </g>
+  
+
+  <!-- Bottom Part Type & Tag Badge -->
+  <rect x="24" y="348" width="352" height="36" rx="8" fill="#0F172A" opacity="0.92"/>
+  <text x="40" y="371" fill="#38BDF8" font-size="11" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" letter-spacing="0.5">BAJAJ GENUINE SPARES</text>
+  <text x="360" y="371" fill="#F8FAFC" font-size="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="800" text-anchor="end">PETROL TANK</text>
+</svg>

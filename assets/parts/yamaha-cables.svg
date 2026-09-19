@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+    <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#B0BEC5" />
+      <stop offset="50%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#78909C" />
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="400" height="400" rx="20" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Technical Grid Overlay -->
+  <g stroke="#94A3B8" stroke-width="0.75" stroke-dasharray="4 6" opacity="0.4">
+    <line x1="40" y1="0" x2="40" y2="400"/>
+    <line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="360" y1="0" x2="360" y2="400"/>
+    <line x1="0" y1="40" x2="400" y2="40"/>
+    <line x1="0" y1="200" x2="400" y2="200"/>
+    <line x1="0" y1="360" x2="400" y2="360"/>
+  </g>
+
+  <!-- Top Brand Watermark Banner -->
+  <rect x="20" y="16" width="160" height="30" rx="6" fill="#00205B" filter="url(#cardShadow)"/>
+  <text x="100" y="36" fill="#FFFFFF" font-size="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" letter-spacing="1" text-anchor="middle">YAMAHA</text>
+
+  <!-- Genuine OEM Guarantee Holographic Stamp -->
+  <g transform="translate(330, 32)">
+    <circle r="20" fill="#FEF08A" stroke="#CA8A04" stroke-width="2"/>
+    <circle r="16" fill="none" stroke="#EAB308" stroke-width="1" stroke-dasharray="3 2"/>
+    <text x="0" y="-3" fill="#854D0E" font-size="6" font-family="'Segoe UI', sans-serif" font-weight="900" text-anchor="middle">100%</text>
+    <text x="0" y="6" fill="#854D0E" font-size="6" font-family="'Segoe UI', sans-serif" font-weight="900" text-anchor="middle">GENUINE</text>
+    <text x="0" y="13" fill="#854D0E" font-size="5" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="middle">OEM</text>
+  </g>
+
+  <!-- Technical Part Drawing -->
+  
+    <g transform="translate(200, 200)">
+      <!-- Heavy Loop Outer Housing Sheath -->
+      <path d="M-110,90 C-130,-70 -30,-120 40,-90 C120,-60 110,60 0,95 C-80,120 -80,10 -10,-20" fill="none" stroke="#1E293B" stroke-width="20" stroke-linecap="round"/>
+      <path d="M-110,90 C-130,-70 -30,-120 40,-90 C120,-60 110,60 0,95 C-80,120 -80,10 -10,-20" fill="none" stroke="#00205B" stroke-width="4" stroke-dasharray="10 8"/>
+      <!-- Cable End Fittings & Brass Nipple -->
+      <rect x="-128" y="80" width="28" height="22" rx="4" fill="#B0BEC5" stroke="#37474F" stroke-width="2"/>
+      <rect x="-144" y="86" width="16" height="10" rx="3" fill="#D4AF37" stroke="#37474F" stroke-width="2"/>
+      <!-- Exposed Stainless Steel Braided Core Wire -->
+      <line x1="-10" y1="-20" x2="60" y2="-50" stroke="#CFD8DC" stroke-width="7" stroke-linecap="round"/>
+      <!-- Adjuster Barrel Screw -->
+      <g transform="translate(60, -50)">
+        <rect x="-5" y="-12" width="30" height="24" rx="4" fill="#ECEFF1" stroke="#333" stroke-width="2"/>
+        <line x1="2" y1="-12" x2="2" y2="12" stroke="#607D8B" stroke-width="3"/>
+        <line x1="12" y1="-12" x2="12" y2="12" stroke="#607D8B" stroke-width="3"/>
+        <line x1="22" y1="-12" x2="22" y2="12" stroke="#607D8B" stroke-width="3"/>
+        <circle cx="35" cy="0" r="6" fill="#D4AF37" stroke="#333" stroke-width="2"/>
+      </g>
+    </g>
+  
+
+  <!-- Bottom Part Type & Tag Badge -->
+  <rect x="24" y="348" width="352" height="36" rx="8" fill="#0F172A" opacity="0.92"/>
+  <text x="40" y="371" fill="#38BDF8" font-size="11" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" letter-spacing="0.5">YAMAHA GENUINE (YGP)</text>
+  <text x="360" y="371" fill="#F8FAFC" font-size="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="800" text-anchor="end">CABLES</text>
+</svg>

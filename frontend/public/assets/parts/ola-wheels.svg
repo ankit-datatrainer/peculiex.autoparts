@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+    <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#B0BEC5" />
+      <stop offset="50%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#78909C" />
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="400" height="400" rx="20" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Technical Grid Overlay -->
+  <g stroke="#94A3B8" stroke-width="0.75" stroke-dasharray="4 6" opacity="0.4">
+    <line x1="40" y1="0" x2="40" y2="400"/>
+    <line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="360" y1="0" x2="360" y2="400"/>
+    <line x1="0" y1="40" x2="400" y2="40"/>
+    <line x1="0" y1="200" x2="400" y2="200"/>
+    <line x1="0" y1="360" x2="400" y2="360"/>
+  </g>
+
+  <!-- Top Brand Watermark Banner -->
+  <rect x="20" y="16" width="160" height="30" rx="6" fill="#111827" filter="url(#cardShadow)"/>
+  <text x="100" y="36" fill="#10B981" font-size="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" letter-spacing="1" text-anchor="middle">OLA</text>
+
+  <!-- Genuine OEM Guarantee Holographic Stamp -->
+  <g transform="translate(330, 32)">
+    <circle r="20" fill="#FEF08A" stroke="#CA8A04" stroke-width="2"/>
+    <circle r="16" fill="none" stroke="#EAB308" stroke-width="1" stroke-dasharray="3 2"/>
+    <text x="0" y="-3" fill="#854D0E" font-size="6" font-family="'Segoe UI', sans-serif" font-weight="900" text-anchor="middle">100%</text>
+    <text x="0" y="6" fill="#854D0E" font-size="6" font-family="'Segoe UI', sans-serif" font-weight="900" text-anchor="middle">GENUINE</text>
+    <text x="0" y="13" fill="#854D0E" font-size="5" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="middle">OEM</text>
+  </g>
+
+  <!-- Technical Part Drawing -->
+  
+    <g transform="translate(200, 200)">
+      <!-- Outer Wheel Rim with Tubeless Tyre -->
+      <circle r="132" fill="#1E293B" stroke="#0F172A" stroke-width="18"/>
+      <!-- Tread Patterns -->
+      <g stroke="#334155" stroke-width="4">
+        <line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(0)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(20)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(40)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(60)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(80)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(100)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(120)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(140)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(160)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(180)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(200)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(220)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(240)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(260)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(280)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(300)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(320)" stroke-linecap="round"/><line x1="0" y1="-140" x2="0" y2="-125" transform="rotate(340)" stroke-linecap="round"/>
+      </g>
+      <!-- Machined Alloy Lip -->
+      <circle r="120" fill="none" stroke="#111827" stroke-width="5"/>
+      <!-- 5-Spoke Alloy Mag Design -->
+      <g fill="#475569" stroke="#1E293B" stroke-width="3">
+        
+            <g transform="rotate(0)">
+              <path d="M-14,-35 L-22,-112 L22,-112 L14,-35 Z" fill="#64748B"/>
+              <circle cx="0" cy="-80" r="10" fill="#0F172A"/>
+            </g>
+          
+            <g transform="rotate(72)">
+              <path d="M-14,-35 L-22,-112 L22,-112 L14,-35 Z" fill="#64748B"/>
+              <circle cx="0" cy="-80" r="10" fill="#0F172A"/>
+            </g>
+          
+            <g transform="rotate(144)">
+              <path d="M-14,-35 L-22,-112 L22,-112 L14,-35 Z" fill="#64748B"/>
+              <circle cx="0" cy="-80" r="10" fill="#0F172A"/>
+            </g>
+          
+            <g transform="rotate(216)">
+              <path d="M-14,-35 L-22,-112 L22,-112 L14,-35 Z" fill="#64748B"/>
+              <circle cx="0" cy="-80" r="10" fill="#0F172A"/>
+            </g>
+          
+            <g transform="rotate(288)">
+              <path d="M-14,-35 L-22,-112 L22,-112 L14,-35 Z" fill="#64748B"/>
+              <circle cx="0" cy="-80" r="10" fill="#0F172A"/>
+            </g>
+          
+      </g>
+      <!-- Center Wheel Hub & Bearings -->
+      <circle r="40" fill="#94A3B8" stroke="#1E293B" stroke-width="4"/>
+      <circle r="22" fill="#0F172A"/>
+      <!-- Disc Mount Bosses -->
+      <circle cx="0" cy="-28" r="5" fill="#E2E8F0"/><circle cx="28" cy="0" r="5" fill="#E2E8F0"/>
+      <circle cx="0" cy="28" r="5" fill="#E2E8F0"/><circle cx="-28" cy="0" r="5" fill="#E2E8F0"/>
+    </g>
+  
+
+  <!-- Bottom Part Type & Tag Badge -->
+  <rect x="24" y="348" width="352" height="36" rx="8" fill="#0F172A" opacity="0.92"/>
+  <text x="40" y="371" fill="#38BDF8" font-size="11" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" letter-spacing="0.5">OLA ELECTRIC GENUINE</text>
+  <text x="360" y="371" fill="#F8FAFC" font-size="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="800" text-anchor="end">WHEELS</text>
+</svg>

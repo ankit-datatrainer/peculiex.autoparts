@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+    <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#B0BEC5" />
+      <stop offset="50%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#78909C" />
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="400" height="400" rx="20" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Technical Grid Overlay -->
+  <g stroke="#94A3B8" stroke-width="0.75" stroke-dasharray="4 6" opacity="0.4">
+    <line x1="40" y1="0" x2="40" y2="400"/>
+    <line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="360" y1="0" x2="360" y2="400"/>
+    <line x1="0" y1="40" x2="400" y2="40"/>
+    <line x1="0" y1="200" x2="400" y2="200"/>
+    <line x1="0" y1="360" x2="400" y2="360"/>
+  </g>
+
+  <!-- Top Brand Watermark Banner -->
+  <rect x="20" y="16" width="160" height="30" rx="6" fill="#0F172A" filter="url(#cardShadow)"/>
+  <text x="100" y="36" fill="#00D285" font-size="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" letter-spacing="1" text-anchor="middle">ATHER</text>
+
+  <!-- Genuine OEM Guarantee Holographic Stamp -->
+  <g transform="translate(330, 32)">
+    <circle r="20" fill="#FEF08A" stroke="#CA8A04" stroke-width="2"/>
+    <circle r="16" fill="none" stroke="#EAB308" stroke-width="1" stroke-dasharray="3 2"/>
+    <text x="0" y="-3" fill="#854D0E" font-size="6" font-family="'Segoe UI', sans-serif" font-weight="900" text-anchor="middle">100%</text>
+    <text x="0" y="6" fill="#854D0E" font-size="6" font-family="'Segoe UI', sans-serif" font-weight="900" text-anchor="middle">GENUINE</text>
+    <text x="0" y="13" fill="#854D0E" font-size="5" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="middle">OEM</text>
+  </g>
+
+  <!-- Technical Part Drawing -->
+  
+    <g transform="translate(200, 200)">
+      <!-- Left Shocker Fork -->
+      <g transform="translate(-45, 0)">
+        <!-- Chrome Stanchion Tube -->
+        <rect x="-12" y="-140" width="24" height="160" fill="url(#chromeGrad)" stroke="#78909C" stroke-width="2" rx="4"/>
+        <!-- Dust Seal -->
+        <rect x="-16" y="10" width="32" height="14" fill="#212121" rx="2"/>
+        <!-- Heavy Coiled Spring -->
+        
+          <ellipse cx="0" cy="-110" rx="20" ry="8" fill="none" stroke="#0F172A" stroke-width="7"/>
+        
+          <ellipse cx="0" cy="-85" rx="20" ry="8" fill="none" stroke="#0F172A" stroke-width="7"/>
+        
+          <ellipse cx="0" cy="-60" rx="20" ry="8" fill="none" stroke="#0F172A" stroke-width="7"/>
+        
+          <ellipse cx="0" cy="-35" rx="20" ry="8" fill="none" stroke="#0F172A" stroke-width="7"/>
+        
+          <ellipse cx="0" cy="-10" rx="20" ry="8" fill="none" stroke="#0F172A" stroke-width="7"/>
+        
+        <!-- Lower Damper Slider Tube -->
+        <rect x="-18" y="20" width="36" height="120" rx="8" fill="#37474F" stroke="#263238" stroke-width="3"/>
+        <!-- Bottom Axle Mount Eyelet -->
+        <circle cx="0" cy="130" r="14" fill="#CFD8DC" stroke="#263238" stroke-width="4"/>
+        <circle cx="0" cy="130" r="6" fill="#1E293B"/>
+      </g>
+      <!-- Right Shocker Fork -->
+      <g transform="translate(45, 0)">
+        <rect x="-12" y="-140" width="24" height="160" fill="url(#chromeGrad)" stroke="#78909C" stroke-width="2" rx="4"/>
+        <rect x="-16" y="10" width="32" height="14" fill="#212121" rx="2"/>
+        
+          <ellipse cx="0" cy="-110" rx="20" ry="8" fill="none" stroke="#0F172A" stroke-width="7"/>
+        
+          <ellipse cx="0" cy="-85" rx="20" ry="8" fill="none" stroke="#0F172A" stroke-width="7"/>
+        
+          <ellipse cx="0" cy="-60" rx="20" ry="8" fill="none" stroke="#0F172A" stroke-width="7"/>
+        
+          <ellipse cx="0" cy="-35" rx="20" ry="8" fill="none" stroke="#0F172A" stroke-width="7"/>
+        
+          <ellipse cx="0" cy="-10" rx="20" ry="8" fill="none" stroke="#0F172A" stroke-width="7"/>
+        
+        <rect x="-18" y="20" width="36" height="120" rx="8" fill="#37474F" stroke="#263238" stroke-width="3"/>
+        <circle cx="0" cy="130" r="14" fill="#CFD8DC" stroke="#263238" stroke-width="4"/>
+        <circle cx="0" cy="130" r="6" fill="#1E293B"/>
+      </g>
+      <!-- Top Triple Clamp Brace -->
+      <rect x="-70" y="-140" width="140" height="18" rx="4" fill="#212121" stroke="#FFF" stroke-width="2"/>
+    </g>
+  
+
+  <!-- Bottom Part Type & Tag Badge -->
+  <rect x="24" y="348" width="352" height="36" rx="8" fill="#0F172A" opacity="0.92"/>
+  <text x="40" y="371" fill="#38BDF8" font-size="11" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" letter-spacing="0.5">ATHER OFFICIAL SPARE</text>
+  <text x="360" y="371" fill="#F8FAFC" font-size="12" font-family="'Segoe UI', Roboto, sans-serif" font-weight="800" text-anchor="end">SHOCKER</text>
+</svg>

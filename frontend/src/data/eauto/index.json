@@ -1,0 +1,1844 @@
+{
+ "scrapedAt": "2026-09-19",
+ "source": "https://eauto.co.in",
+ "totalParts": 6555,
+ "brands": [
+  {
+   "id": "bajaj",
+   "name": "BAJAJ",
+   "logo": "/assets/brands/bajaj.svg",
+   "tagline": "Pulsar \u00b7 Discover \u00b7 Avenger & more",
+   "heroImage": "/assets/models/bajaj__pulsar-150.jpg",
+   "modelCount": 22,
+   "partsCount": 1876,
+   "bikeCount": 22,
+   "scooterCount": 0,
+   "models": [
+    {
+     "id": "avenger-150-160-180-200",
+     "name": "Avenger 150, 160, 180, 200",
+     "type": "bike",
+     "image": "/assets/models/bajaj__avenger-150-160-180-200.jpg",
+     "partsCount": 76,
+     "topCategories": [
+      "Carburetor",
+      "Handle Bar Switch",
+      "Piston Cylinder Kit"
+     ]
+    },
+    {
+     "id": "avenger-220",
+     "name": "Avenger 220",
+     "type": "bike",
+     "image": "/assets/models/bajaj__avenger-220.jpg",
+     "partsCount": 46,
+     "topCategories": [
+      "Sticker Set",
+      "Handle Bar Switch",
+      "Carburetor"
+     ]
+    },
+    {
+     "id": "boxer",
+     "name": "Boxer (O/M, CT, CT DLX, 125, BM 100, BM 125)",
+     "type": "bike",
+     "image": "/assets/models/bajaj__boxer.jpg",
+     "partsCount": 75,
+     "topCategories": [
+      "Handle Bar Switch",
+      "Sticker Set",
+      "Front Fork Leg"
+     ]
+    },
+    {
+     "id": "boxer-150",
+     "name": "Boxer 150 (BM 150, BM 150 Fi)",
+     "type": "bike",
+     "image": "/assets/models/bajaj__boxer-150.jpg",
+     "partsCount": 13,
+     "topCategories": [
+      "Carburetor",
+      "Speedometer",
+      "Stator Coil Plate"
+     ]
+    },
+    {
+     "id": "ct-100",
+     "name": "CT 100",
+     "type": "bike",
+     "image": "/assets/models/bajaj__ct-100.jpg",
+     "partsCount": 87,
+     "topCategories": [
+      "Sticker Set",
+      "Wiring Harness",
+      "Handle Bar Switch"
+     ]
+    },
+    {
+     "id": "caliber",
+     "name": "Caliber",
+     "type": "bike",
+     "image": "/assets/models/bajaj__caliber.jpg",
+     "partsCount": 77,
+     "topCategories": [
+      "Sticker Set",
+      "Front Fork Leg",
+      "Handle Bar Switch"
+     ]
+    },
+    {
+     "id": "discover",
+     "name": "Discover (150, 150 F, 150 S, 150 Disc)",
+     "type": "bike",
+     "image": "/assets/models/bajaj__discover.jpg",
+     "partsCount": 72,
+     "topCategories": [
+      "Front Fork Leg",
+      "Petrol Tank",
+      "Sticker Set"
+     ]
+    },
+    {
+     "id": "discover-100-110",
+     "name": "Discover 100/ 110 (F, M, ST, T, New Model)",
+     "type": "bike",
+     "image": "/assets/models/bajaj__discover-100-110.jpg",
+     "partsCount": 141,
+     "topCategories": [
+      "Sticker Set",
+      "Front Fork Leg",
+      "Petrol Tank"
+     ]
+    },
+    {
+     "id": "discover-125",
+     "name": "Discover 125 (ST, SS, T, M, New Model, Old Model, BS4)",
+     "type": "bike",
+     "image": "/assets/models/bajaj__discover-125.jpg",
+     "partsCount": 155,
+     "topCategories": [
+      "Petrol Tank",
+      "Carburetor",
+      "Front Fork Leg"
+     ]
+    },
+    {
+     "id": "discover-135",
+     "name": "Discover 135",
+     "type": "bike",
+     "image": "/assets/models/bajaj__discover-135.jpg",
+     "partsCount": 58,
+     "topCategories": [
+      "Front Fork Leg",
+      "Sticker Set",
+      "Petrol Tank"
+     ]
+    },
+    {
+     "id": "dominar-400",
+     "name": "Dominar 400",
+     "type": "bike",
+     "image": "/assets/models/bajaj__dominar-400.jpg",
+     "partsCount": 18,
+     "topCategories": [
+      "Crank Shaft",
+      "Piston Cylinder Kit",
+      "Chain Sprocket"
+     ]
+    },
+    {
+     "id": "kb4s",
+     "name": "KB4S",
+     "type": "bike",
+     "image": "/assets/models/bajaj__kb4s.jpg",
+     "partsCount": 42,
+     "topCategories": [
+      "Front Fork Leg",
+      "Sticker Set",
+      "Petrol Tank"
+     ]
+    },
+    {
+     "id": "platina",
+     "name": "Platina (100, 100 ES, 110 BS4, 125)",
+     "type": "bike",
+     "image": "/assets/models/bajaj__platina.jpg",
+     "partsCount": 164,
+     "topCategories": [
+      "Sticker Set",
+      "Petrol Tank",
+      "Front Fork Leg"
+     ]
+    },
+    {
+     "id": "pulsar-125-135",
+     "name": "Pulsar 125 & 135",
+     "type": "bike",
+     "image": "/assets/models/bajaj__pulsar-125-135.jpg",
+     "partsCount": 77,
+     "topCategories": [
+      "Carburetor",
+      "Handle Bar Switch",
+      "Piston Cylinder Kit"
+     ]
+    },
+    {
+     "id": "pulsar-150",
+     "name": "Pulsar 150 (DTS1, UG3, UG4, UG4.5, UG5, AS, NS, BS4)",
+     "type": "bike",
+     "image": "/assets/models/bajaj__pulsar-150.jpg",
+     "partsCount": 228,
+     "topCategories": [
+      "Sticker Set",
+      "Speedometer",
+      "Handle Bar Switch"
+     ]
+    },
+    {
+     "id": "pulsar-160",
+     "name": "Pulsar 160 (AS, NS, NS BS4, NS Fi)",
+     "type": "bike",
+     "image": "/assets/models/bajaj__pulsar-160.jpg",
+     "partsCount": 37,
+     "topCategories": [
+      "Sticker Set",
+      "Handle Bar Switch",
+      "Brake Disc Caliper"
+     ]
+    },
+    {
+     "id": "pulsar-180",
+     "name": "Pulsar 180 (DTSi, UG3, UG4, UG4.5, UG5, AS, BS4)",
+     "type": "bike",
+     "image": "/assets/models/bajaj__pulsar-180.jpg",
+     "partsCount": 146,
+     "topCategories": [
+      "Sticker Set",
+      "Petrol Tank",
+      "Handle Bar Switch"
+     ]
+    },
+    {
+     "id": "pulsar-200",
+     "name": "Pulsar 200 ( UG3, UG4, UG4.5, AS, NS, RS, NS BS4, RS BS4)",
+     "type": "bike",
+     "image": "/assets/models/bajaj__pulsar-200.jpg",
+     "partsCount": 116,
+     "topCategories": [
+      "Sticker Set",
+      "Handle Bar Switch",
+      "Brake Disc Caliper"
+     ]
+    },
+    {
+     "id": "pulsar-220",
+     "name": "Pulsar 220 (UG3, UG4, UG4.5, F)",
+     "type": "bike",
+     "image": "/assets/models/bajaj__pulsar-220.jpg",
+     "partsCount": 96,
+     "topCategories": [
+      "Sticker Set",
+      "Handle Bar Switch",
+      "Speedometer"
+     ]
+    },
+    {
+     "id": "vikrant",
+     "name": "Vikrant (V15 & V12)",
+     "type": "bike",
+     "image": "/assets/models/bajaj__vikrant.jpg",
+     "partsCount": 55,
+     "topCategories": [
+      "Petrol Tank",
+      "Front Fork Assembly",
+      "Sticker Set"
+     ]
+    },
+    {
+     "id": "xcd-125",
+     "name": "XCD 125",
+     "type": "bike",
+     "image": "/assets/models/bajaj__xcd-125.jpg",
+     "partsCount": 50,
+     "topCategories": [
+      "Front Fork Leg",
+      "Handle Bar Switch",
+      "Sticker Set"
+     ]
+    },
+    {
+     "id": "xcd-135",
+     "name": "XCD 135",
+     "type": "bike",
+     "image": "/assets/models/bajaj__xcd-135.jpg",
+     "partsCount": 47,
+     "topCategories": [
+      "Sticker Set",
+      "Front Fork Leg",
+      "Petrol Tank"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "hero",
+   "name": "HERO",
+   "logo": "/assets/brands/hero.svg",
+   "tagline": "Splendor \u00b7 Passion \u00b7 Glamour & more",
+   "heroImage": "/assets/models/hero__splendor.jpg",
+   "modelCount": 20,
+   "partsCount": 1655,
+   "bikeCount": 17,
+   "scooterCount": 3,
+   "models": [
+    {
+     "id": "achiever",
+     "name": "Achiever",
+     "type": "bike",
+     "image": "/assets/models/hero__achiever.jpg",
+     "partsCount": 41,
+     "topCategories": [
+      "Handle Bar Switch",
+      "Petrol Tank",
+      "Side Panel"
+     ]
+    },
+    {
+     "id": "ambition",
+     "name": "Ambition",
+     "type": "bike",
+     "image": "/assets/models/hero__ambition.jpg",
+     "partsCount": 45,
+     "topCategories": [
+      "Side Panel",
+      "Sticker Set",
+      "Front Fork Leg"
+     ]
+    },
+    {
+     "id": "cbz-xtreme",
+     "name": "CBZ Xtreme (Old Model, Star, Sport)",
+     "type": "bike",
+     "image": "/assets/models/hero__cbz-xtreme.jpg",
+     "partsCount": 141,
+     "topCategories": [
+      "Sticker Set",
+      "TPFC",
+      "Handle Bar Switch"
+     ]
+    },
+    {
+     "id": "cd",
+     "name": "CD (100, 110)",
+     "type": "bike",
+     "image": "/assets/models/hero__cd.jpg",
+     "partsCount": 42,
+     "topCategories": [
+      "Petrol Tank",
+      "Sticker Set",
+      "Speedometer"
+     ]
+    },
+    {
+     "id": "cd-dawn",
+     "name": "CD Dawn",
+     "type": "bike",
+     "image": "/assets/models/hero__cd-dawn.jpg",
+     "partsCount": 58,
+     "topCategories": [
+      "Sticker Set",
+      "Petrol Tank",
+      "Shock Absorber"
+     ]
+    },
+    {
+     "id": "cd-deluxe",
+     "name": "CD Deluxe",
+     "type": "bike",
+     "image": "/assets/models/hero__cd-deluxe.jpg",
+     "partsCount": 85,
+     "topCategories": [
+      "Sticker Set",
+      "Petrol Tank",
+      "Wiring Harness"
+     ]
+    },
+    {
+     "id": "duet",
+     "name": "Duet",
+     "type": "scooter",
+     "image": "/assets/models/hero__duet.jpg",
+     "partsCount": 18,
+     "topCategories": [
+      "Sticker Set",
+      "Front Fork Assembly",
+      "Speedometer"
+     ]
+    },
+    {
+     "id": "glamour",
+     "name": "Glamour",
+     "type": "bike",
+     "image": "/assets/models/hero__glamour.jpg",
+     "partsCount": 145,
+     "topCategories": [
+      "Sticker Set",
+      "TPFC",
+      "Side Panel"
+     ]
+    },
+    {
+     "id": "hf-dawn",
+     "name": "HF Dawn",
+     "type": "bike",
+     "image": "/assets/models/hero__hf-dawn.jpg",
+     "partsCount": 12,
+     "topCategories": [
+      "Shock Absorber",
+      "Sticker Set",
+      "Clutch Plate"
+     ]
+    },
+    {
+     "id": "hero-hf-deluxe",
+     "name": "Hero Hf Deluxe",
+     "type": "bike",
+     "image": "/assets/models/hero__hero-hf-deluxe.jpg",
+     "partsCount": 61,
+     "topCategories": [
+      "Sticker Set",
+      "Petrol Tank",
+      "Speedometer"
+     ]
+    },
+    {
+     "id": "hunk",
+     "name": "Hunk",
+     "type": "bike",
+     "image": "/assets/models/hero__hunk.jpg",
+     "partsCount": 68,
+     "topCategories": [
+      "Petrol Tank",
+      "TPFC",
+      "Visor"
+     ]
+    },
+    {
+     "id": "ignitor",
+     "name": "Ignitor",
+     "type": "bike",
+     "image": "/assets/models/hero__ignitor.jpg",
+     "partsCount": 21,
+     "topCategories": [
+      "Sticker Set",
+      "TPFC",
+      "Handle Bar Switch"
+     ]
+    },
+    {
+     "id": "impulse",
+     "name": "Impulse",
+     "type": "bike",
+     "image": "/assets/models/hero__impulse.jpg",
+     "partsCount": 7,
+     "topCategories": [
+      "Brake Disc Caliper",
+      "CDI",
+      "Chain Sprocket"
+     ]
+    },
+    {
+     "id": "karizma",
+     "name": "Karizma (R, ZMR)",
+     "type": "bike",
+     "image": "/assets/models/hero__karizma.jpg",
+     "partsCount": 77,
+     "topCategories": [
+      "Side Panel",
+      "Visor",
+      "Sticker Set"
+     ]
+    },
+    {
+     "id": "maestro",
+     "name": "Maestro",
+     "type": "scooter",
+     "image": "/assets/models/hero__maestro.jpg",
+     "partsCount": 54,
+     "topCategories": [
+      "Sticker Set",
+      "CDI",
+      "Stator Coil Plate"
+     ]
+    },
+    {
+     "id": "passion",
+     "name": "Passion (Pro, Pro BS4, X Pro, Plus, X Pro i3s)",
+     "type": "bike",
+     "image": "/assets/models/hero__passion.jpg",
+     "partsCount": 284,
+     "topCategories": [
+      "Sticker Set",
+      "Side Panel",
+      "Petrol Tank"
+     ]
+    },
+    {
+     "id": "pleasure",
+     "name": "Pleasure",
+     "type": "scooter",
+     "image": "/assets/models/hero__pleasure.jpg",
+     "partsCount": 53,
+     "topCategories": [
+      "Sticker Set",
+      "Side Panel",
+      "Speedometer"
+     ]
+    },
+    {
+     "id": "splendor",
+     "name": "Splendor (Super, Pro, Plus, NXG, iSmart, FI, BS4, BS6)",
+     "type": "bike",
+     "image": "/assets/models/hero__splendor.jpg",
+     "partsCount": 439,
+     "topCategories": [
+      "Sticker Set",
+      "Side Panel",
+      "Petrol Tank"
+     ]
+    },
+    {
+     "id": "xpulse",
+     "name": "Xpulse",
+     "type": "bike",
+     "image": "/assets/models/hero__xpulse.jpg",
+     "partsCount": 2,
+     "topCategories": [
+      "Chain Sprocket",
+      "Sticker Set"
+     ]
+    },
+    {
+     "id": "xtreme",
+     "name": "Xtreme",
+     "type": "bike",
+     "image": "/assets/models/hero__xtreme.jpg",
+     "partsCount": 2,
+     "topCategories": [
+      "Chain Sprocket",
+      "Stator Coil Plate"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tvs",
+   "name": "TVS",
+   "logo": "/assets/brands/tvs.svg",
+   "tagline": "Apache \u00b7 Jupiter \u00b7 Ntorq & more",
+   "heroImage": "/assets/models/tvs__apache-rtr-160.jpg",
+   "modelCount": 20,
+   "partsCount": 861,
+   "bikeCount": 14,
+   "scooterCount": 6,
+   "models": [
+    {
+     "id": "apache-150",
+     "name": "Apache 150",
+     "type": "bike",
+     "image": "/assets/models/tvs__apache-150.jpg",
+     "partsCount": 28,
+     "topCategories": [
+      "Fork Pipe",
+      "Petrol Tank",
+      "Brake Disc Caliper"
+     ]
+    },
+    {
+     "id": "apache-rtr-160",
+     "name": "Apache RTR 160",
+     "type": "bike",
+     "image": "/assets/models/tvs__apache-rtr-160.jpg",
+     "partsCount": 125,
+     "topCategories": [
+      "Sticker Set",
+      "Speedometer",
+      "Engine Guard"
+     ]
+    },
+    {
+     "id": "apache-rtr-180",
+     "name": "Apache RTR 180",
+     "type": "bike",
+     "image": "/assets/models/tvs__apache-rtr-180.jpg",
+     "partsCount": 79,
+     "topCategories": [
+      "Speedometer",
+      "Sticker Set",
+      "Engine Guard"
+     ]
+    },
+    {
+     "id": "apache-rtr-200",
+     "name": "Apache RTR 200",
+     "type": "bike",
+     "image": "/assets/models/tvs__apache-rtr-200.jpg",
+     "partsCount": 29,
+     "topCategories": [
+      "Sticker Set",
+      "Disc Brake Master Cylinder Assembly",
+      "Brake Disc Caliper"
+     ]
+    },
+    {
+     "id": "centra",
+     "name": "Centra",
+     "type": "bike",
+     "image": "/assets/models/tvs__centra.jpg",
+     "partsCount": 24,
+     "topCategories": [
+      "Handle Bar Switch",
+      "Front Drum Plate",
+      "Front Fork Leg"
+     ]
+    },
+    {
+     "id": "flame",
+     "name": "Flame",
+     "type": "bike",
+     "image": "/assets/models/tvs__flame.jpg",
+     "partsCount": 16,
+     "topCategories": [
+      "Front Fork Leg",
+      "Rear Drum Plate",
+      "Cam Shaft Assembly"
+     ]
+    },
+    {
+     "id": "jive",
+     "name": "JIVE",
+     "type": "bike",
+     "image": "/assets/models/tvs__jive.jpg",
+     "partsCount": 12,
+     "topCategories": [
+      "Front Fork Leg",
+      "Cam Shaft Assembly",
+      "Engine Valve Set"
+     ]
+    },
+    {
+     "id": "jupiter",
+     "name": "Jupiter",
+     "type": "scooter",
+     "image": "/assets/models/tvs__jupiter.jpg",
+     "partsCount": 60,
+     "topCategories": [
+      "Speedometer",
+      "Fork Leg Assembly",
+      "Front Fork Leg"
+     ]
+    },
+    {
+     "id": "max-4r",
+     "name": "Max 4R",
+     "type": "bike",
+     "image": "/assets/models/tvs__max-4r.jpg",
+     "partsCount": 1,
+     "topCategories": [
+      "Kick Lever"
+     ]
+    },
+    {
+     "id": "ntorq",
+     "name": "Ntorq",
+     "type": "scooter",
+     "image": "/assets/models/tvs__ntorq.jpg",
+     "partsCount": 23,
+     "topCategories": [
+      "Fork Leg Assembly",
+      "Fork Pipe",
+      "Front Fork Leg"
+     ]
+    },
+    {
+     "id": "phoenix",
+     "name": "Phoenix",
+     "type": "bike",
+     "image": "/assets/models/tvs__phoenix.jpg",
+     "partsCount": 33,
+     "topCategories": [
+      "Fork Pipe",
+      "Fork Leg Assembly",
+      "Front Fork Leg"
+     ]
+    },
+    {
+     "id": "radeon",
+     "name": "Radeon",
+     "type": "bike",
+     "image": "/assets/models/tvs__radeon.jpg",
+     "partsCount": 15,
+     "topCategories": [
+      "Sticker Set",
+      "Fork Leg Assembly",
+      "Front Fork Leg"
+     ]
+    },
+    {
+     "id": "scooty-pep",
+     "name": "Scooty Pep (Pep Plus)",
+     "type": "scooter",
+     "image": "/assets/models/tvs__scooty-pep.jpg",
+     "partsCount": 47,
+     "topCategories": [
+      "Sticker Set",
+      "Speedometer",
+      "CDI"
+     ]
+    },
+    {
+     "id": "star-city",
+     "name": "Star City (100, 110, Plus)",
+     "type": "bike",
+     "image": "/assets/models/tvs__star-city.jpg",
+     "partsCount": 94,
+     "topCategories": [
+      "Sticker Set",
+      "Handle Bar Switch",
+      "Petrol Tank"
+     ]
+    },
+    {
+     "id": "star-sport",
+     "name": "Star Sport",
+     "type": "bike",
+     "image": "/assets/models/tvs__star-sport.jpg",
+     "partsCount": 38,
+     "topCategories": [
+      "Sticker Set",
+      "Petrol Tank",
+      "Ignitor"
+     ]
+    },
+    {
+     "id": "streak",
+     "name": "Streak",
+     "type": "scooter",
+     "image": "/assets/models/tvs__streak.jpg",
+     "partsCount": 22,
+     "topCategories": [
+      "Fork Pipe",
+      "Starter Motor",
+      "CDI"
+     ]
+    },
+    {
+     "id": "victor",
+     "name": "Victor (GL, GLX, N/M, O/M)",
+     "type": "bike",
+     "image": "/assets/models/tvs__victor.jpg",
+     "partsCount": 103,
+     "topCategories": [
+      "Sticker Set",
+      "Petrol Tank",
+      "Front Fork Leg"
+     ]
+    },
+    {
+     "id": "wego",
+     "name": "Wego",
+     "type": "scooter",
+     "image": "/assets/models/tvs__wego.jpg",
+     "partsCount": 50,
+     "topCategories": [
+      "Sticker Set",
+      "Fork Leg Assembly",
+      "Handle Bar Switch"
+     ]
+    },
+    {
+     "id": "xl",
+     "name": "XL (100, Super, Super New, Super HD, Super Heavy Duty)",
+     "type": "bike",
+     "image": "/assets/models/tvs__xl.jpg",
+     "partsCount": 48,
+     "topCategories": [
+      "Handle Bar Switch",
+      "Stator Coil Plate",
+      "Crank Shaft"
+     ]
+    },
+    {
+     "id": "zest",
+     "name": "Zest",
+     "type": "scooter",
+     "image": "/assets/models/tvs__zest.jpg",
+     "partsCount": 14,
+     "topCategories": [
+      "Handle Bar Switch",
+      "Starter Motor",
+      "Clutch Pulley"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "honda",
+   "name": "HONDA",
+   "logo": "/assets/brands/honda.svg",
+   "tagline": "Activa \u00b7 Shine \u00b7 Unicorn & more",
+   "heroImage": "/assets/models/honda__activa.jpg",
+   "modelCount": 17,
+   "partsCount": 779,
+   "bikeCount": 14,
+   "scooterCount": 3,
+   "models": [
+    {
+     "id": "activa",
+     "name": "Activa (3G, 4G, 5G, 6G, i, HET, 100, 110, 125, BS4, BS6, O/M, N/M)",
+     "type": "scooter",
+     "image": "/assets/models/honda__activa.jpg",
+     "partsCount": 195,
+     "topCategories": [
+      "Sticker Set",
+      "Speedometer",
+      "CDI"
+     ]
+    },
+    {
+     "id": "aviator",
+     "name": "Aviator",
+     "type": "scooter",
+     "image": "/assets/models/honda__aviator.jpg",
+     "partsCount": 28,
+     "topCategories": [
+      "Front Fork Leg",
+      "Brake Disc Caliper",
+      "Brake Disc Plate"
+     ]
+    },
+    {
+     "id": "cb-trigger",
+     "name": "CB Trigger",
+     "type": "bike",
+     "image": "/assets/models/honda__cb-trigger.jpg",
+     "partsCount": 15,
+     "topCategories": [
+      "Front Fork Leg",
+      "Handle Bar Switch",
+      "CDI"
+     ]
+    },
+    {
+     "id": "cb-twister",
+     "name": "CB Twister",
+     "type": "bike",
+     "image": "/assets/models/honda__cb-twister.jpg",
+     "partsCount": 44,
+     "topCategories": [
+      "TPFC",
+      "Front Fork Leg",
+      "Petrol Tank"
+     ]
+    },
+    {
+     "id": "cbr-150-150-r",
+     "name": "CBR 150 & 150 R",
+     "type": "bike",
+     "image": "/assets/models/honda__cbr-150-150-r.jpg",
+     "partsCount": 18,
+     "topCategories": [
+      "Brake Disc Caliper",
+      "CDI",
+      "Handle Bar Switch"
+     ]
+    },
+    {
+     "id": "cbr-250",
+     "name": "CBR 250",
+     "type": "bike",
+     "image": "/assets/models/honda__cbr-250.jpg",
+     "partsCount": 18,
+     "topCategories": [
+      "Brake Disc Caliper",
+      "Brake Disc Plate",
+      "CDI"
+     ]
+    },
+    {
+     "id": "cd-110",
+     "name": "CD 110 (Dream , HET)",
+     "type": "bike",
+     "image": "/assets/models/honda__cd-110.jpg",
+     "partsCount": 11,
+     "topCategories": [
+      "Sticker Set",
+      "Chain Sprocket",
+      "Clutch Assembly"
+     ]
+    },
+    {
+     "id": "dream-neo",
+     "name": "Dream Neo",
+     "type": "bike",
+     "image": "/assets/models/honda__dream-neo.jpg",
+     "partsCount": 37,
+     "topCategories": [
+      "Side Panel",
+      "Handle Bar Switch",
+      "Petrol Tank"
+     ]
+    },
+    {
+     "id": "dream-yuga",
+     "name": "Dream Yuga",
+     "type": "bike",
+     "image": "/assets/models/honda__dream-yuga.jpg",
+     "partsCount": 50,
+     "topCategories": [
+      "Fork Leg Assembly",
+      "Front Fork Leg",
+      "Sticker Set"
+     ]
+    },
+    {
+     "id": "eterno",
+     "name": "Eterno",
+     "type": "bike",
+     "image": "/assets/models/honda__eterno.jpg",
+     "partsCount": 16,
+     "topCategories": [
+      "Sticker Set",
+      "Ball Racer Set",
+      "Cam Shaft Assembly"
+     ]
+    },
+    {
+     "id": "grazia",
+     "name": "Grazia",
+     "type": "scooter",
+     "image": "/assets/models/honda__grazia.jpg",
+     "partsCount": 7,
+     "topCategories": [
+      "Brake Disc Caliper",
+      "CDI",
+      "Handle Tee"
+     ]
+    },
+    {
+     "id": "honda-stunner",
+     "name": "Honda Stunner",
+     "type": "bike",
+     "image": "/assets/models/honda__honda-stunner.jpg",
+     "partsCount": 41,
+     "topCategories": [
+      "TPFC",
+      "Front Fork Leg",
+      "Petrol Tank"
+     ]
+    },
+    {
+     "id": "hornet",
+     "name": "Hornet",
+     "type": "bike",
+     "image": "/assets/models/honda__hornet.jpg",
+     "partsCount": 35,
+     "topCategories": [
+      "Sticker Set",
+      "Brake Disc Caliper",
+      "Front Fork Assembly"
+     ]
+    },
+    {
+     "id": "livo",
+     "name": "Livo",
+     "type": "bike",
+     "image": "/assets/models/honda__livo.jpg",
+     "partsCount": 40,
+     "topCategories": [
+      "Sticker Set",
+      "TPFC",
+      "Side Panel"
+     ]
+    },
+    {
+     "id": "navi",
+     "name": "Navi",
+     "type": "bike",
+     "image": "/assets/models/honda__navi.jpg",
+     "partsCount": 7,
+     "topCategories": [
+      "Handle Bar Switch",
+      "Cam Shaft Assembly",
+      "Engine Belt"
+     ]
+    },
+    {
+     "id": "shine",
+     "name": "Shine (Old Model, New Model, SP, Deluxe, CB, SP BS6)",
+     "type": "bike",
+     "image": "/assets/models/honda__shine.jpg",
+     "partsCount": 134,
+     "topCategories": [
+      "Sticker Set",
+      "Petrol Tank",
+      "Speedometer"
+     ]
+    },
+    {
+     "id": "unicorn",
+     "name": "Unicorn (O/M, N/M, 150, 160, Dazzler)",
+     "type": "bike",
+     "image": "/assets/models/honda__unicorn.jpg",
+     "partsCount": 83,
+     "topCategories": [
+      "Petrol Tank",
+      "CDI",
+      "Sticker Set"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "yamaha",
+   "name": "YAMAHA",
+   "logo": "/assets/brands/yamaha.svg",
+   "tagline": "FZ \u00b7 R15 \u00b7 RX 100 & more",
+   "heroImage": "/assets/models/yamaha__fz.jpg",
+   "modelCount": 16,
+   "partsCount": 660,
+   "bikeCount": 12,
+   "scooterCount": 4,
+   "models": [
+    {
+     "id": "alba",
+     "name": "Alba",
+     "type": "bike",
+     "image": "/assets/models/yamaha__alba.jpg",
+     "partsCount": 11,
+     "topCategories": [
+      "Front Fork Leg",
+      "Rear Drum Plate",
+      "CDI"
+     ]
+    },
+    {
+     "id": "alpha",
+     "name": "Alpha",
+     "type": "scooter",
+     "image": "/assets/models/yamaha__alpha.jpg",
+     "partsCount": 20,
+     "topCategories": [
+      "Starter Motor",
+      "Brake Disc Caliper",
+      "Brake Disc Plate"
+     ]
+    },
+    {
+     "id": "crux",
+     "name": "CRUX",
+     "type": "bike",
+     "image": "/assets/models/yamaha__crux.jpg",
+     "partsCount": 67,
+     "topCategories": [
+      "Sticker Set",
+      "Front Fork Leg",
+      "Petrol Tank"
+     ]
+    },
+    {
+     "id": "enticer",
+     "name": "Enticer",
+     "type": "bike",
+     "image": "/assets/models/yamaha__enticer.jpg",
+     "partsCount": 19,
+     "topCategories": [
+      "Sticker Set",
+      "Front Fork Leg",
+      "Petrol Tank"
+     ]
+    },
+    {
+     "id": "fz",
+     "name": "FZ (FZS, FZ16, FZ25, FAZER, FZV2, FZV3, FZFI, FZ250)",
+     "type": "bike",
+     "image": "/assets/models/yamaha__fz.jpg",
+     "partsCount": 151,
+     "topCategories": [
+      "Tank Cover",
+      "Sticker Set",
+      "Speedometer"
+     ]
+    },
+    {
+     "id": "fascino",
+     "name": "Fascino",
+     "type": "scooter",
+     "image": "/assets/models/yamaha__fascino.jpg",
+     "partsCount": 22,
+     "topCategories": [
+      "Speedometer",
+      "Starter Motor",
+      "Brake Disc Caliper"
+     ]
+    },
+    {
+     "id": "gladiator",
+     "name": "Gladiator",
+     "type": "bike",
+     "image": "/assets/models/yamaha__gladiator.jpg",
+     "partsCount": 30,
+     "topCategories": [
+      "Front Fork Leg",
+      "Petrol Tank",
+      "Brake Disc Caliper"
+     ]
+    },
+    {
+     "id": "libero",
+     "name": "Libero",
+     "type": "bike",
+     "image": "/assets/models/yamaha__libero.jpg",
+     "partsCount": 41,
+     "topCategories": [
+      "Front Fork Leg",
+      "Petrol Tank",
+      "Side Panel"
+     ]
+    },
+    {
+     "id": "r15",
+     "name": "R15 (R15S, V1, V2, V3)",
+     "type": "bike",
+     "image": "/assets/models/yamaha__r15.jpg",
+     "partsCount": 89,
+     "topCategories": [
+      "Sticker Set",
+      "Brake Disc Plate",
+      "Brake Disc Caliper"
+     ]
+    },
+    {
+     "id": "rx-100",
+     "name": "RX 100",
+     "type": "bike",
+     "image": "/assets/models/yamaha__rx-100.jpg",
+     "partsCount": 64,
+     "topCategories": [
+      "Petrol Tank",
+      "Sticker Set",
+      "Side Panel"
+     ]
+    },
+    {
+     "id": "rx-135-rxg",
+     "name": "RX 135 & RXG",
+     "type": "bike",
+     "image": "/assets/models/yamaha__rx-135-rxg.jpg",
+     "partsCount": 42,
+     "topCategories": [
+      "Petrol Tank",
+      "Sticker Set",
+      "Front Fork Leg"
+     ]
+    },
+    {
+     "id": "ray",
+     "name": "Ray (Z, ZR, Cygnus Ray)",
+     "type": "scooter",
+     "image": "/assets/models/yamaha__ray.jpg",
+     "partsCount": 35,
+     "topCategories": [
+      "Speedometer",
+      "Starter Motor",
+      "CDI"
+     ]
+    },
+    {
+     "id": "sz",
+     "name": "SZ (SZ-R, SZ-X, SZ-RR)",
+     "type": "bike",
+     "image": "/assets/models/yamaha__sz.jpg",
+     "partsCount": 30,
+     "topCategories": [
+      "CDI",
+      "Petrol Tank",
+      "Cam Shaft Assembly"
+     ]
+    },
+    {
+     "id": "saluto",
+     "name": "Saluto",
+     "type": "scooter",
+     "image": "/assets/models/yamaha__saluto.jpg",
+     "partsCount": 11,
+     "topCategories": [
+      "Fork Pipe",
+      "Speedometer",
+      "Cam Shaft Assembly"
+     ]
+    },
+    {
+     "id": "ybr",
+     "name": "YBR (100, 110, 125)",
+     "type": "bike",
+     "image": "/assets/models/yamaha__ybr.jpg",
+     "partsCount": 8,
+     "topCategories": [
+      "CDI",
+      "Carburetor Repair Kit",
+      "Fork Pipe"
+     ]
+    },
+    {
+     "id": "ybx",
+     "name": "YBX",
+     "type": "bike",
+     "image": "/assets/models/yamaha__ybx.jpg",
+     "partsCount": 20,
+     "topCategories": [
+      "Front Fork Leg",
+      "Carburetor Repair Kit",
+      "Connecting Rod Kit"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "suzuki",
+   "name": "SUZUKI",
+   "logo": "/assets/brands/suzuki.svg",
+   "tagline": "Access \u00b7 Gixxer \u00b7 Hayate & more",
+   "heroImage": "/assets/models/suzuki__access.jpg",
+   "modelCount": 12,
+   "partsCount": 309,
+   "bikeCount": 9,
+   "scooterCount": 3,
+   "models": [
+    {
+     "id": "ax100-max-100",
+     "name": "AX100/ MAX 100",
+     "type": "bike",
+     "image": "/assets/models/suzuki__ax100-max-100.jpg",
+     "partsCount": 32,
+     "topCategories": [
+      "Sticker Set",
+      "Petrol Tank",
+      "Handle Bar Switch"
+     ]
+    },
+    {
+     "id": "access",
+     "name": "Access (125, New Model, Old Model)",
+     "type": "scooter",
+     "image": "/assets/models/suzuki__access.jpg",
+     "partsCount": 76,
+     "topCategories": [
+      "Sticker Set",
+      "Fork Leg Assembly",
+      "Fork Pipe"
+     ]
+    },
+    {
+     "id": "fiero-fiero-f2",
+     "name": "Fiero/ Fiero F2",
+     "type": "bike",
+     "image": "/assets/models/suzuki__fiero-fiero-f2.jpg",
+     "partsCount": 34,
+     "topCategories": [
+      "Handle Bar Switch",
+      "Sticker Set",
+      "Front Fork Leg"
+     ]
+    },
+    {
+     "id": "gs-150r",
+     "name": "GS 150R",
+     "type": "bike",
+     "image": "/assets/models/suzuki__gs-150r.jpg",
+     "partsCount": 15,
+     "topCategories": [
+      "Stator Coil Plate",
+      "Brake Disc Caliper",
+      "Cam Shaft Assembly"
+     ]
+    },
+    {
+     "id": "gixxer",
+     "name": "Gixxer (SF, SP, SF SP, SF Fi, 155, 250, Old Model)",
+     "type": "bike",
+     "image": "/assets/models/suzuki__gixxer.jpg",
+     "partsCount": 45,
+     "topCategories": [
+      "Sticker Set",
+      "Fork Leg Assembly",
+      "Chain Sprocket"
+     ]
+    },
+    {
+     "id": "hayate",
+     "name": "Hayate",
+     "type": "bike",
+     "image": "/assets/models/suzuki__hayate.jpg",
+     "partsCount": 16,
+     "topCategories": [
+      "Crank Shaft",
+      "Stator Coil Plate",
+      "CDI"
+     ]
+    },
+    {
+     "id": "intruder",
+     "name": "Intruder",
+     "type": "bike",
+     "image": "/assets/models/suzuki__intruder.jpg",
+     "partsCount": 5,
+     "topCategories": [
+      "Handle Bar Switch",
+      "Chain Sprocket",
+      "Clutch Plate"
+     ]
+    },
+    {
+     "id": "lets",
+     "name": "LETS",
+     "type": "scooter",
+     "image": "/assets/models/suzuki__lets.jpg",
+     "partsCount": 8,
+     "topCategories": [
+      "Fork Leg Assembly",
+      "Cam Shaft Assembly",
+      "Carburetor Repair Kit"
+     ]
+    },
+    {
+     "id": "samurai",
+     "name": "Samurai",
+     "type": "bike",
+     "image": "/assets/models/suzuki__samurai.jpg",
+     "partsCount": 26,
+     "topCategories": [
+      "Sticker Set",
+      "RR Unit",
+      "Handle Bar Switch"
+     ]
+    },
+    {
+     "id": "slingshot",
+     "name": "Slingshot",
+     "type": "bike",
+     "image": "/assets/models/suzuki__slingshot.jpg",
+     "partsCount": 10,
+     "topCategories": [
+      "Engine Valve Set",
+      "Fork Pipe",
+      "Front Fork Assembly"
+     ]
+    },
+    {
+     "id": "swish",
+     "name": "Swish",
+     "type": "scooter",
+     "image": "/assets/models/suzuki__swish.jpg",
+     "partsCount": 23,
+     "topCategories": [
+      "Speedometer",
+      "Fork Leg Assembly",
+      "Fork Pipe"
+     ]
+    },
+    {
+     "id": "zeus",
+     "name": "Zeus",
+     "type": "bike",
+     "image": "/assets/models/suzuki__zeus.jpg",
+     "partsCount": 19,
+     "topCategories": [
+      "Petrol Tank",
+      "Ball Racer Set",
+      "Brake Disc Caliper"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "royal-enfield",
+   "name": "ROYAL ENFIELD",
+   "logo": "/assets/brands/royal-enfield.svg",
+   "tagline": "Bullet \u00b7 Classic \u00b7 Thunderbird & more",
+   "heroImage": "/assets/models/royal-enfield__bullet-classic-350.jpg",
+   "modelCount": 10,
+   "partsCount": 196,
+   "bikeCount": 10,
+   "scooterCount": 0,
+   "models": [
+    {
+     "id": "bullet-classic-350",
+     "name": "Bullet & Classic 350",
+     "type": "bike",
+     "image": "/assets/models/royal-enfield__bullet-classic-350.jpg",
+     "partsCount": 84,
+     "topCategories": [
+      "Petrol Tank",
+      "Sticker Set",
+      "Handle Bar Switch"
+     ]
+    },
+    {
+     "id": "bullet-classic-500",
+     "name": "Bullet & Classic 500",
+     "type": "bike",
+     "image": "/assets/models/royal-enfield__bullet-classic-500.jpg",
+     "partsCount": 13,
+     "topCategories": [
+      "Handle Bar Switch",
+      "Brake Disc Caliper",
+      "Brake Disc Plate"
+     ]
+    },
+    {
+     "id": "continental-gt",
+     "name": "Continental GT",
+     "type": "bike",
+     "image": "/assets/models/royal-enfield__continental-gt.jpg",
+     "partsCount": 2,
+     "topCategories": [
+      "Brake Disc Plate",
+      "Handle Bar Switch"
+     ]
+    },
+    {
+     "id": "electra-350",
+     "name": "Electra 350",
+     "type": "bike",
+     "image": "/assets/models/royal-enfield__electra-350.jpg",
+     "partsCount": 44,
+     "topCategories": [
+      "Wiring Harness",
+      "Handle Bar Switch",
+      "Sticker Set"
+     ]
+    },
+    {
+     "id": "himalayan",
+     "name": "Himalayan",
+     "type": "bike",
+     "image": "/assets/models/royal-enfield__himalayan.jpg",
+     "partsCount": 6,
+     "topCategories": [
+      "Brake Disc Plate",
+      "Sticker Set",
+      "Carburetor"
+     ]
+    },
+    {
+     "id": "hunter-350",
+     "name": "Hunter 350",
+     "type": "bike",
+     "image": "/assets/models/royal-enfield__hunter-350.jpg",
+     "partsCount": 1,
+     "topCategories": [
+      "Front Fork Assembly"
+     ]
+    },
+    {
+     "id": "machismo-350",
+     "name": "Machismo 350",
+     "type": "bike",
+     "image": "/assets/models/royal-enfield__machismo-350.jpg",
+     "partsCount": 6,
+     "topCategories": [
+      "Handle Bar Switch",
+      "Wiring Harness"
+     ]
+    },
+    {
+     "id": "meteor-350",
+     "name": "Meteor 350",
+     "type": "bike",
+     "image": "/assets/models/royal-enfield__meteor-350.jpg",
+     "partsCount": 2,
+     "topCategories": [
+      "Brake Disc Caliper"
+     ]
+    },
+    {
+     "id": "thunderbird-350",
+     "name": "Thunderbird 350",
+     "type": "bike",
+     "image": "/assets/models/royal-enfield__thunderbird-350.jpg",
+     "partsCount": 28,
+     "topCategories": [
+      "Wiring Harness",
+      "Brake Disc Caliper",
+      "Fork Leg Assembly"
+     ]
+    },
+    {
+     "id": "thunderbird-500",
+     "name": "Thunderbird 500",
+     "type": "bike",
+     "image": "/assets/models/royal-enfield__thunderbird-500.jpg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake Disc Caliper",
+      "Fork Leg Assembly",
+      "Brake Disc Plate"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "mahindra",
+   "name": "MAHINDRA",
+   "logo": "/assets/brands/mahindra.svg",
+   "tagline": "Duro \u00b7 Rodeo \u00b7 Centuro & more",
+   "heroImage": "/assets/models/mahindra__duro-duro-dz.jpg",
+   "modelCount": 6,
+   "partsCount": 74,
+   "bikeCount": 2,
+   "scooterCount": 4,
+   "models": [
+    {
+     "id": "centuro",
+     "name": "Centuro",
+     "type": "bike",
+     "image": "/assets/models/mahindra__centuro.jpg",
+     "partsCount": 7,
+     "topCategories": [
+      "Stator Coil Plate",
+      "Ball Racer Set",
+      "Cam Shaft Assembly"
+     ]
+    },
+    {
+     "id": "duro-duro-dz",
+     "name": "Duro & Duro DZ",
+     "type": "scooter",
+     "image": "/assets/models/mahindra__duro-duro-dz.jpg",
+     "partsCount": 27,
+     "topCategories": [
+      "Brake Drum",
+      "Fork Leg Assembly",
+      "Speedometer"
+     ]
+    },
+    {
+     "id": "flyte",
+     "name": "Flyte",
+     "type": "scooter",
+     "image": "/assets/models/mahindra__flyte.jpg",
+     "partsCount": 12,
+     "topCategories": [
+      "Starter Motor",
+      "Connecting Rod Kit",
+      "Engine Belt"
+     ]
+    },
+    {
+     "id": "gusto",
+     "name": "Gusto",
+     "type": "scooter",
+     "image": "/assets/models/mahindra__gusto.jpg",
+     "partsCount": 7,
+     "topCategories": [
+      "Cam Shaft Assembly",
+      "Crank Shaft",
+      "Engine Valve Set"
+     ]
+    },
+    {
+     "id": "pantero",
+     "name": "Pantero",
+     "type": "bike",
+     "image": "/assets/models/mahindra__pantero.jpg",
+     "partsCount": 2,
+     "topCategories": [
+      "Fork Pipe",
+      "Stator Coil Plate"
+     ]
+    },
+    {
+     "id": "rodeo",
+     "name": "Rodeo",
+     "type": "scooter",
+     "image": "/assets/models/mahindra__rodeo.jpg",
+     "partsCount": 19,
+     "topCategories": [
+      "Brake Drum",
+      "Wheel Rim",
+      "Ball Racer Set"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ola",
+   "name": "OLA",
+   "logo": "/assets/brands/ola.svg",
+   "tagline": "S1 Pro \u00b7 S1 Air \u00b7 Roadster & more",
+   "heroImage": "/assets/brands/ola.svg",
+   "modelCount": 5,
+   "partsCount": 50,
+   "bikeCount": 1,
+   "scooterCount": 4,
+   "models": [
+    {
+     "id": "roadster-pro",
+     "name": "Roadster Pro (Electric)",
+     "type": "bike",
+     "image": "/assets/brands/ola.svg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake",
+      "Clutch",
+      "Engine"
+     ]
+    },
+    {
+     "id": "s1-air",
+     "name": "S1 Air",
+     "type": "scooter",
+     "image": "/assets/brands/ola.svg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake",
+      "Clutch",
+      "Engine"
+     ]
+    },
+    {
+     "id": "s1-pro-gen-2",
+     "name": "S1 Pro Gen 2",
+     "type": "scooter",
+     "image": "/assets/brands/ola.svg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake",
+      "Clutch",
+      "Engine"
+     ]
+    },
+    {
+     "id": "s1-x",
+     "name": "S1 X (3kWh)",
+     "type": "scooter",
+     "image": "/assets/brands/ola.svg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake",
+      "Clutch",
+      "Engine"
+     ]
+    },
+    {
+     "id": "s1-x-plus",
+     "name": "S1 X Plus",
+     "type": "scooter",
+     "image": "/assets/brands/ola.svg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake",
+      "Clutch",
+      "Engine"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ather",
+   "name": "ATHER",
+   "logo": "/assets/brands/ather.svg",
+   "tagline": "450X \u00b7 450S \u00b7 Rizta & more",
+   "heroImage": "/assets/brands/ather.svg",
+   "modelCount": 4,
+   "partsCount": 40,
+   "bikeCount": 0,
+   "scooterCount": 4,
+   "models": [
+    {
+     "id": "450-apex",
+     "name": "450 Apex",
+     "type": "scooter",
+     "image": "/assets/brands/ather.svg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake",
+      "Clutch",
+      "Engine"
+     ]
+    },
+    {
+     "id": "450s",
+     "name": "450S",
+     "type": "scooter",
+     "image": "/assets/brands/ather.svg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake",
+      "Clutch",
+      "Engine"
+     ]
+    },
+    {
+     "id": "450x-gen-3",
+     "name": "450X Gen 3",
+     "type": "scooter",
+     "image": "/assets/brands/ather.svg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake",
+      "Clutch",
+      "Engine"
+     ]
+    },
+    {
+     "id": "rizta-family-scooter",
+     "name": "Rizta Family Scooter",
+     "type": "scooter",
+     "image": "/assets/brands/ather.svg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake",
+      "Clutch",
+      "Engine"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "iqube",
+   "name": "IQUBE (TVS)",
+   "logo": "/assets/brands/iqube.svg",
+   "tagline": "iQube \u00b7 iQube S \u00b7 iQube ST",
+   "heroImage": "/assets/brands/iqube.svg",
+   "modelCount": 3,
+   "partsCount": 30,
+   "bikeCount": 0,
+   "scooterCount": 3,
+   "models": [
+    {
+     "id": "tvs-iqube",
+     "name": "TVS iQube (2.2 kWh)",
+     "type": "scooter",
+     "image": "/assets/brands/iqube.svg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake",
+      "Clutch",
+      "Engine"
+     ]
+    },
+    {
+     "id": "tvs-iqube-s",
+     "name": "TVS iQube S (3.4 kWh)",
+     "type": "scooter",
+     "image": "/assets/brands/iqube.svg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake",
+      "Clutch",
+      "Engine"
+     ]
+    },
+    {
+     "id": "tvs-iqube-st",
+     "name": "TVS iQube ST (5.1 kWh)",
+     "type": "scooter",
+     "image": "/assets/brands/iqube.svg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake",
+      "Clutch",
+      "Engine"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "vida",
+   "name": "VIDA",
+   "logo": "/assets/brands/vida.svg",
+   "tagline": "V1 Pro \u00b7 V1 Plus",
+   "heroImage": "/assets/brands/vida.svg",
+   "modelCount": 2,
+   "partsCount": 20,
+   "bikeCount": 0,
+   "scooterCount": 2,
+   "models": [
+    {
+     "id": "vida-v1-plus",
+     "name": "Vida V1 Plus",
+     "type": "scooter",
+     "image": "/assets/brands/vida.svg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake",
+      "Clutch",
+      "Engine"
+     ]
+    },
+    {
+     "id": "vida-v1-pro",
+     "name": "Vida V1 Pro",
+     "type": "scooter",
+     "image": "/assets/brands/vida.svg",
+     "partsCount": 10,
+     "topCategories": [
+      "Brake",
+      "Clutch",
+      "Engine"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "kawasaki",
+   "name": "KAWASAKI",
+   "logo": null,
+   "tagline": "Ninja spares",
+   "heroImage": "/assets/models/kawasaki__kawasaki.jpg",
+   "modelCount": 1,
+   "partsCount": 4,
+   "bikeCount": 1,
+   "scooterCount": 0,
+   "models": [
+    {
+     "id": "kawasaki",
+     "name": "Kawasaki",
+     "type": "bike",
+     "image": "/assets/models/kawasaki__kawasaki.jpg",
+     "partsCount": 4,
+     "topCategories": [
+      "Petrol Tank",
+      "Shock Absorber",
+      "Speedometer"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ktm",
+   "name": "KTM",
+   "logo": null,
+   "tagline": "Duke & RC spares",
+   "heroImage": "/assets/models/ktm__spare-parts.jpg",
+   "modelCount": 1,
+   "partsCount": 1,
+   "bikeCount": 1,
+   "scooterCount": 0,
+   "models": [
+    {
+     "id": "spare-parts",
+     "name": "KTM Spare Parts",
+     "type": "bike",
+     "image": "/assets/models/ktm__spare-parts.jpg",
+     "partsCount": 1,
+     "topCategories": [
+      "Clutch Plate"
+     ]
+    }
+   ]
+  }
+ ]
+}
