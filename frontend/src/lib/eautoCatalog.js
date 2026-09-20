@@ -91,41 +91,51 @@ export async function getRelatedParts(part, limit = 6) {
  */
 export function partToProduct(part) {
   if (!part) return null;
-  const fitment = part.tags
+  const fitment = (part.tags || [])
     .filter((t) => t.startsWith('VehicleModel_'))
     .map((t) => t.replace('VehicleModel_', ''));
+
+  const off =
+    part.discountPercent ??
+    (part.mrp && part.mrp > part.price ? Math.round(((part.mrp - part.price) / part.mrp) * 100) : 0);
+
+  const images = part.images && part.images.length > 0 ? part.images : part.image ? [part.image] : [];
 
   return {
     id: part.id,
     name: part.name,
     brand: part.brand,
     category: part.category,
-    partType: part.partType,
-    vehicleType: part.vehicleType,
-    oemPartNumber: part.sku,
-    price: part.price,
-    mrp: part.mrp,
-    badge: part.badge,
-    image: part.image,
-    images: part.images,
-    fit: part.fit,
-    prime: part.available,
-    available: part.available,
+    partType: part.partType || part.category,
+    vehicleType: part.vehicleType || '',
+    sku: part.sku || part.oemPartNumber || '',
+    oemPartNumber: part.sku || part.oemPartNumber || '',
+    price: Number(part.price) || 0,
+    mrp: Number(part.mrp) || Number(part.price) || 0,
+    discountPercent: off,
+    badge: part.badge || (off ? `${off}% off` : ''),
+    image: part.image || images[0] || null,
+    images,
+    fit: part.fit || '',
+    prime: part.available ?? true,
+    available: part.available ?? true,
     fitmentModels: fitment.length ? fitment : [`${part.brand} ${part.modelName}`],
     about: part.description
       ? part.description.split(/(?<=\.)\s+/).filter(Boolean).slice(0, 4)
       : [`Genuine replacement ${part.category} for the ${part.brand} ${part.modelName}.`],
     specs: {
       Brand: part.vendor || part.brand,
-      'Part Number': part.sku || '—',
+      'Part Number': part.sku || part.oemPartNumber || '—',
       'Part Type': part.category,
       'Vehicle Brand': part.brand,
       'Vehicle Model': part.modelName,
-      Availability: part.available ? 'In stock' : 'Out of stock'
+      Availability: part.available !== false ? 'In stock' : 'Out of stock'
     },
     brandId: part.brandId,
     modelId: part.modelId,
-    modelName: part.modelName
+    modelName: part.modelName,
+    sourceUrl: part.sourceUrl || null,
+    officialSourceUrl: part.sourceUrl || null
   };
 }
 

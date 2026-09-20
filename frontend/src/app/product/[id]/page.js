@@ -23,12 +23,14 @@ async function resolveProduct(id) {
   if (!legacy) return { product: null, related: null };
 
   // Give curated products a breadcrumb into their brand page when one exists.
-  const brand = usingDatabase ? null : getJsonBrand(legacy.brand);
+  const brand = getJsonBrand(legacy.brand);
   return { product: brand ? { ...legacy, brandId: brand.id } : legacy, related: null };
 }
 
 export async function generateMetadata({ params }) {
-  const { product } = await resolveProduct(decodeURIComponent(params.id));
+  const resolvedParams = await Promise.resolve(params);
+  const id = decodeURIComponent(resolvedParams?.id || '');
+  const { product } = await resolveProduct(id);
   if (!product) return { title: 'Product Not Found | MotoMart' };
   return {
     title: `${product.name} | MotoMart India`,
@@ -37,7 +39,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ProductPage({ params }) {
-  const id = decodeURIComponent(params.id);
+  const resolvedParams = await Promise.resolve(params);
+  const id = decodeURIComponent(resolvedParams?.id || '');
   const [{ product, related }, allProducts] = await Promise.all([
     resolveProduct(id),
     fetchProducts()
@@ -48,11 +51,12 @@ export default async function ProductPage({ params }) {
   }
 
   const relatedProducts =
-    related ||
-    allProducts
-      .filter((x) => x.category === product.category && x.id !== product.id)
-      .concat(allProducts.filter((x) => x.id !== product.id))
-      .slice(0, 6);
+    (related && related.length > 0)
+      ? related
+      : (allProducts || [])
+          .filter((x) => x.category === product.category && x.id !== product.id)
+          .concat((allProducts || []).filter((x) => x.id !== product.id))
+          .slice(0, 6);
 
   return (
     <div>

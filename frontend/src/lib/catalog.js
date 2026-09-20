@@ -179,7 +179,11 @@ export async function getProductById(id) {
     .eq('id', id)
     .maybeSingle();
 
-  if (error || !data) return null;
+  if (error || !data) {
+    if (error) console.warn('catalog.getProductById fell back to JSON:', error.message);
+    const part = await jsonCatalog.getPartById(id);
+    return part ? jsonCatalog.partToProduct(part) : null;
+  }
 
   const { data: fits } = await supabase
     .from('product_models')
@@ -210,22 +214,28 @@ export async function getProductById(id) {
 export async function getRelatedProducts(product, limit = 6) {
   if (!product) return [];
 
-  if (!usingDatabase) {
-    const part = await jsonCatalog.getPartById(product.id);
+  if (usingDatabase && product.categoryId) {
+    const supabase = createClient();
+    const { data } = await supabase
+      .from('products')
+      .select(PRODUCT_COLUMNS)
+      .eq('category_id', product.categoryId)
+      .eq('is_active', true)
+      .neq('id', product.id)
+      .limit(limit);
+
+    if (data && data.length > 0) {
+      return data.map(mapProduct);
+    }
+  }
+
+  const part = await jsonCatalog.getPartById(product.id);
+  if (part) {
     const related = await jsonCatalog.getRelatedParts(part, limit);
     return related.map(jsonCatalog.partToProduct);
   }
 
-  const supabase = createClient();
-  const { data } = await supabase
-    .from('products')
-    .select(PRODUCT_COLUMNS)
-    .eq('category_id', product.categoryId)
-    .eq('is_active', true)
-    .neq('id', product.id)
-    .limit(limit);
-
-  return (data || []).map(mapProduct);
+  return [];
 }
 
 export async function searchProducts({ q = '', brand = '', category = '', limit = 60 } = {}) {
@@ -243,16 +253,20 @@ export async function searchProducts({ q = '', brand = '', category = '', limit 
 }
 
 export async function getCategories() {
-  if (!usingDatabase) return jsonCatalog.getPartCategories();
+  if (usingDatabase) {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('categories')
+      .select('id, name, description, image, sort_order')
+      .eq('is_active', true)
+      .order('sort_order');
 
-  const supabase = createClient();
-  const { data } = await supabase
-    .from('categories')
-    .select('id, name, description, image, sort_order')
-    .eq('is_active', true)
-    .order('sort_order');
+    if (!error && data && data.length > 0) {
+      return data.map((c) => ({ ...c, count: 0 }));
+    }
+  }
 
-  return (data || []).map((c) => ({ ...c, count: 0 }));
+  return jsonCatalog.getPartCategories();
 }
 
 export async function getStoreSettings() {

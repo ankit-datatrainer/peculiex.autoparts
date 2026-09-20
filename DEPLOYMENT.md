@@ -121,13 +121,20 @@ npm run build && npm start
 
 ---
 
-## Deploying to a VPS
+## Deploying to a VPS (`autoparts.peculiex.com`)
+
+### Initial Setup on Server
+
+```bash
+cd /var/www && rm -rf autoparts.peculiex.com && git clone https://github.com/ankit-datatrainer/peculiex.autoparts.git autoparts.peculiex.com
+cd /var/www/autoparts.peculiex.com
+```
 
 ### Option A — Docker (recommended)
 
 ```bash
-# on the server, from the repo root
-cp frontend/.env.example frontend/.env.local   # then edit it
+# on the server, from the repo root (/var/www/autoparts.peculiex.com)
+cp frontend/.env.example frontend/.env.local   # then edit it with Supabase credentials
 export $(grep -E '^NEXT_PUBLIC_' frontend/.env.local | xargs)
 docker compose up -d --build
 ```
@@ -135,26 +142,31 @@ docker compose up -d --build
 `NEXT_PUBLIC_*` values are compiled into the browser bundle, so they are passed as
 build args as well as runtime env — that is what the `export` line above is for.
 
-Then point `deploy/nginx.conf` at your domain (replace `motomart.example.com`) and
-issue a certificate:
+Then issue a certificate for `autoparts.peculiex.com`:
 
 ```bash
 docker run --rm -v ./deploy/certbot/conf:/etc/letsencrypt \
   -v ./deploy/certbot/www:/var/www/certbot certbot/certbot \
-  certonly --webroot -w /var/www/certbot -d motomart.example.com
+  certonly --webroot -w /var/www/certbot -d autoparts.peculiex.com -d www.autoparts.peculiex.com
 docker compose restart nginx
 ```
 
 ### Option B — PM2, no Docker
 
 ```bash
-cd frontend && npm ci && npm run build
-cd .. && pm2 start deploy/ecosystem.config.js && pm2 save && pm2 startup
+cd /var/www/autoparts.peculiex.com/frontend
+cp .env.example .env.local # ensure NEXT_PUBLIC_SUPABASE_URL & ANON_KEY are set
+npm ci && npm run build
+cd /var/www/autoparts.peculiex.com && pm2 start deploy/ecosystem.config.js && pm2 save && pm2 startup
 ```
 
 Install nginx on the host, copy `deploy/nginx.conf` to
-`/etc/nginx/conf.d/motomart.conf`, change `server web:3000` to `server 127.0.0.1:3000`,
-then `nginx -t && systemctl reload nginx`. Use certbot for TLS.
+`/etc/nginx/conf.d/autoparts.peculiex.com.conf`, change `server web:3000` to `server 127.0.0.1:3000`,
+then `nginx -t && systemctl reload nginx`. Use certbot for TLS:
+
+```bash
+certbot --nginx -d autoparts.peculiex.com -d www.autoparts.peculiex.com
+```
 
 ### Health check
 
