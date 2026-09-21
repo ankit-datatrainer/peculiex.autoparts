@@ -8,7 +8,16 @@ const nextConfig = {
   // pdfkit ships binary font metrics that must not go through webpack; keep it
   // as a plain runtime require from node_modules.
   experimental: {
-    serverComponentsExternalPackages: ['pdfkit']
+    serverComponentsExternalPackages: ['pdfkit'],
+
+    // The invoice reads its TTFs from the filesystem at request time, so they
+    // have to survive the standalone build as well as a plain `next start`.
+    // Next only traces files it can see being imported; these are opened by
+    // path, so they are listed explicitly or the Docker image ships without
+    // them and every PDF fails with ENOENT.
+    outputFileTracingIncludes: {
+      '/account/orders/[id]/invoice': ['./src/lib/fonts/**']
+    }
   },
 
   images: {
