@@ -1,40 +1,34 @@
+'use client';
+
 import React from 'react';
+import { useLanguage } from '../../context/LanguageContext';
+import { ORDER_FLOW } from '../../lib/orderStatus';
 
-export const ORDER_FLOW = [
-  { id: 'pending', label: 'Order placed', hint: 'We have received your order' },
-  { id: 'confirmed', label: 'Confirmed', hint: 'Payment method and stock verified' },
-  { id: 'packed', label: 'Packed', hint: 'Your parts are boxed and labelled' },
-  { id: 'shipped', label: 'Shipped', hint: 'Handed to the courier' },
-  { id: 'out_for_delivery', label: 'Out for delivery', hint: 'Arriving today' },
-  { id: 'delivered', label: 'Delivered', hint: 'Enjoy the ride' }
-];
+const LOCALE = { en: 'en-IN', hi: 'hi-IN', mr: 'mr-IN', gu: 'gu-IN' };
 
-export const STATUS_LABEL = {
-  pending: 'Order placed',
-  confirmed: 'Confirmed',
-  packed: 'Packed',
-  shipped: 'Shipped',
-  out_for_delivery: 'Out for delivery',
-  delivered: 'Delivered',
-  cancelled: 'Cancelled'
-};
-
-const fmt = (ts) =>
-  new Date(ts).toLocaleString('en-IN', {
+const fmt = (ts, lang) =>
+  new Date(ts).toLocaleString(LOCALE[lang] || LOCALE.en, {
     day: 'numeric',
     month: 'short',
     hour: 'numeric',
     minute: '2-digit'
   });
 
+/**
+ * A client component even though both callers are server pages: the tracking
+ * timeline is the one piece of an order that a shopper re-reads, so it follows
+ * the language without a round trip.
+ */
 export default function OrderTimeline({ status, events = [] }) {
+  const { t, language } = useLanguage();
+
   if (status === 'cancelled') {
     const cancelledAt = events.find((e) => e.status === 'cancelled');
     return (
       <div className="track-cancelled">
-        <strong>This order was cancelled</strong>
-        {cancelledAt && <small>{fmt(cancelledAt.created_at)}</small>}
-        {cancelledAt?.note && <p>{cancelledAt.note}</p>}
+        <strong>{t('This order was cancelled')}</strong>
+        {cancelledAt && <small>{fmt(cancelledAt.created_at, language)}</small>}
+        {cancelledAt?.note && <p>{t(cancelledAt.note)}</p>}
       </div>
     );
   }
@@ -53,8 +47,8 @@ export default function OrderTimeline({ status, events = [] }) {
           <li key={step.id} className={`${done ? 'done' : ''} ${active ? 'active' : ''}`}>
             <span className="track-dot" aria-hidden="true" />
             <div>
-              <strong>{step.label}</strong>
-              <small>{reachedAt[step.id] ? fmt(reachedAt[step.id]) : step.hint}</small>
+              <strong>{t(step.label)}</strong>
+              <small>{reachedAt[step.id] ? fmt(reachedAt[step.id], language) : t(step.hint)}</small>
             </div>
           </li>
         );

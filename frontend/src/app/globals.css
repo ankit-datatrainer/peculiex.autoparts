@@ -4,15 +4,15 @@
   --font-karla: 'Karla', sans-serif;
   --font-work-sans: 'Work Sans', sans-serif;
   --navy:#081d35;--navy-2:#102a47;--ink:#15202b;--muted:#667383;--orange:#ff7a18;--orange-2:#ff9d2e;--cream:#f5f7f9;--line:#dfe4ea;--green:#087b47;--red:#c93245;--white:#fff;--shadow:0 10px 30px rgba(8,29,53,.12);
-  font-family: 'Karla', 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Karla', 'Work Sans', 'Noto Sans Devanagari', 'Noto Sans Gujarati', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color:var(--ink);
   font-synthesis:none;
 }
 *, *::before, *::after{box-sizing:border-box;font-family:inherit}
-html{scroll-behavior:smooth;scroll-padding-top:148px;font-family:'Karla', 'Work Sans', sans-serif}
-body{margin:0;background:#fff;font-size:16px;line-height:1.4;font-family:'Karla', 'Work Sans', sans-serif}
-button,input,select,textarea{font-family:'Karla', 'Work Sans', sans-serif;font-size:inherit}
-h1,h2,h3,h4,h5,h6,.brand-name,.section-title h2,.eyebrow,strong,.card-brand,.discount-badge{font-family:'Work Sans','Karla',sans-serif}
+html{scroll-behavior:smooth;scroll-padding-top:148px;font-family:'Karla', 'Work Sans', 'Noto Sans Devanagari', 'Noto Sans Gujarati', sans-serif}
+body{margin:0;background:#fff;font-size:16px;line-height:1.4;font-family:'Karla', 'Work Sans', 'Noto Sans Devanagari', 'Noto Sans Gujarati', sans-serif}
+button,input,select,textarea{font-family:'Karla', 'Work Sans', 'Noto Sans Devanagari', 'Noto Sans Gujarati', sans-serif;font-size:inherit}
+h1,h2,h3,h4,h5,h6,.brand-name,.section-title h2,.eyebrow,strong,.card-brand,.discount-badge{font-family:'Work Sans','Karla','Noto Sans Devanagari','Noto Sans Gujarati',sans-serif}
 button,a,select{touch-action:manipulation}button{cursor:pointer}a{color:inherit;text-decoration:none}img{display:block;max-width:100%}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.skip-link{position:fixed;left:1rem;top:-4rem;z-index:2000;background:#fff;padding:.75rem 1rem;border-radius:.5rem}.skip-link:focus{top:1rem}.page-shell{max-width:1500px;margin-inline:auto;padding-inline:clamp(1rem,3vw,3rem)}
 .announcement{height:34px;background:linear-gradient(90deg,#ff6f0f,#ff9f1c);display:flex;align-items:center;justify-content:center;gap:.5rem;color:#111;font-weight:700;font-size:.875rem;padding:.25rem 1rem}.announcement span{font-size:1rem}.announcement button{border:0;background:transparent;text-decoration:underline;font-weight:800;padding:.1rem .35rem}.site-header{position:sticky;top:0;z-index:100;background:var(--navy);color:#fff;box-shadow:0 2px 7px rgba(0,0,0,.22)}.topbar{height:66px;display:grid;grid-template-columns:auto auto minmax(150px,1fr) auto auto auto auto;align-items:center;gap:.75rem;padding:.55rem 1.2rem}.brand{display:flex;align-items:center;gap:.45rem;min-width:max-content}.brand-mark{width:38px;height:38px;border-radius:50% 50% 45% 55%;display:grid;place-items:center;background:var(--orange);color:var(--navy);font-size:1.4rem;font-weight:900;font-style:italic;transform:rotate(-7deg)}.brand-name{font-size:1.3rem;font-weight:800;letter-spacing:-.05em}.brand-name>span{color:var(--orange)}.brand-name small{font-size:.65rem;letter-spacing:0}.deliver-to,.account-button,.orders-button,.cart-button,.icon-button{border:1px solid transparent;color:#fff;background:transparent;border-radius:4px;min-height:45px}.deliver-to:hover,.account-button:hover,.orders-button:hover,.cart-button:hover,.icon-button:hover{border-color:#fff}.deliver-to{display:flex;align-items:center;gap:.35rem;text-align:left;padding:.2rem .45rem}.deliver-to small,.account-button small,.orders-button small{display:block;font-size:.7rem;color:#d9e2ec}.deliver-to strong,.account-button strong,.orders-button strong{display:block;font-size:.82rem;white-space:nowrap}.pin{font-size:1.25rem}.search{height:44px;display:grid;grid-template-columns:auto 1fr 50px;position:relative;border-radius:8px;background:#fff;outline:3px solid transparent;transition:.2s}.search:focus-within{outline-color:rgba(255,122,24,.6)}.search select{width:94px;border:0;border-radius:7px 0 0 7px;background:#e8edf2;padding:.3rem .5rem;font-size:.79rem;color:#344152}.search input{min-width:0;border:0;padding:.7rem;font-size:.95rem;outline:none}.search>button{border:0;border-radius:0 7px 7px 0;background:var(--orange);font-size:1.85rem;color:var(--navy);line-height:1}.search-suggestions{display:none;position:absolute;top:48px;left:94px;right:0;background:#fff;color:var(--ink);border-radius:0 0 8px 8px;box-shadow:var(--shadow);overflow:hidden;z-index:120}.search-suggestions.open{display:block}.suggestion{display:flex;align-items:center;gap:.6rem;width:100%;border:0;background:#fff;text-align:left;padding:.7rem .9rem;font-size:.9rem}.suggestion:hover,.suggestion:focus{background:#f2f5f8}.language-control{display:flex;align-items:center;gap:.2rem;border:1px solid transparent;padding:.5rem .3rem;border-radius:4px}.language-control:hover{border-color:#fff}.language-control select{max-width:62px;background:transparent;color:#fff;border:0;font-weight:700}.language-control option{color:#111}.account-button,.orders-button{padding:.2rem .4rem;text-align:left}.cart-button{position:relative;display:flex;align-items:flex-end;gap:.25rem;padding:.2rem .4rem .45rem}.cart-icon{font-size:1.45rem}.cart-count{position:absolute;top:0;left:22px;display:grid;place-items:center;min-width:20px;height:20px;border-radius:20px;background:var(--orange);color:#111;font-size:.72rem;font-weight:800}.cart-button strong{font-size:.82rem}.menu-button{display:none;font-size:1.3rem}.nav-strip,.vehicle-strip{display:flex;align-items:center;gap:.1rem;overflow:auto;scrollbar-width:none;white-space:nowrap}.nav-strip::-webkit-scrollbar,.vehicle-strip::-webkit-scrollbar{display:none}.nav-strip{height:40px;padding:0 1rem;background:var(--navy-2);font-size:.86rem}.nav-strip a,.nav-strip button{height:34px;display:flex;align-items:center;padding:0 .65rem;color:#fff;border:1px solid transparent;background:transparent;font-weight:600}.nav-strip a:hover,.nav-strip button:hover{border-color:#fff}.vehicle-strip{height:42px;padding:0 1.5rem;background:#fff;color:#27374a;border-bottom:1px solid #e2e5e8;font-size:.8rem}.vehicle-strip strong{color:var(--navy);font-size:.93rem;margin-right:1rem}.vehicle-strip a{padding:.65rem .8rem}.vehicle-strip a:hover{color:var(--orange)}
 .hero{height:clamp(390px,39vw,590px);position:relative;background:var(--navy);overflow:hidden}.hero-slides,.hero-slide{height:100%}.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity .55s ease;background:linear-gradient(90deg,rgba(3,15,28,.95) 0%,rgba(3,15,28,.7) 34%,rgba(3,15,28,.08) 66%,rgba(3,15,28,.12) 100%),var(--hero-image) center/cover no-repeat}.hero-slide.active{opacity:1;z-index:1}.hero-content{width:min(600px,50vw);margin-left:max(5vw,calc((100vw - 1500px)/2 + 3rem));padding-top:clamp(4rem,8vw,8rem);color:#fff}.eyebrow{font-size:.75rem;letter-spacing:.18em;font-weight:800;color:#ffb56e}.eyebrow.dark{color:#c45100}.hero h1,.hero h2{font-size:clamp(2.4rem,5.5vw,5.2rem);line-height:.96;letter-spacing:-.055em;margin:.75rem 0 1rem;max-width:700px}.hero p{font-size:clamp(1rem,1.4vw,1.2rem);max-width:480px;color:#e4ebf1;margin:0 0 1.6rem}.primary-cta,.outline-cta{border:0;border-radius:6px;padding:.85rem 1.25rem;font-weight:800}.primary-cta{background:var(--orange);color:#111}.primary-cta:hover{background:var(--orange-2)}.hero-arrow{position:absolute;z-index:3;top:43%;width:48px;height:64px;border:1px solid rgba(255,255,255,.45);background:rgba(8,29,53,.28);color:#fff;font-size:2.2rem}.hero-arrow:hover{background:rgba(8,29,53,.8)}.hero-arrow.prev{left:1rem}.hero-arrow.next{right:1rem}.hero-dots{position:absolute;z-index:4;left:50%;bottom:2rem;transform:translateX(-50%);display:flex;gap:.45rem}.hero-dots button{width:9px;height:9px;border-radius:50%;padding:0;border:1px solid #fff;background:transparent}.hero-dots button.active{width:28px;border-radius:5px;background:var(--orange);border-color:var(--orange)}
@@ -550,4 +550,71 @@ footer,.footer-main,.footer-brand,.footer-bottom{background:#111111;color:#fff}
   .order-items li{grid-template-columns:44px minmax(0,1fr) auto;gap:.6rem}
   .order-items img{width:44px;height:44px}
   .order-detail-head h2{font-size:1.15rem}
+}
+
+/* ==========================================================================
+   RECOMMENDATION RAILS
+   Used on the product page, the cart page, the cart drawer and checkout.
+   ========================================================================== */
+.rec-rail{margin-top:1.4rem}
+.rec-title{margin:0 0 .7rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#6b7280;font-weight:800}
+.rec-card{display:flex;background:#fff;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden}
+.rec-media{display:block;flex:none;background:#fff}
+.rec-media img{display:block;width:100%;height:100%;object-fit:contain}
+.rec-body{display:flex;flex-direction:column;gap:.25rem;padding:.55rem .65rem;min-width:0;flex:1}
+.rec-name{font-size:.8rem;line-height:1.3;color:#111827;text-decoration:none;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.rec-name:hover{text-decoration:underline}
+.rec-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:.35rem}
+.rec-price strong{font-size:.92rem;color:#111827}
+.rec-price s{font-size:.74rem;color:#9ca3af}
+.rec-price em{font-style:normal;font-size:.68rem;font-weight:800;color:#15803d;background:#dcfce7;border-radius:4px;padding:0 5px}
+.rec-add{margin-top:auto;align-self:flex-start;height:28px;padding:0 .85rem;border:1px solid #111;border-radius:999px;background:#111;color:#fff;font-size:.75rem;font-weight:700;cursor:pointer}
+.rec-add:hover:not(:disabled){background:#2a2a2a}
+.rec-add:disabled{background:#fff;color:#9ca3af;border-color:#d4d4d8;cursor:not-allowed}
+
+/* grid variant — full width sections (product page, cart page) */
+.rec-grid .rec-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.rec-grid .rec-card{flex-direction:column}
+.rec-grid .rec-media{height:140px;padding:10px}
+.rec-grid .rec-name{min-height:2.1em}
+
+/* column variant — narrow sidebars (cart drawer, checkout summary) */
+.rec-column{padding-top:1rem;border-top:1px solid #e5e7eb}
+.rec-column .rec-items{display:flex;flex-direction:column;gap:8px}
+.rec-column .rec-card{flex-direction:row;align-items:stretch}
+.rec-column .rec-media{width:64px;height:64px;padding:6px;border-right:1px solid #f1f1f1}
+.rec-column .rec-name{font-size:.76rem;-webkit-line-clamp:2}
+.rec-column .rec-price strong{font-size:.84rem}
+.rec-compact .rec-body{padding:.45rem .55rem;gap:.15rem}
+.rec-compact .rec-add{height:25px;font-size:.7rem;padding:0 .7rem}
+
+/* inside the dark cart drawer the rail needs its own surface */
+.cart-drawer .rec-rail{margin:1.1rem .2rem 0}
+.cart-drawer .rec-title{color:#6b7280}
+
+@media(max-width:620px){
+  .rec-grid .rec-items{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .rec-grid .rec-media{height:110px}
+  .rec-name{font-size:.75rem}
+}
+
+/* ---------- invoice buttons ---------- */
+.order-head-actions{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.invoice-btn{display:inline-flex;align-items:center;gap:.35rem;height:32px;padding:0 .9rem;border:1px solid #111;border-radius:999px;background:#fff;color:#111;font-size:.79rem;font-weight:700;text-decoration:none;white-space:nowrap}
+.invoice-btn:hover{background:#111;color:#fff}
+.order-list li{position:relative}
+.invoice-link{position:absolute;right:.2rem;bottom:.5rem;font-size:.72rem;font-weight:700;color:#6b7280;text-decoration:none}
+.invoice-link:hover{color:#111;text-decoration:underline}
+@media(max-width:620px){.invoice-link{position:static;display:inline-block;margin:0 0 .5rem .2rem}}
+
+/* Product detail on phones.
+   The layout already collapses to one column under 860px, but a grid item's
+   automatic minimum size is its min-content width, and the related-products
+   rail inside it is far wider than the screen. That pushed the single column
+   out to ~2040px and gave the whole page a horizontal scrollbar. Letting the
+   items shrink below their content is what keeps the column at screen width. */
+@media (max-width: 860px) {
+  .detail-layout > * { min-width: 0; }
+  .detail-gallery > * { min-width: 0; }
+  .related-detail .product-row { overflow-x: auto; }
 }

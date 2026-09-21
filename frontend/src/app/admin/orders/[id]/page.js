@@ -2,13 +2,16 @@ import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import StatusForm from '../StatusForm';
-import OrderTimeline, { STATUS_LABEL } from '../../../../components/account/OrderTimeline';
+import OrderTimeline from '../../../../components/account/OrderTimeline';
+import { STATUS_LABEL } from '../../../../lib/orderStatus';
 import { createClient, isSupabaseConfigured } from '../../../../lib/supabase/server';
 import { formatCurrency } from '../../../../lib/translations';
+import { getT } from '../../../../lib/i18n-server';
 
 export const revalidate = 0;
 
 export default async function AdminOrderDetail({ params }) {
+  const { t } = getT();
   if (!isSupabaseConfigured) notFound();
 
   const supabase = createClient();
@@ -48,12 +51,22 @@ export default async function AdminOrderDetail({ params }) {
             })}
           </p>
         </div>
-        <span className={`order-status s-${order.status}`}>{STATUS_LABEL[order.status]}</span>
+        <div className="order-head-actions">
+          <span className={`order-status s-${order.status}`}>{STATUS_LABEL[order.status]}</span>
+          <a
+            className="admin-ghost-btn"
+            href={`/account/orders/${order.id}/invoice`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            ⤓ Invoice (PDF)
+          </a>
+        </div>
       </div>
 
       <div className="admin-two-col wide-left">
         <section className="admin-card">
-          <h2>Items</h2>
+          <h2>{t('Items')}</h2>
           <ul className="order-items">
             {(items || []).map((item) => (
               <li key={item.id}>
@@ -77,31 +90,31 @@ export default async function AdminOrderDetail({ params }) {
 
           <dl className="checkout-totals">
             <div>
-              <dt>Subtotal</dt>
+              <dt>{t('Subtotal')}</dt>
               <dd>{formatCurrency(order.subtotal)}</dd>
             </div>
             <div>
-              <dt>Delivery</dt>
+              <dt>{t('Delivery')}</dt>
               <dd>{Number(order.shipping) === 0 ? 'FREE' : formatCurrency(order.shipping)}</dd>
             </div>
             <div className="grand">
-              <dt>Total</dt>
+              <dt>{t('Total')}</dt>
               <dd>{formatCurrency(order.total)}</dd>
             </div>
           </dl>
 
-          <h2 className="admin-subhead">Tracking history</h2>
+          <h2 className="admin-subhead">{t('Tracking history')}</h2>
           <OrderTimeline status={order.status} events={events || []} />
         </section>
 
         <div className="admin-side-stack">
           <section className="admin-card">
-            <h2>Update status</h2>
+            <h2>{t('Update status')}</h2>
             <StatusForm orderId={order.id} status={order.status} adminNote={order.admin_note} />
           </section>
 
           <section className="admin-card">
-            <h2>Customer</h2>
+            <h2>{t('Customer')}</h2>
             <address className="order-address">
               <strong>{order.customer_name}</strong>
               {order.address_line1}
@@ -118,14 +131,14 @@ export default async function AdminOrderDetail({ params }) {
               )}
             </address>
 
-            <h2 className="admin-subhead">Payment</h2>
+            <h2 className="admin-subhead">{t('Payment')}</h2>
             <p className="order-payment">
               {order.payment_method === 'cod' ? 'Pay on delivery' : order.payment_method}
             </p>
 
             {order.notes && (
               <>
-                <h2 className="admin-subhead">Customer note</h2>
+                <h2 className="admin-subhead">{t('Customer note')}</h2>
                 <p className="order-note">{order.notes}</p>
               </>
             )}

@@ -3,6 +3,7 @@
 import React from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { saveSettings } from '../actions';
+import { useLanguage } from '../../../context/LanguageContext';
 
 function SaveButton() {
   const { pending } = useFormStatus();
@@ -14,33 +15,34 @@ function SaveButton() {
 }
 
 export default function SettingsForm({ settings = {} }) {
+  const { t } = useLanguage();
   const [state, action] = useFormState(saveSettings, {});
 
   return (
     <form action={action} className="admin-card admin-form-stack">
-      <h2>Store</h2>
+      <h2>{t('Store')}</h2>
 
       <label>
-        <span>Store name</span>
+        <span>{t('Store name')}</span>
         <input name="name" defaultValue={settings.name || ''} />
       </label>
 
       <div className="admin-form-row">
         <label>
-          <span>Support phone</span>
+          <span>{t('Support phone')}</span>
           <input name="supportPhone" defaultValue={settings.supportPhone || ''} />
         </label>
         <label>
-          <span>Support email</span>
+          <span>{t('Support email')}</span>
           <input name="supportEmail" type="email" defaultValue={settings.supportEmail || ''} />
         </label>
       </div>
 
-      <h2 className="admin-subhead">Delivery charges</h2>
+      <h2 className="admin-subhead">{t('Delivery charges')}</h2>
 
       <div className="admin-form-row">
         <label>
-          <span>Free delivery above (₹)</span>
+          <span>{t('Free delivery above (₹)')}</span>
           <input
             name="freeShippingAbove"
             type="number"
@@ -49,7 +51,7 @@ export default function SettingsForm({ settings = {} }) {
           />
         </label>
         <label>
-          <span>Delivery fee (₹)</span>
+          <span>{t('Delivery fee (₹)')}</span>
           <input name="shippingFee" type="number" min="0" defaultValue={settings.shippingFee ?? 59} />
         </label>
       </div>
@@ -58,9 +60,9 @@ export default function SettingsForm({ settings = {} }) {
         what customers are charged.
       </p>
 
-      <h2 className="admin-subhead">Cart message</h2>
+      <h2 className="admin-subhead">{t('Cart message')}</h2>
       <label>
-        <span>Notice shown on the cart and checkout pages</span>
+        <span>{t('Notice shown on the cart and checkout pages')}</span>
         <textarea name="cartNotice" rows={3} defaultValue={settings.cartNotice || ''} />
       </label>
 

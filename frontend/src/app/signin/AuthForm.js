@@ -4,28 +4,30 @@ import React from 'react';
 import Link from 'next/link';
 import { useFormState, useFormStatus } from 'react-dom';
 import { signIn, signUp } from '../auth/actions';
+import { useLanguage } from '../../context/LanguageContext';
 
-function SubmitButton({ label }) {
+function SubmitButton({ label, waiting }) {
   const { pending } = useFormStatus();
   return (
     <button type="submit" className="auth-submit" disabled={pending}>
-      {pending ? 'Please wait…' : label}
+      {pending ? waiting : label}
     </button>
   );
 }
 
 export default function AuthForm({ mode = 'signin', next = '/account' }) {
+  const { t } = useLanguage();
   const isSignUp = mode === 'signup';
   const [state, action] = useFormState(isSignUp ? signUp : signIn, {});
 
   return (
     <div className="auth-shell">
       <form className="auth-card" action={action}>
-        <h1>{isSignUp ? 'Create your account' : 'Sign in'}</h1>
+        <h1>{isSignUp ? t('Create your account') : t('Sign in')}</h1>
         <p className="auth-sub">
           {isSignUp
-            ? 'Track orders, save your address and check out faster.'
-            : 'Access your orders, tracking and account.'}
+            ? t('Track orders, save your address and check out faster.')
+            : t('Access your orders, tracking and account.')}
         </p>
 
         <input type="hidden" name="next" value={next} />
@@ -33,18 +35,23 @@ export default function AuthForm({ mode = 'signin', next = '/account' }) {
         {isSignUp && (
           <>
             <label>
-              <span>Full name</span>
-              <input name="full_name" autoComplete="name" placeholder="Your name" />
+              <span>{t('Full name')}</span>
+              <input name="full_name" autoComplete="name" placeholder={t('Your name')} />
             </label>
             <label>
-              <span>Mobile number</span>
-              <input name="phone" autoComplete="tel" inputMode="tel" placeholder="10-digit mobile" />
+              <span>{t('Mobile number')}</span>
+              <input
+                name="phone"
+                autoComplete="tel"
+                inputMode="tel"
+                placeholder={t('10-digit mobile')}
+              />
             </label>
           </>
         )}
 
         <label>
-          <span>Email</span>
+          <span>{t('Email')}</span>
           <input
             name="email"
             type="email"
@@ -55,39 +62,42 @@ export default function AuthForm({ mode = 'signin', next = '/account' }) {
         </label>
 
         <label>
-          <span>Password</span>
+          <span>{t('Password')}</span>
           <input
             name="password"
             type="password"
             required
             autoComplete={isSignUp ? 'new-password' : 'current-password'}
-            placeholder={isSignUp ? 'At least 8 characters' : 'Your password'}
+            placeholder={isSignUp ? t('At least 8 characters') : t('Your password')}
           />
         </label>
 
         {state?.error && (
           <p className="auth-error" role="alert">
-            {state.error}
+            {t(state.error)}
           </p>
         )}
         {state?.notice && (
           <p className="auth-notice" role="status">
-            {state.notice}
+            {t(state.notice)}
           </p>
         )}
 
-        <SubmitButton label={isSignUp ? 'Create account' : 'Sign in'} />
+        <SubmitButton
+          label={isSignUp ? t('Create account') : t('Sign in')}
+          waiting={t('Please wait…')}
+        />
 
         <p className="auth-switch">
           {isSignUp ? (
             <>
-              Already have an account?{' '}
-              <Link href={`/signin?next=${encodeURIComponent(next)}`}>Sign in</Link>
+              {t('Already have an account?')}{' '}
+              <Link href={`/signin?next=${encodeURIComponent(next)}`}>{t('Sign in')}</Link>
             </>
           ) : (
             <>
-              New to MotoMart?{' '}
-              <Link href={`/signup?next=${encodeURIComponent(next)}`}>Create an account</Link>
+              {t('New to MotoMart?')}{' '}
+              <Link href={`/signup?next=${encodeURIComponent(next)}`}>{t('Create an account')}</Link>
             </>
           )}
         </p>

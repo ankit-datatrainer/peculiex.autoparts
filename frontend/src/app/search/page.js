@@ -1,4 +1,5 @@
 import React from 'react';
+import { getT } from '../../lib/i18n-server';
 import SiteHeader from '../../components/SiteHeader';
 import Footer from '../../components/Footer';
 import ProductCard from '../../components/ProductCard';
@@ -28,6 +29,8 @@ export async function generateMetadata({ searchParams }) {
 
 export default async function SearchPage({ searchParams }) {
   const { q = '', category = 'all', brand = '', partType = '', vehicleType = '' } = searchParams;
+
+  const { t, tCat, local } = getT();
 
   const currentBrandObj = companyBrands.find(
     (b) => b.name.toLowerCase() === brand.toLowerCase() || b.id.toLowerCase() === brand.toLowerCase()
@@ -85,10 +88,10 @@ export default async function SearchPage({ searchParams }) {
                     borderRadius: '999px',
                     letterSpacing: '0.5px'
                   }}>
-                    {currentBrandObj.code} • OFFICIAL OEM
+                    {currentBrandObj.code} • {t('OFFICIAL OEM')}
                   </span>
                   <span style={{ color: '#A1A1AA', fontSize: '13px' }}>
-                    100% Genuine Guaranteed
+                    {t('100% Genuine Guaranteed')}
                   </span>
                 </div>
 
@@ -97,11 +100,22 @@ export default async function SearchPage({ searchParams }) {
                 </h1>
 
                 <p style={{ color: '#D4D4D8', fontSize: '14px', margin: '0 0 1rem 0', lineHeight: 1.5 }}>
-                  {currentBrandObj.models.scooters.length > 0 && currentBrandObj.models.bikes.length > 0
-                    ? `Official factory spares for scooters (${currentBrandObj.models.scooters.slice(0, 3).join(', ')}) & bikes (${currentBrandObj.models.bikes.slice(0, 3).join(', ')}).`
-                    : currentBrandObj.models.scooters.length > 0
-                    ? `Official factory spares for electric & petrol scooters (${currentBrandObj.models.scooters.join(', ')}).`
-                    : `Official factory spares for motorcycles (${currentBrandObj.models.bikes.join(', ')}).`}
+                  {(() => {
+                    const s = currentBrandObj.models.scooters;
+                    const b = currentBrandObj.models.bikes;
+                    const list =
+                      s.length > 0 && b.length > 0
+                        ? `${s.slice(0, 3).join(', ')}, ${b.slice(0, 3).join(', ')}`
+                        : s.length > 0
+                          ? s.join(', ')
+                          : b.join(', ');
+                    return local(
+                      `Official factory spares for ${list}.`,
+                      `${list} के लिए आधिकारिक फ़ैक्ट्री स्पेयर।`,
+                      `${list} साठी अधिकृत फॅक्टरी स्पेअर.`,
+                      `${list} માટે અધિકૃત ફેક્ટરી સ્પેર.`
+                    );
+                  })()}
                 </p>
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
@@ -122,13 +136,13 @@ export default async function SearchPage({ searchParams }) {
                       gap: '4px'
                     }}
                   >
-                    Verified Manufacturer Portal ↗
+                    {t('Verified Manufacturer Portal')} ↗
                   </a>
                   <span style={{ fontSize: '12px', color: '#10B981', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    ✓ Direct Fitment Warranty
+                    ✓ {t('Direct Fitment Warranty')}
                   </span>
                   <span style={{ fontSize: '12px', color: '#38BDF8', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    ⚡ Next-Day Dispatch
+                    ⚡ {t('Next-Day Dispatch')}
                   </span>
                 </div>
               </div>
@@ -144,11 +158,16 @@ export default async function SearchPage({ searchParams }) {
               }}>
                 <img
                   src={currentBrandObj.image}
-                  alt={`${currentBrandObj.name} official logo`}
+                  alt={`${currentBrandObj.name} ${t('official logo')}`}
                   style={{ maxHeight: '48px', maxWidth: '140px', objectFit: 'contain', margin: '0 auto 8px auto', display: 'block' }}
                 />
                 <span style={{ fontSize: '12px', color: '#0F172A', fontWeight: '800' }}>
-                  {products.length} Parts Available
+                  {local(
+                    `${products.length} Parts Available`,
+                    `${products.length} पार्ट्स उपलब्ध`,
+                    `${products.length} पार्ट्स उपलब्ध`,
+                    `${products.length} પાર્ટ્સ ઉપલબ્ધ`
+                  )}
                 </span>
               </div>
             </div>
@@ -164,14 +183,14 @@ export default async function SearchPage({ searchParams }) {
           }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
               <span style={{ fontSize: '12px', fontWeight: '800', letterSpacing: '0.5px', color: '#52525B' }}>
-                FILTER BY BIKE PART:
+                {t('FILTER BY BIKE PART')}:
               </span>
               {(partType || brand) && (
                 <Link
                   href={brand ? `/search?brand=${encodeURIComponent(brand)}` : '/search'}
                   style={{ fontSize: '12px', color: '#DC2626', fontWeight: '600', textDecoration: 'underline' }}
                 >
-                  Clear part filter
+                  {t('Clear part filter')}
                 </Link>
               )}
             </div>
@@ -196,7 +215,7 @@ export default async function SearchPage({ searchParams }) {
                   transition: 'all 0.15s ease'
                 }}
               >
-                All Parts ({products.length})
+                {t('All Parts')} ({products.length})
               </Link>
 
               {bikePartTypes.map((pt) => {
@@ -221,7 +240,7 @@ export default async function SearchPage({ searchParams }) {
                       transition: 'all 0.15s ease'
                     }}
                   >
-                    {pt}
+                    {tCat(pt)}
                   </Link>
                 );
               })}
@@ -232,25 +251,49 @@ export default async function SearchPage({ searchParams }) {
           <div className="search-head" style={{ marginBottom: '1.5rem' }}>
             <div>
               <span className="eyebrow dark">
-                {brand ? `${brand} OFFICIAL CATALOG` : partType ? `${partType.toUpperCase()} SPARES` : 'CATALOG SEARCH'}
+                {brand
+                  ? `${brand} ${t('OFFICIAL CATALOG')}`
+                  : partType
+                    ? `${tCat(partType).toUpperCase()} ${t('SPARES')}`
+                    : t('CATALOG SEARCH')}
               </span>
               <h2 style={{ fontSize: '1.6rem', fontWeight: '800', margin: '4px 0' }}>
-                {products.length} genuine part{products.length === 1 ? '' : 's'} available
+                {local(
+                  `${products.length} genuine part${products.length === 1 ? '' : 's'} available`,
+                  `${products.length} असली पार्ट्स उपलब्ध`,
+                  `${products.length} अस्सल पार्ट्स उपलब्ध`,
+                  `${products.length} અસલી પાર્ટ્સ ઉપલબ્ધ`
+                )}
               </h2>
               <p style={{ color: '#71717A', margin: 0 }}>
                 {brand && partType
-                  ? `Displaying ${brand} OEM ${partType} components with certified factory fitment.`
+                  ? local(
+                      `Displaying ${brand} OEM ${partType} components with certified factory fitment.`,
+                      `प्रमाणित फ़ैक्ट्री फ़िटमेंट के साथ ${brand} OEM ${tCat(partType)} दिखाए जा रहे हैं।`,
+                      `प्रमाणित फॅक्टरी फिटमेंटसह ${brand} OEM ${tCat(partType)} दाखवले जात आहेत.`,
+                      `પ્રમાણિત ફેક્ટરી ફિટમેન્ટ સાથે ${brand} OEM ${tCat(partType)} બતાવવામાં આવે છે.`
+                    )
                   : brand
-                  ? `Displaying genuine factory spares for ${brand} motorcycles and scooters.`
-                  : partType
-                  ? `Displaying genuine ${partType} components across all major manufacturers.`
-                  : 'All prices include applicable GST. Guaranteed genuine or 100% money back.'}
+                    ? local(
+                        `Displaying genuine factory spares for ${brand} motorcycles and scooters.`,
+                        `${brand} मोटरसाइकिल और स्कूटर के असली फ़ैक्ट्री स्पेयर दिखाए जा रहे हैं।`,
+                        `${brand} मोटरसायकल आणि स्कूटरचे अस्सल फॅक्टरी स्पेअर दाखवले जात आहेत.`,
+                        `${brand} મોટરસાયકલ અને સ્કૂટરના અસલી ફેક્ટરી સ્પેર બતાવવામાં આવે છે.`
+                      )
+                    : partType
+                      ? local(
+                          `Displaying genuine ${partType} components across all major manufacturers.`,
+                          `सभी प्रमुख निर्माताओं के असली ${tCat(partType)} दिखाए जा रहे हैं।`,
+                          `सर्व प्रमुख उत्पादकांचे अस्सल ${tCat(partType)} दाखवले जात आहेत.`,
+                          `બધા મુખ્ય ઉત્પાદકોના અસલી ${tCat(partType)} બતાવવામાં આવે છે.`
+                        )
+                      : t('All prices include applicable GST. Guaranteed genuine or 100% money back.')}
               </p>
             </div>
 
             <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
               <Link className="outline-cta" href="/">
-                ← Back to home
+                ← {t('Back to home')}
               </Link>
             </div>
           </div>
@@ -265,12 +308,14 @@ export default async function SearchPage({ searchParams }) {
           ) : (
             <div className="search-empty" style={{ textAlign: 'center', padding: '4rem 1rem' }}>
               <span style={{ fontSize: '3rem' }}>🔧</span>
-              <h2>No parts found matching your selection</h2>
+              <h2>{t('No parts found matching your selection')}</h2>
               <p style={{ color: '#71717A', maxWidth: '480px', margin: '0.5rem auto 1.5rem auto' }}>
-                Try selecting a different part category or clear the brand filter to browse the complete catalog.
+                {t(
+                  'Try selecting a different part category or clear the brand filter to browse the complete catalog.'
+                )}
               </p>
               <Link href="/search" className="primary-cta" style={{ display: 'inline-block' }}>
-                Browse all genuine parts
+                {t('Browse all genuine parts')}
               </Link>
             </div>
           )}

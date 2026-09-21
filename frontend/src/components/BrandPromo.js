@@ -30,7 +30,7 @@ export default function BrandPromo() {
       <div className="promo-visual">
         <img
           src="/assets/ai-riding-essentials.png"
-          alt="Motorcycle helmet, gloves and phone mount"
+          alt={t('Motorcycle helmet, gloves and phone mount')}
           loading="lazy"
         />
         <div className="floating-stat">

@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useCart } from '../context/CartContext';
+import { useLanguage } from '../context/LanguageContext';
 import { formatCurrency } from '../lib/translations';
 
 const FALLBACK =
@@ -13,18 +14,23 @@ const FALLBACK =
 
 export default function PartCard({ part }) {
   const { addToCart } = useCart();
+  const { t, tName, tCat } = useLanguage();
   if (!part) return null;
 
   const saving = part.mrp > part.price ? part.mrp - part.price : 0;
 
   return (
     <article className="part-card" data-product={part.id}>
-      {saving > 0 && <span className="part-save">Save {formatCurrency(saving)}</span>}
+      {saving > 0 && (
+        <span className="part-save">
+          {t('Save')} {formatCurrency(saving)}
+        </span>
+      )}
 
-      <Link href={`/product/${part.id}`} className="part-card-media" aria-label={`View ${part.name}`}>
+      <Link href={`/product/${part.id}`} className="part-card-media" aria-label={`${t('view')} ${tName(part.name, part.category)}`}>
         <img
           src={part.image || FALLBACK}
-          alt={part.name}
+          alt={tName(part.name, part.category)}
           loading="lazy"
           onError={(e) => {
             e.target.onerror = null;
@@ -37,17 +43,24 @@ export default function PartCard({ part }) {
         <div className="part-price-line">
           <span className="part-price">{formatCurrency(part.price)}</span>
           {saving > 0 && <span className="part-mrp">{formatCurrency(part.mrp)}</span>}
-          {part.discountPercent > 0 && <span className="part-off">{part.discountPercent}% off</span>}
+          {part.discountPercent > 0 && (
+            <span className="part-off">
+              {part.discountPercent}% {t('off')}
+            </span>
+          )}
         </div>
 
         <Link href={`/product/${part.id}`} className="part-title">
-          {part.name}
+          {tName(part.name, part.category)}
         </Link>
 
-        <span className="part-vendor">{part.vendor || part.category}</span>
+        {/* The feed's vendor field often reads "OES Head Light Set" — a vendor
+            code followed by the part type — so it goes through the name walker
+            rather than being printed raw. */}
+        <span className="part-vendor">{tName(part.vendor) || tCat(part.category)}</span>
 
         <span className={`part-stock ${part.available ? '' : 'out'}`}>
-          <i aria-hidden="true">●</i> {part.available ? 'In Stock' : 'Out of Stock'}
+          <i aria-hidden="true">●</i> {part.available ? t('In stock') : t('Out of stock')}
         </span>
 
         <button
@@ -66,7 +79,7 @@ export default function PartCard({ part }) {
             })
           }
         >
-          {part.available ? 'Add to cart' : 'Notify me'}
+          {part.available ? t('Add to cart') : t('Out of stock')}
         </button>
       </div>
     </article>

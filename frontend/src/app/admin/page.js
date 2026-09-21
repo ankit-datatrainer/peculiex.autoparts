@@ -2,21 +2,23 @@ import React from 'react';
 import Link from 'next/link';
 import { createClient, isSupabaseConfigured } from '../../lib/supabase/server';
 import { formatCurrency } from '../../lib/translations';
-import { STATUS_LABEL } from '../../components/account/OrderTimeline';
+import { STATUS_LABEL } from '../../lib/orderStatus';
+import { getT } from '../../lib/i18n-server';
 
 export const revalidate = 0;
 
 export default async function AdminDashboard() {
+  const { t } = getT();
   if (!isSupabaseConfigured) {
     return (
       <div className="admin-setup">
-        <h1>Finish connecting Supabase</h1>
+        <h1>{t('Finish connecting Supabase')}</h1>
         <p>
           The admin panel needs <code>NEXT_PUBLIC_SUPABASE_URL</code> and{' '}
           <code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code> in <code>frontend/.env.local</code>, and the
           migration in <code>supabase/migrations/0001_motomart_init.sql</code> applied.
         </p>
-        <p>See DEPLOYMENT.md for the exact steps.</p>
+        <p>{t('See DEPLOYMENT.md for the exact steps.')}</p>
       </div>
     );
   }
@@ -54,8 +56,8 @@ export default async function AdminDashboard() {
     <>
       <div className="admin-page-head">
         <div>
-          <h1>Dashboard</h1>
-          <p>Everything on the storefront is managed from here.</p>
+          <h1>{t('Dashboard')}</h1>
+          <p>{t('Everything on the storefront is managed from here.')}</p>
         </div>
         <Link href="/admin/products/new" className="admin-primary-btn">
           + Add product
@@ -86,21 +88,21 @@ export default async function AdminDashboard() {
       <div className="admin-two-col">
         <section className="admin-card">
           <div className="admin-card-head">
-            <h2>Recent orders</h2>
-            <Link href="/admin/orders">View all →</Link>
+            <h2>{t('Recent orders')}</h2>
+            <Link href="/admin/orders">{t('View all')} →</Link>
           </div>
 
           {!recent?.length ? (
-            <p className="admin-empty">No orders yet.</p>
+            <p className="admin-empty">{t('No orders yet.')}</p>
           ) : (
             <div className="admin-table-wrap">
               <table className="admin-table">
                 <thead>
                   <tr>
-                    <th>Order</th>
-                    <th>Customer</th>
-                    <th>Status</th>
-                    <th className="right">Total</th>
+                    <th>{t('Order')}</th>
+                    <th>{t('Customer')}</th>
+                    <th>{t('Status')}</th>
+                    <th className="right">{t('Total')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -130,12 +132,12 @@ export default async function AdminDashboard() {
 
         <section className="admin-card">
           <div className="admin-card-head">
-            <h2>Low stock</h2>
-            <Link href="/admin/products?stock=low">Manage →</Link>
+            <h2>{t('Low stock')}</h2>
+            <Link href="/admin/products?stock=low">{t('Manage')} →</Link>
           </div>
 
           {!lowStock?.length ? (
-            <p className="admin-empty">Nothing is running low.</p>
+            <p className="admin-empty">{t('Nothing is running low.')}</p>
           ) : (
             <ul className="admin-lowstock">
               {lowStock.map((p) => (

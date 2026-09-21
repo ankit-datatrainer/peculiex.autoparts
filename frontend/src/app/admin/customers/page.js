@@ -1,12 +1,14 @@
 import React from 'react';
 import { createClient, isSupabaseConfigured } from '../../../lib/supabase/server';
 import { formatCurrency } from '../../../lib/translations';
+import { getT } from '../../../lib/i18n-server';
 
 export const revalidate = 0;
 
 export default async function AdminCustomers() {
+  const { t } = getT();
   if (!isSupabaseConfigured) {
-    return <div className="admin-setup"><h1>Connect Supabase to see customers.</h1></div>;
+    return <div className="admin-setup"><h1>{t('Connect Supabase to see customers.')}</h1></div>;
   }
 
   const supabase = createClient();
@@ -29,25 +31,25 @@ export default async function AdminCustomers() {
     <>
       <div className="admin-page-head">
         <div>
-          <h1>Customers</h1>
+          <h1>{t('Customers')}</h1>
           <p>{list.length} registered account{list.length === 1 ? '' : 's'}</p>
         </div>
       </div>
 
       <section className="admin-card">
         {list.length === 0 ? (
-          <p className="admin-empty">No accounts yet.</p>
+          <p className="admin-empty">{t('No accounts yet.')}</p>
         ) : (
           <div className="admin-table-wrap">
             <table className="admin-table">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Phone</th>
-                  <th>Role</th>
-                  <th className="right">Orders</th>
-                  <th className="right">Spend</th>
-                  <th>Joined</th>
+                  <th>{t('Name')}</th>
+                  <th>{t('Phone')}</th>
+                  <th>{t('Role')}</th>
+                  <th className="right">{t('Orders')}</th>
+                  <th className="right">{t('Spend')}</th>
+                  <th>{t('Joined')}</th>
                 </tr>
               </thead>
               <tbody>

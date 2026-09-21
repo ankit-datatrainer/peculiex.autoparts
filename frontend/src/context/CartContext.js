@@ -74,6 +74,8 @@ export function CartProvider({ children }) {
     const updated = { ...cart, [productId]: current + quantity };
     saveCartToStorage(updated);
     saveSnapshot(snapshot);
+    // slide the cart out so the shopper sees what they just added
+    setIsCartDrawerOpen(true);
     showToast(productBrand ? `${productBrand} item added to cart` : 'Item added to cart');
   };
 

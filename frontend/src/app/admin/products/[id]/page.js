@@ -4,10 +4,12 @@ import { notFound } from 'next/navigation';
 import ProductForm from '../ProductForm';
 import ImageManager from '../ImageManager';
 import { createClient, isSupabaseConfigured } from '../../../../lib/supabase/server';
+import { getT } from '../../../../lib/i18n-server';
 
 export const revalidate = 0;
 
 export default async function EditProduct({ params }) {
+  const { t } = getT();
   if (!isSupabaseConfigured) notFound();
 
   const id = decodeURIComponent(params.id);
@@ -28,7 +30,7 @@ export default async function EditProduct({ params }) {
     <>
       <div className="admin-page-head">
         <div>
-          <Link href="/admin/products" className="admin-back">← Products</Link>
+          <Link href="/admin/products" className="admin-back">← {t('Products')}</Link>
           <h1>{product.name}</h1>
           <p>{product.sku || product.id}</p>
         </div>

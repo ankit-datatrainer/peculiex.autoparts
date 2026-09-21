@@ -7,7 +7,7 @@ export default function TrustStrip() {
   const { t } = useLanguage();
 
   return (
-    <section className="trust-strip" aria-label="Shopping benefits">
+    <section className="trust-strip" aria-label={t('Shopping benefits')}>
       <div>
         <span>✓</span>
         <strong>{t('Verified fitment')}</strong>

@@ -2,17 +2,22 @@ import React from 'react';
 import Link from 'next/link';
 import { createClient, isSupabaseConfigured } from '../../../lib/supabase/server';
 import { formatCurrency } from '../../../lib/translations';
-import { STATUS_LABEL } from '../../../components/account/OrderTimeline';
+import { STATUS_LABEL } from '../../../lib/orderStatus';
+import { getT } from '../../../lib/i18n-server';
 
-export const metadata = { title: 'My orders | MotoMart India' };
+export async function generateMetadata() {
+  return { title: `${getT().t('My orders')} | MotoMart India` };
+}
 export const revalidate = 0;
 
 export default async function OrdersPage() {
+  const { t, local, date } = getT();
+
   if (!isSupabaseConfigured) {
     return (
       <div className="account-card">
-        <h2>Orders are not connected yet</h2>
-        <p>Apply the Supabase migration to enable order history and tracking.</p>
+        <h2>{t('Orders are not connected yet')}</h2>
+        <p>{t('Apply the Supabase migration to enable order history and tracking.')}</p>
       </div>
     );
   }
@@ -28,18 +33,30 @@ export default async function OrdersPage() {
   return (
     <div className="account-card">
       <div className="account-card-head">
-        <h2>My orders</h2>
-        <small>{list.length} total</small>
+        <h2>{t('My orders')}</h2>
+        <small>
+          {local(
+            `${list.length} total`,
+            `कुल ${list.length}`,
+            `एकूण ${list.length}`,
+            `કુલ ${list.length}`
+          )}
+        </small>
       </div>
 
       {list.length === 0 ? (
         <div className="account-empty">
-          <p>No orders yet.</p>
-          <Link href="/brands" className="account-cta">Browse spare parts</Link>
+          <p>{t('No orders yet.')}</p>
+          <Link href="/brands" className="account-cta">
+            {t('Browse spare parts')}
+          </Link>
         </div>
       ) : (
         <ul className="order-list detailed">
-          {list.map((o) => (
+          {list.map((o) => {
+            const n = o.order_items?.length || 0;
+            const placed = date(o.placed_at, { day: 'numeric', month: 'short', year: 'numeric' });
+            return (
             <li key={o.id}>
               <Link href={`/account/orders/${o.id}`}>
                 <div className="order-thumbs" aria-hidden="true">
@@ -50,16 +67,28 @@ export default async function OrdersPage() {
                 <div>
                   <strong>{o.order_number}</strong>
                   <small>
-                    {new Date(o.placed_at).toLocaleDateString('en-IN', {
-                      day: 'numeric', month: 'short', year: 'numeric'
-                    })} · {o.order_items?.length || 0} item{(o.order_items?.length || 0) === 1 ? '' : 's'}
+                    {local(
+                      `${placed} · ${n} item${n === 1 ? '' : 's'}`,
+                      `${placed} · ${n} आइटम`,
+                      `${placed} · ${n} आयटम`,
+                      `${placed} · ${n} આઇટમ`
+                    )}
                   </small>
                 </div>
-                <span className={`order-status s-${o.status}`}>{STATUS_LABEL[o.status]}</span>
+                <span className={`order-status s-${o.status}`}>{t(STATUS_LABEL[o.status])}</span>
                 <strong className="order-total">{formatCurrency(o.total)}</strong>
               </Link>
+              <a
+                className="invoice-link"
+                href={`/account/orders/${o.id}/invoice`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                ⤓ {t('Invoice')}
+              </a>
             </li>
-          ))}
+            );
+          })}
         </ul>
       )}
     </div>

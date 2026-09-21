@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
 import { uploadProductImages, removeProductImage, reorderProductImages } from '../actions';
+import { useLanguage } from '../../../context/LanguageContext';
 
 function UploadButton({ label }) {
   const { pending } = useFormStatus();
@@ -15,6 +16,7 @@ function UploadButton({ label }) {
 }
 
 export default function ImageManager({ productId, images = [] }) {
+  const { t } = useLanguage();
   const router = useRouter();
   const [state, action] = useFormState(uploadProductImages, {});
   const [mode, setMode] = useState('add');
@@ -43,32 +45,32 @@ export default function ImageManager({ productId, images = [] }) {
 
   return (
     <section className="admin-card">
-      <h2>Images</h2>
+      <h2>{t('Images')}</h2>
       <p className="admin-hint">
         The first image is the one shoppers see on cards and search results.
       </p>
 
       {images.length === 0 ? (
-        <p className="admin-empty">No images yet.</p>
+        <p className="admin-empty">{t('No images yet.')}</p>
       ) : (
         <ul className="admin-image-grid">
           {images.map((url, i) => (
             <li key={url}>
               <img src={url} alt={`Product image ${i + 1}`} />
-              {i === 0 && <span className="admin-image-primary">Primary</span>}
+              {i === 0 && <span className="admin-image-primary">{t('Primary')}</span>}
               <div className="admin-image-actions">
-                <button type="button" onClick={() => move(i, -1)} disabled={busy || i === 0} aria-label="Move earlier">
+                <button type="button" onClick={() => move(i, -1)} disabled={busy || i === 0} aria-label={t('Move earlier')}>
                   ←
                 </button>
                 <button
                   type="button"
                   onClick={() => move(i, 1)}
                   disabled={busy || i === images.length - 1}
-                  aria-label="Move later"
+                  aria-label={t('Move later')}
                 >
                   →
                 </button>
-                <button type="button" className="danger" onClick={() => remove(url)} disabled={busy} aria-label="Remove image">
+                <button type="button" className="danger" onClick={() => remove(url)} disabled={busy} aria-label={t('Remove image')}>
                   ×
                 </button>
               </div>
@@ -82,9 +84,9 @@ export default function ImageManager({ productId, images = [] }) {
         <input type="hidden" name="mode" value={mode} />
 
         <label>
-          <span>Upload images</span>
+          <span>{t('Upload images')}</span>
           <input type="file" name="images" accept="image/*" multiple required />
-          <small className="admin-hint">JPG, PNG or WebP up to 5 MB each.</small>
+          <small className="admin-hint">{t('JPG, PNG or WebP up to 5 MB each.')}</small>
         </label>
 
         <div className="admin-upload-actions">
@@ -95,7 +97,7 @@ export default function ImageManager({ productId, images = [] }) {
               checked={mode === 'replace'}
               onChange={(e) => setMode(e.target.checked ? 'replace' : 'add')}
             />
-            <span>Replace existing images instead of adding</span>
+            <span>{t('Replace existing images instead of adding')}</span>
           </label>
         </div>
 

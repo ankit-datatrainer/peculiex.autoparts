@@ -7,7 +7,7 @@ import { useCart } from '../context/CartContext';
 import { formatCurrency } from '../lib/translations';
 
 export default function ProductCard({ product }) {
-  const { t } = useLanguage();
+  const { t, tName, tCat, tFit } = useLanguage();
   const { addToCart } = useCart();
 
   if (!product) return null;
@@ -35,18 +35,24 @@ export default function ProductCard({ product }) {
       >
         <img
           src={product.image}
-          alt={product.name}
+          alt={tName(product.name, product.category)}
           loading="lazy"
           onError={handleImgError}
         />
       </Link>
 
-      {product.badge && <span className="discount-badge">{product.badge}</span>}
+      {product.badge && (
+        <span className="discount-badge">
+          {/* Feed badges read "20% off • 100% Genuine" — the name walker keeps
+              the numbers and translates every word it recognises. */}
+          {tName(product.badge)}
+        </span>
+      )}
 
       <div className="card-info">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px' }}>
           <span className="card-brand" style={{ fontWeight: '800' }}>
-            {product.brand} {product.partType ? `• ${product.partType}` : ''}
+            {product.brand} {product.partType ? `• ${tCat(product.partType)}` : ''}
           </span>
           {product.oemPartNumber && (
             <span style={{ fontSize: '10px', background: '#F1F5F9', color: '#475569', padding: '1px 6px', borderRadius: '4px', fontWeight: 'bold' }}>
@@ -62,7 +68,7 @@ export default function ProductCard({ product }) {
         )}
 
         <Link href={`/product/${product.id}`} className="card-title-button">
-          <span className="card-title">{product.name}</span>
+          <span className="card-title">{tName(product.name, product.category)}</span>
         </Link>
 
         {product.fit && (
@@ -77,7 +83,7 @@ export default function ProductCard({ product }) {
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden'
           }}>
-            ✓ {product.fit}
+            ✓ {tFit(product.fit)}
           </div>
         )}
 
@@ -89,7 +95,7 @@ export default function ProductCard({ product }) {
         ) : (
           <div className="rating">
             <span className={product.available === false ? 'stock out' : 'stock'}>
-              {product.available === false ? 'Out of stock' : 'In stock'}
+              {product.available === false ? t('Out of stock') : t('In stock')}
             </span>
           </div>
         )}
@@ -103,7 +109,7 @@ export default function ProductCard({ product }) {
 
         <span className="prime">
           {product.prime
-            ? `✓ prime · ${t('FREE delivery')}`
+            ? `✓ ${t('prime')} · ${t('FREE delivery')}`
             : t('Free delivery')}
         </span>
 

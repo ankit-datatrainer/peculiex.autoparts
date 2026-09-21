@@ -2,6 +2,7 @@
 
 import React, { useMemo, useState } from 'react';
 import PartCard from '../../../../components/PartCard';
+import { useLanguage } from '../../../../context/LanguageContext';
 
 const SORTS = [
   { id: 'featured', label: 'Featured' },
@@ -14,6 +15,7 @@ const SORTS = [
 const PAGE_SIZE = 36;
 
 export default function ModelPartsClient({ model }) {
+  const { t, tCat } = useLanguage();
   const [category, setCategory] = useState('all');
   const [sort, setSort] = useState('featured');
   const [query, setQuery] = useState('');
@@ -48,13 +50,13 @@ export default function ModelPartsClient({ model }) {
   return (
     <div className="parts-layout">
       <aside className="parts-filters">
-        <h2>Filters</h2>
+        <h2>{t('Filters')}</h2>
 
         <label className="parts-search">
           <span className="sr-only">Search within {model.modelName} parts</span>
           <input
             type="search"
-            placeholder="Search this model’s parts"
+            placeholder={t('Search this model’s parts')}
             value={query}
             onChange={(e) => reset(setQuery)(e.target.value)}
           />
@@ -66,10 +68,10 @@ export default function ModelPartsClient({ model }) {
             checked={inStockOnly}
             onChange={(e) => reset(setInStockOnly)(e.target.checked)}
           />
-          <span>In stock only</span>
+          <span>{t('In stock only')}</span>
         </label>
 
-        <h3>Category</h3>
+        <h3>{t('Category')}</h3>
         <ul className="parts-category-list">
           <li>
             <button
@@ -77,7 +79,7 @@ export default function ModelPartsClient({ model }) {
               className={category === 'all' ? 'active' : ''}
               onClick={() => reset(setCategory)('all')}
             >
-              <span>All parts</span>
+              <span>{t('All parts')}</span>
               <em>{model.parts.length}</em>
             </button>
           </li>
@@ -88,7 +90,7 @@ export default function ModelPartsClient({ model }) {
                 className={category === c.name ? 'active' : ''}
                 onClick={() => reset(setCategory)(c.name)}
               >
-                <span>{c.name}</span>
+                <span>{tCat(c.name)}</span>
                 <em>{c.count}</em>
               </button>
             </li>
@@ -99,15 +101,15 @@ export default function ModelPartsClient({ model }) {
       <section className="parts-results">
         <div className="parts-toolbar">
           <span>
-            <strong>{parts.length}</strong> part{parts.length === 1 ? '' : 's'}
-            {category !== 'all' && <> in {category}</>}
+            <strong>{parts.length}</strong> {t('parts')}
+            {category !== 'all' && <> · {tCat(category)}</>}
           </span>
           <label>
-            Sort by:
+            {t('Sort by:')}
             <select value={sort} onChange={(e) => reset(setSort)(e.target.value)}>
               {SORTS.map((s) => (
                 <option key={s.id} value={s.id}>
-                  {s.label}
+                  {t(s.label)}
                 </option>
               ))}
             </select>
@@ -128,15 +130,15 @@ export default function ModelPartsClient({ model }) {
                 className="parts-more"
                 onClick={() => setVisible((v) => v + PAGE_SIZE)}
               >
-                Show more parts ({parts.length - visible} left)
+                {t('Show more parts')} ({parts.length - visible})
               </button>
             )}
           </>
         ) : (
           <div className="parts-empty">
             <span aria-hidden="true">🔧</span>
-            <h3>No parts match these filters</h3>
-            <p>Try clearing the search box or picking a different category.</p>
+            <h3>{t('No parts match these filters')}</h3>
+            <p>{t('Try clearing the search box or picking a different category.')}</p>
             <button
               type="button"
               onClick={() => {
@@ -146,7 +148,7 @@ export default function ModelPartsClient({ model }) {
                 setVisible(PAGE_SIZE);
               }}
             >
-              Clear all filters
+              {t('Clear all filters')}
             </button>
           </div>
         )}

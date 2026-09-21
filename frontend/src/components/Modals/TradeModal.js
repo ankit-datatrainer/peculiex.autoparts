@@ -47,7 +47,7 @@ export default function TradeModal() {
     <>
       <div className="overlay" onClick={closeModal} />
       <div className="modal" id="tradeModal" role="dialog" aria-modal="true" aria-labelledby="tradeTitle">
-        <button className="modal-close" onClick={closeModal} aria-label="Close">
+        <button className="modal-close" onClick={closeModal} aria-label={t('Close')}>
           ×
         </button>
         <span className="eyebrow dark">{t('MOTOMART TRADE-IN')}</span>

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import AdminNav from './AdminNav';
 import { getSessionUser } from '../../lib/supabase/server';
 import { signOut } from '../auth/actions';
+import { getT } from '../../lib/i18n-server';
 
 export const metadata = {
   title: 'Super Admin | MotoMart India',
@@ -11,6 +12,7 @@ export const metadata = {
 };
 
 export default async function AdminLayout({ children }) {
+  const { t } = getT();
   const { user, profile } = await getSessionUser();
 
   return (
@@ -20,7 +22,7 @@ export default async function AdminLayout({ children }) {
         <Link href="/admin" className="admin-brand">
           <img src="/assets/site-icon.svg" alt="" width="28" height="28" />
           <span>
-            MotoMart <em>Super Admin</em>
+            MotoMart <em>{t('Super Admin')}</em>
           </span>
         </Link>
 

@@ -2,12 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 import ProductForm from '../ProductForm';
 import { createClient, isSupabaseConfigured } from '../../../../lib/supabase/server';
+import { getT } from '../../../../lib/i18n-server';
 
 export const revalidate = 0;
 
 export default async function NewProduct() {
+  const { t } = getT();
   if (!isSupabaseConfigured) {
-    return <div className="admin-setup"><h1>Connect Supabase to add products.</h1></div>;
+    return <div className="admin-setup"><h1>{t('Connect Supabase to add products.')}</h1></div>;
   }
 
   const supabase = createClient();
@@ -21,9 +23,9 @@ export default async function NewProduct() {
     <>
       <div className="admin-page-head">
         <div>
-          <Link href="/admin/products" className="admin-back">← Products</Link>
-          <h1>Add product</h1>
-          <p>Create a single part. Use bulk import for many at once.</p>
+          <Link href="/admin/products" className="admin-back">← {t('Products')}</Link>
+          <h1>{t('Add product')}</h1>
+          <p>{t('Create a single part. Use bulk import for many at once.')}</p>
         </div>
       </div>
 

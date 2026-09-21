@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
+import { LANGUAGES } from '../lib/translations';
 import { useCart } from '../context/CartContext';
 
 export default function Footer() {
@@ -59,7 +60,7 @@ export default function Footer() {
       <div className="footer-brand">
         <Link className="brand" href="/">
           <span className="brand-mark">
-            <img src="/assets/site-icon.svg" alt="MotoMart logo" width="36" height="36" />
+            <img src="/assets/site-icon.svg" alt={t('MotoMart logo')} width="36" height="36" />
           </span>
           <span className="brand-name">
             moto<span>mart</span>
@@ -67,9 +68,9 @@ export default function Footer() {
           </span>
         </Link>
         <button type="button" id="footerLanguage" onClick={cycleLanguage}>
-          🌐 {language === 'hi' ? 'हिन्दी' : language === 'mr' ? 'मराठी' : 'English'}
+          🌐 {LANGUAGES.find((l) => l.code === language)?.label || 'English'}
         </button>
-        <button type="button">🇮🇳 India</button>
+        <button type="button">🇮🇳 {t('India')}</button>
       </div>
 
       <div className="footer-bottom">

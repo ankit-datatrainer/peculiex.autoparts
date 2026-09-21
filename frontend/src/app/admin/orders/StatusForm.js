@@ -3,6 +3,7 @@
 import React from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { updateOrderStatus } from '../actions';
+import { useLanguage } from '../../../context/LanguageContext';
 
 const STATUSES = [
   ['pending', 'Order placed'],
@@ -24,6 +25,7 @@ function UpdateButton() {
 }
 
 export default function StatusForm({ orderId, status, adminNote }) {
+  const { t } = useLanguage();
   const [state, action] = useFormState(updateOrderStatus, {});
 
   return (
@@ -31,23 +33,23 @@ export default function StatusForm({ orderId, status, adminNote }) {
       <input type="hidden" name="order_id" value={orderId} />
 
       <label>
-        <span>Status</span>
+        <span>{t('Status')}</span>
         <select name="status" defaultValue={status}>
           {STATUSES.map(([value, label]) => (
             <option key={value} value={value}>
-              {label}
+              {t(label)}
             </option>
           ))}
         </select>
       </label>
 
       <label>
-        <span>Note for the customer</span>
+        <span>{t('Note for the customer')}</span>
         <textarea
           name="admin_note"
           rows={3}
           defaultValue={adminNote || ''}
-          placeholder="Shown on the customer's tracking timeline"
+          placeholder={t("Shown on the customer's tracking timeline")}
         />
       </label>
 

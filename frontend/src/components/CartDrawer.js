@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 import { formatCurrency } from '../lib/translations';
+import RecommendationRail from './RecommendationRail';
 
 export default function CartDrawer({ products = [] }) {
   const router = useRouter();
@@ -57,7 +58,7 @@ export default function CartDrawer({ products = [] }) {
             <small>{t('YOUR CART')}</small>
             <h2>{t('Ready for the road')}</h2>
           </div>
-          <button id="closeCart" onClick={closeCartDrawer} aria-label="Close cart">
+          <button id="closeCart" onClick={closeCartDrawer} aria-label={t('Close cart')}>
             ×
           </button>
         </div>
@@ -73,7 +74,7 @@ export default function CartDrawer({ products = [] }) {
                   <div className="qty-stepper">
                     <button
                       type="button"
-                      aria-label="Decrease quantity"
+                      aria-label={t('Decrease quantity')}
                       onClick={() => updateQty(item.id, -1)}
                     >
                       −
@@ -81,7 +82,7 @@ export default function CartDrawer({ products = [] }) {
                     <span>{item.qty}</span>
                     <button
                       type="button"
-                      aria-label="Increase quantity"
+                      aria-label={t('Increase quantity')}
                       onClick={() => updateQty(item.id, 1)}
                     >
                       +
@@ -91,7 +92,7 @@ export default function CartDrawer({ products = [] }) {
                 <button
                   className="remove-item"
                   type="button"
-                  aria-label="Remove item"
+                  aria-label={t('Remove item')}
                   onClick={() => removeFromCart(item.id)}
                 >
                   ×
@@ -104,6 +105,10 @@ export default function CartDrawer({ products = [] }) {
               <h3>{t('Your cart is waiting')}</h3>
               <p>{t('Add the parts and gear you need for your next ride.')}</p>
             </div>
+          )}
+
+          {detailedItems.length > 0 && (
+            <RecommendationRail variant="column" limit={4} compact />
           )}
         </div>
 
@@ -130,7 +135,7 @@ export default function CartDrawer({ products = [] }) {
             onClick={goToCartPage}
             style={{ fontWeight: 700, marginTop: '8px' }}
           >
-            {t('Shopping Cart')} (Full View)
+            {t('Shopping Cart')} ({t('Full View')})
           </button>
 
           <button

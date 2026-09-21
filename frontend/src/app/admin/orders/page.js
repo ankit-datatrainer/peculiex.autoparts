@@ -2,7 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { createClient, isSupabaseConfigured } from '../../../lib/supabase/server';
 import { formatCurrency } from '../../../lib/translations';
-import { STATUS_LABEL } from '../../../components/account/OrderTimeline';
+import { STATUS_LABEL } from '../../../lib/orderStatus';
+import { getT } from '../../../lib/i18n-server';
 
 export const revalidate = 0;
 
@@ -18,10 +19,11 @@ const TABS = [
 ];
 
 export default async function AdminOrders({ searchParams }) {
+  const { t } = getT();
   if (!isSupabaseConfigured) {
     return (
       <div className="admin-setup">
-        <h1>Connect Supabase to manage orders.</h1>
+        <h1>{t('Connect Supabase to manage orders.')}</h1>
       </div>
     );
   }
@@ -52,12 +54,12 @@ export default async function AdminOrders({ searchParams }) {
     <>
       <div className="admin-page-head">
         <div>
-          <h1>Orders</h1>
+          <h1>{t('Orders')}</h1>
           <p>{list.length} shown</p>
         </div>
       </div>
 
-      <nav className="admin-tabs" aria-label="Filter orders by status">
+      <nav className="admin-tabs" aria-label={t('Filter orders by status')}>
         {TABS.map(([value, label]) => (
           <Link
             key={value || 'all'}
@@ -74,8 +76,8 @@ export default async function AdminOrders({ searchParams }) {
         <input
           name="q"
           defaultValue={q}
-          placeholder="Search order number, name or phone"
-          aria-label="Search orders"
+          placeholder={t('Search order number, name or phone')}
+          aria-label={t('Search orders')}
         />
         <button type="submit" className="admin-primary-btn">
           Search
@@ -89,18 +91,18 @@ export default async function AdminOrders({ searchParams }) {
         {error ? (
           <p className="admin-error">{error.message}</p>
         ) : list.length === 0 ? (
-          <p className="admin-empty">No orders match.</p>
+          <p className="admin-empty">{t('No orders match.')}</p>
         ) : (
           <div className="admin-table-wrap">
             <table className="admin-table">
               <thead>
                 <tr>
-                  <th>Order</th>
-                  <th>Customer</th>
-                  <th>City</th>
-                  <th className="right">Items</th>
-                  <th>Status</th>
-                  <th className="right">Total</th>
+                  <th>{t('Order')}</th>
+                  <th>{t('Customer')}</th>
+                  <th>{t('City')}</th>
+                  <th className="right">{t('Items')}</th>
+                  <th>{t('Status')}</th>
+                  <th className="right">{t('Total')}</th>
                   <th />
                 </tr>
               </thead>

@@ -5,9 +5,12 @@ import Footer from '../../components/Footer';
 import { fetchProducts } from '../../lib/api';
 import { getSessionUser } from '../../lib/supabase/server';
 import { signOut } from '../auth/actions';
+import { getT } from '../../lib/i18n-server';
 
 export default async function AccountLayout({ children }) {
+  const { t, local } = getT();
   const [products, { user, profile }] = await Promise.all([fetchProducts(), getSessionUser()]);
+  const name = profile?.full_name || user?.email?.split('@')[0] || t('rider');
 
   return (
     <div>
@@ -17,25 +20,27 @@ export default async function AccountLayout({ children }) {
         <div className="page-shell account-page">
           <header className="account-head">
             <div>
-              <span className="eyebrow dark">YOUR ACCOUNT</span>
-              <h1>Hello, {profile?.full_name || user?.email?.split('@')[0] || 'rider'}</h1>
+              <span className="eyebrow dark">{t('YOUR ACCOUNT')}</span>
+              <h1>
+                {local(`Hello, ${name}`, `नमस्ते, ${name}`, `नमस्कार, ${name}`, `નમસ્તે, ${name}`)}
+              </h1>
               <p>{user?.email}</p>
             </div>
             {profile?.role === 'admin' && (
               <Link href="/admin" className="account-admin-link">
-                Open super admin panel →
+                {t('Open super admin panel')} →
               </Link>
             )}
           </header>
 
           <div className="account-layout">
-            <nav className="account-nav" aria-label="Account sections">
-              <Link href="/account">Overview</Link>
-              <Link href="/account/orders">My orders</Link>
-              <Link href="/account/profile">Profile</Link>
-              <Link href="/cart">Cart</Link>
+            <nav className="account-nav" aria-label={t('Account sections')}>
+              <Link href="/account">{t('Overview')}</Link>
+              <Link href="/account/orders">{t('My orders')}</Link>
+              <Link href="/account/profile">{t('Profile')}</Link>
+              <Link href="/cart">{t('Cart')}</Link>
               <form action={signOut}>
-                <button type="submit">Sign out</button>
+                <button type="submit">{t('Sign out')}</button>
               </form>
             </nav>
 

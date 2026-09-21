@@ -37,11 +37,11 @@ export default function SignInModal() {
     <>
       <div className="overlay" onClick={closeModal} />
       <div className="modal compact" id="signinModal" role="dialog" aria-modal="true" aria-labelledby="signinTitle">
-        <button className="modal-close" onClick={closeModal} aria-label="Close">
+        <button className="modal-close" onClick={closeModal} aria-label={t('Close')}>
           ×
         </button>
         <div className="signin-logo">
-          <img src="/assets/site-icon.svg" alt="MotoMart logo" width="54" height="54" />
+          <img src="/assets/site-icon.svg" alt={t('MotoMart logo')} width="54" height="54" />
         </div>
         <h2 id="signinTitle">{t('Sign in to MotoMart')}</h2>
         <form id="signinForm" onSubmit={handleSubmit}>

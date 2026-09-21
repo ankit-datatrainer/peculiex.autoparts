@@ -4,8 +4,11 @@ import SiteHeader from '../../../components/SiteHeader';
 import Footer from '../../../components/Footer';
 import ProductDetailClient from './ProductDetailClient';
 import { fetchProductById, fetchProducts } from '../../../lib/api';
-import { getProductById, getRelatedProducts, usingDatabase } from '../../../lib/catalog';
+import { getProductById, usingDatabase } from '../../../lib/catalog';
+import { getRecommendationsForProduct } from '../../../lib/recommendations';
 import { getBrand as getJsonBrand } from '../../../lib/eautoCatalog';
+import { getT, getLanguage } from '../../../lib/i18n-server';
+import { aboutBullets } from '../../../lib/productCopy';
 
 export const revalidate = 0;
 
@@ -16,7 +19,7 @@ export const revalidate = 0;
 async function resolveProduct(id) {
   const product = await getProductById(id);
   if (product) {
-    return { product, related: await getRelatedProducts(product, 6) };
+    return { product, related: await getRecommendationsForProduct(product, 8) };
   }
 
   const legacy = await fetchProductById(id);
@@ -31,10 +34,13 @@ export async function generateMetadata({ params }) {
   const resolvedParams = await Promise.resolve(params);
   const id = decodeURIComponent(resolvedParams?.id || '');
   const { product } = await resolveProduct(id);
-  if (!product) return { title: 'Product Not Found | MotoMart' };
+  const { t, tName } = getT();
+  if (!product) return { title: `${t('Product not found')} | MotoMart` };
+
+  const name = tName(product.name, product.category);
   return {
-    title: `${product.name} | MotoMart India`,
-    description: product.about?.[0] || product.description || product.name
+    title: `${name} | MotoMart India`,
+    description: aboutBullets(product, getLanguage())[0] || name
   };
 }
 

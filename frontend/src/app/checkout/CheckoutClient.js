@@ -7,6 +7,8 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { useCart } from '../../context/CartContext';
 import { formatCurrency } from '../../lib/translations';
 import { loadCart, placeOrder } from './actions';
+import RecommendationRail from '../../components/RecommendationRail';
+import { useLanguage } from '../../context/LanguageContext';
 
 const STATES = [
   'Andhra Pradesh', 'Assam', 'Bihar', 'Chandigarh', 'Chhattisgarh', 'Delhi', 'Goa', 'Gujarat',
@@ -16,16 +18,17 @@ const STATES = [
   'West Bengal'
 ];
 
-function PlaceOrderButton({ disabled }) {
+function PlaceOrderButton({ disabled, label, waiting }) {
   const { pending } = useFormStatus();
   return (
     <button type="submit" className="checkout-submit" disabled={pending || disabled}>
-      {pending ? 'Placing your order…' : 'Place order · Pay on delivery'}
+      {pending ? waiting : label}
     </button>
   );
 }
 
 export default function CheckoutClient({ profile, email, notFromCart }) {
+  const { t, tName, local } = useLanguage();
   const router = useRouter();
   const { cart, clearCart, showToast } = useCart();
 
@@ -66,7 +69,7 @@ export default function CheckoutClient({ profile, email, notFromCart }) {
   if (loading) {
     return (
       <div className="page-shell checkout-page">
-        <p className="checkout-loading">Checking prices and stock…</p>
+        <p className="checkout-loading">{t('Checking prices and stock…')}</p>
       </div>
     );
   }
@@ -76,10 +79,10 @@ export default function CheckoutClient({ profile, email, notFromCart }) {
       <div className="page-shell checkout-page">
         <div className="checkout-empty">
           <span aria-hidden="true">🛒</span>
-          <h1>Your cart is empty</h1>
-          <p>Add some parts and they will show up here.</p>
+          <h1>{t('Your cart is empty')}</h1>
+          <p>{t('Add some parts and they will show up here.')}</p>
           <Link href="/brands" className="checkout-empty-cta">
-            Shop spare parts by brand
+            {t('Shop spare parts by brand')}
           </Link>
         </div>
       </div>
@@ -88,15 +91,15 @@ export default function CheckoutClient({ profile, email, notFromCart }) {
 
   return (
     <div className="page-shell checkout-page">
-      <nav className="catalog-crumbs" aria-label="Breadcrumb">
-        <Link href="/">Home</Link>
+      <nav className="catalog-crumbs" aria-label={t('Breadcrumb')}>
+        <Link href="/">{t('Home')}</Link>
         <span aria-hidden="true">›</span>
-        <Link href="/cart">Cart</Link>
+        <Link href="/cart">{t('Cart')}</Link>
         <span aria-hidden="true">›</span>
-        <strong>Checkout</strong>
+        <strong>{t('Checkout')}</strong>
       </nav>
 
-      <h1 className="checkout-title">Checkout</h1>
+      <h1 className="checkout-title">{t('Checkout')}</h1>
 
       <form action={action} className="checkout-layout">
         <input
@@ -107,40 +110,40 @@ export default function CheckoutClient({ profile, email, notFromCart }) {
 
         <section className="checkout-main">
           <div className="checkout-card">
-            <h2>Delivery address</h2>
+            <h2>{t('Delivery address')}</h2>
             <div className="checkout-grid">
               <label className="span-2">
-                <span>Full name *</span>
+                <span>{t('Full name')} *</span>
                 <input name="customer_name" defaultValue={profile?.full_name || ''} required />
               </label>
               <label>
-                <span>Mobile number *</span>
+                <span>{t('Mobile number')} *</span>
                 <input
                   name="customer_phone"
                   inputMode="tel"
                   defaultValue={profile?.phone || ''}
-                  placeholder="10-digit mobile"
+                  placeholder={t('10-digit mobile')}
                   required
                 />
               </label>
               <label>
-                <span>Email</span>
+                <span>{t('Email')}</span>
                 <input value={email || ''} readOnly />
               </label>
               <label className="span-2">
-                <span>Address *</span>
-                <input name="address_line1" placeholder="House / flat, street" required />
+                <span>{t('Address')} *</span>
+                <input name="address_line1" placeholder={t('House / flat, street')} required />
               </label>
               <label className="span-2">
-                <span>Landmark / area</span>
-                <input name="address_line2" placeholder="Optional" />
+                <span>{t('Landmark / area')}</span>
+                <input name="address_line2" placeholder={t('Optional')} />
               </label>
               <label>
-                <span>City *</span>
+                <span>{t('City')} *</span>
                 <input name="city" required />
               </label>
               <label>
-                <span>State *</span>
+                <span>{t('State')} *</span>
                 <select name="state" defaultValue="Karnataka" required>
                   {STATES.map((s) => (
                     <option key={s}>{s}</option>
@@ -148,41 +151,49 @@ export default function CheckoutClient({ profile, email, notFromCart }) {
                 </select>
               </label>
               <label>
-                <span>Pin code *</span>
+                <span>{t('Pin code')} *</span>
                 <input name="pincode" inputMode="numeric" maxLength={6} required />
               </label>
             </div>
           </div>
 
           <div className="checkout-card">
-            <h2>Payment</h2>
+            <h2>{t('Payment')}</h2>
             <label className="checkout-payment">
               <input type="radio" name="payment" defaultChecked readOnly />
               <span>
-                <strong>Pay on delivery</strong>
-                <small>Pay cash or UPI when your parts arrive. No online payment needed.</small>
+                <strong>{t('Pay on delivery')}</strong>
+                <small>
+                  {t('Pay cash or UPI when your parts arrive. No online payment needed.')}
+                </small>
               </span>
             </label>
           </div>
 
           <div className="checkout-card">
-            <h2>Order notes</h2>
+            <h2>{t('Order notes')}</h2>
             <textarea
               name="notes"
               rows={3}
-              placeholder="Anything we should know — preferred delivery time, fitment question, GST details…"
+              placeholder={t(
+                'Anything we should know — preferred delivery time, fitment question, GST details…'
+              )}
               defaultValue={notFromCart || ''}
             />
           </div>
         </section>
 
         <aside className="checkout-summary">
-          <h2>Order summary</h2>
+          <h2>{t('Order summary')}</h2>
 
           {data.missing?.length > 0 && (
             <p className="checkout-warn">
-              {data.missing.length} item{data.missing.length === 1 ? '' : 's'} in your cart are no
-              longer in the catalog and have been removed.
+              {local(
+                `${data.missing.length} item${data.missing.length === 1 ? '' : 's'} in your cart are no longer in the catalog and have been removed.`,
+                `आपकी कार्ट के ${data.missing.length} आइटम अब कैटलॉग में नहीं हैं और हटा दिए गए हैं।`,
+                `तुमच्या कार्टमधील ${data.missing.length} आयटम आता कॅटलॉगमध्ये नाहीत आणि काढून टाकले आहेत.`,
+                `તમારી કાર્ટમાંના ${data.missing.length} આઇટમ હવે કેટલોગમાં નથી અને દૂર કરવામાં આવ્યા છે.`
+              )}
             </p>
           )}
 
@@ -191,10 +202,21 @@ export default function CheckoutClient({ profile, email, notFromCart }) {
               <li key={item.id}>
                 <img src={item.image || '/assets/site-icon.svg'} alt="" />
                 <div>
-                  <Link href={`/product/${item.id}`}>{item.name}</Link>
+                  <Link href={`/product/${item.id}`}>{tName(item.name, item.category)}</Link>
                   <small>
                     {formatCurrency(item.price)} × {item.qty}
-                    {item.reduced && <em> · only {item.stock} left, quantity reduced</em>}
+                    {item.reduced && (
+                      <em>
+                        {' '}
+                        ·{' '}
+                        {local(
+                          `only ${item.stock} left, quantity reduced`,
+                          `केवल ${item.stock} बचे हैं, मात्रा घटाई गई`,
+                          `फक्त ${item.stock} शिल्लक, प्रमाण कमी केले`,
+                          `માત્ર ${item.stock} બાકી, જથ્થો ઘટાડ્યો`
+                        )}
+                      </em>
+                    )}
                   </small>
                 </div>
                 <strong>{formatCurrency(item.lineTotal)}</strong>
@@ -204,29 +226,35 @@ export default function CheckoutClient({ profile, email, notFromCart }) {
 
           <dl className="checkout-totals">
             <div>
-              <dt>Subtotal</dt>
+              <dt>{t('Subtotal')}</dt>
               <dd>{formatCurrency(subtotal)}</dd>
             </div>
             <div>
-              <dt>Delivery</dt>
-              <dd>{shipping === 0 ? 'FREE' : formatCurrency(shipping)}</dd>
+              <dt>{t('Delivery')}</dt>
+              <dd>{shipping === 0 ? t('FREE') : formatCurrency(shipping)}</dd>
             </div>
             <div className="grand">
-              <dt>Total</dt>
+              <dt>{t('Total')}</dt>
               <dd>{formatCurrency(total)}</dd>
             </div>
           </dl>
 
           {state?.error && (
             <p className="checkout-error" role="alert">
-              {state.error}
+              {t(state.error)}
             </p>
           )}
 
-          <PlaceOrderButton disabled={!items.length} />
+          <PlaceOrderButton
+            disabled={!items.length}
+            label={t('Place order · Pay on delivery')}
+            waiting={t('Placing your order…')}
+          />
           <small className="checkout-fineprint">
-            By placing this order you agree to our returns and fitment policy. Taxes included.
+            {t('By placing this order you agree to our returns and fitment policy. Taxes included.')}
           </small>
+
+          <RecommendationRail variant="column" limit={3} compact />
         </aside>
       </form>
     </div>

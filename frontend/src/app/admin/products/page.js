@@ -2,14 +2,16 @@ import React from 'react';
 import Link from 'next/link';
 import { createClient, isSupabaseConfigured } from '../../../lib/supabase/server';
 import ProductTable from './ProductTable';
+import { getT } from '../../../lib/i18n-server';
 
 export const revalidate = 0;
 
 const PAGE_SIZE = 25;
 
 export default async function AdminProducts({ searchParams }) {
+  const { t } = getT();
   if (!isSupabaseConfigured) {
-    return <div className="admin-setup"><h1>Connect Supabase to manage products.</h1></div>;
+    return <div className="admin-setup"><h1>{t('Connect Supabase to manage products.')}</h1></div>;
   }
 
   const supabase = createClient();
@@ -50,7 +52,7 @@ export default async function AdminProducts({ searchParams }) {
     <>
       <div className="admin-page-head">
         <div>
-          <h1>Products</h1>
+          <h1>{t('Products')}</h1>
           <p>{total.toLocaleString('en-IN')} in the catalog</p>
         </div>
         <div className="admin-head-actions">
@@ -64,32 +66,32 @@ export default async function AdminProducts({ searchParams }) {
       </div>
 
       <form className="admin-filters" method="get">
-        <input name="q" defaultValue={q} placeholder="Search name, SKU or id" aria-label="Search products" />
-        <select name="brand" defaultValue={brand} aria-label="Filter by brand">
-          <option value="">All brands</option>
+        <input name="q" defaultValue={q} placeholder={t('Search name, SKU or id')} aria-label={t('Search products')} />
+        <select name="brand" defaultValue={brand} aria-label={t('Filter by brand')}>
+          <option value="">{t('All brands')}</option>
           {(brands || []).map((b) => (
             <option key={b.id} value={b.id}>
               {b.name}
             </option>
           ))}
         </select>
-        <select name="category" defaultValue={category} aria-label="Filter by category">
-          <option value="">All categories</option>
+        <select name="category" defaultValue={category} aria-label={t('Filter by category')}>
+          <option value="">{t('All categories')}</option>
           {(categories || []).map((c) => (
             <option key={c.id} value={c.id}>
               {c.name}
             </option>
           ))}
         </select>
-        <select name="stock" defaultValue={stock} aria-label="Filter by stock">
-          <option value="">Any stock</option>
-          <option value="low">Low (≤5)</option>
-          <option value="out">Out of stock</option>
+        <select name="stock" defaultValue={stock} aria-label={t('Filter by stock')}>
+          <option value="">{t('Any stock')}</option>
+          <option value="low">{t('Low (≤5)')}</option>
+          <option value="out">{t('Out of stock')}</option>
         </select>
-        <select name="status" defaultValue={status} aria-label="Filter by status">
-          <option value="">Any status</option>
-          <option value="active">Live</option>
-          <option value="hidden">Hidden</option>
+        <select name="status" defaultValue={status} aria-label={t('Filter by status')}>
+          <option value="">{t('Any status')}</option>
+          <option value="active">{t('Live')}</option>
+          <option value="hidden">{t('Hidden')}</option>
         </select>
         <button type="submit" className="admin-primary-btn">
           Filter
@@ -106,7 +108,7 @@ export default async function AdminProducts({ searchParams }) {
       )}
 
       {pages > 1 && (
-        <nav className="admin-pager" aria-label="Pagination">
+        <nav className="admin-pager" aria-label={t('Pagination')}>
           {page > 1 && (
             <Link href={{ pathname: '/admin/products', query: { ...searchParams, page: page - 1 } }}>
               ← Previous

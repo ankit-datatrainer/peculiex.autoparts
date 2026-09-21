@@ -20,7 +20,7 @@ export default function HeroSlider() {
   };
 
   return (
-    <section className="market-hero" aria-label="Featured auto-parts offers">
+    <section className="market-hero" aria-label={t('Featured auto-parts offers')}>
       <div className="market-hero-track" id="heroSlides" ref={trackRef}>
         <article className="promo-tile promo-dark">
           <div className="promo-copy-top">
@@ -30,7 +30,7 @@ export default function HeroSlider() {
           </div>
           <img
             src="/assets/ai-riding-essentials.png"
-            alt="Helmet, riding gloves and phone mount arrangement"
+            alt={t('Helmet, riding gloves and phone mount arrangement')}
           />
           <button type="button" onClick={() => goToCategory('Riding Gear')}>
             {t('Shop safety gear')}
@@ -45,7 +45,7 @@ export default function HeroSlider() {
           </div>
           <img
             src="/assets/ai-maintenance-parts.png"
-            alt="Motorcycle maintenance parts arrangement"
+            alt={t('Motorcycle maintenance parts arrangement')}
           />
           <button type="button" onClick={() => goToCategory('Engine & Oils')}>
             {t('See maintenance deals')}
@@ -60,7 +60,7 @@ export default function HeroSlider() {
           </div>
           <img
             src="/assets/ai-commuter-accessories.png"
-            alt="Commuter bike accessories arrangement"
+            alt={t('Commuter bike accessories arrangement')}
           />
           <button type="button" onClick={() => goToCategory('Accessories')}>
             {t('Explore accessories')}
@@ -75,7 +75,7 @@ export default function HeroSlider() {
           </div>
           <img
             src="/assets/ai-riding-essentials.png"
-            alt="Full-face helmet and protective riding equipment"
+            alt={t('Full-face helmet and protective riding equipment')}
           />
           <button type="button" onClick={() => goToCategory('Helmets')}>
             {t('Shop helmets')}
@@ -90,7 +90,7 @@ export default function HeroSlider() {
           </div>
           <img
             src="/assets/ai-maintenance-parts.png"
-            alt="Motorcycle engine care products"
+            alt={t('Motorcycle engine care products')}
           />
           <button type="button" onClick={() => goToCategory('Engine & Oils')}>
             {t('Shop engine care')}
@@ -101,7 +101,7 @@ export default function HeroSlider() {
       <button
         className="market-arrow market-prev"
         id="heroPrev"
-        aria-label="Previous offer"
+        aria-label={t('Previous offer')}
         onClick={() => scrollSlide(-1)}
       >
         ‹
@@ -109,7 +109,7 @@ export default function HeroSlider() {
       <button
         className="market-arrow market-next"
         id="heroNext"
-        aria-label="Next offer"
+        aria-label={t('Next offer')}
         onClick={() => scrollSlide(1)}
       >
         ›

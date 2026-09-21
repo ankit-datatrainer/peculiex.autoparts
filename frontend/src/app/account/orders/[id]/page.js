@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createClient, isSupabaseConfigured } from '../../../../lib/supabase/server';
 import { formatCurrency } from '../../../../lib/translations';
-import OrderTimeline, { STATUS_LABEL } from '../../../../components/account/OrderTimeline';
+import OrderTimeline from '../../../../components/account/OrderTimeline';
+import { STATUS_LABEL } from '../../../../lib/orderStatus';
+import { getT } from '../../../../lib/i18n-server';
 
 export const revalidate = 0;
 
@@ -12,6 +14,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function OrderDetailPage({ params, searchParams }) {
+  const { t, tName, local, date } = getT();
+
   if (!isSupabaseConfigured) notFound();
 
   const supabase = createClient();
@@ -40,8 +44,15 @@ export default async function OrderDetailPage({ params, searchParams }) {
     <>
       {searchParams?.placed === '1' && (
         <div className="order-placed" role="status">
-          <strong>Thank you — your order is confirmed.</strong>
-          <span>We will call you on {order.customer_phone} before dispatch.</span>
+          <strong>{t('Thank you — your order is confirmed.')}</strong>
+          <span>
+            {local(
+              `We will call you on ${order.customer_phone} before dispatch.`,
+              `भेजने से पहले हम आपको ${order.customer_phone} पर कॉल करेंगे।`,
+              `पाठवण्यापूर्वी आम्ही तुम्हाला ${order.customer_phone} वर कॉल करू.`,
+              `મોકલતા પહેલાં અમે તમને ${order.customer_phone} પર કૉલ કરીશું.`
+            )}
+          </span>
         </div>
       )}
 
@@ -49,12 +60,12 @@ export default async function OrderDetailPage({ params, searchParams }) {
         <div className="order-detail-head">
           <div>
             <Link href="/account/orders" className="order-back">
-              ← All orders
+              ← {t('All orders')}
             </Link>
             <h2>{order.order_number}</h2>
             <small>
-              Placed{' '}
-              {new Date(order.placed_at).toLocaleString('en-IN', {
+              {t('Placed')}{' '}
+              {date(order.placed_at, {
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric',
@@ -63,25 +74,35 @@ export default async function OrderDetailPage({ params, searchParams }) {
               })}
             </small>
           </div>
-          <span className={`order-status s-${order.status}`}>{STATUS_LABEL[order.status]}</span>
+          <div className="order-head-actions">
+            <span className={`order-status s-${order.status}`}>{t(STATUS_LABEL[order.status])}</span>
+            <a
+              className="invoice-btn"
+              href={`/account/orders/${order.id}/invoice`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              ⤓ {t('Invoice')} (PDF)
+            </a>
+          </div>
         </div>
 
-        <h3 className="order-section-title">Tracking</h3>
+        <h3 className="order-section-title">{t('Tracking')}</h3>
         <OrderTimeline status={order.status} events={events || []} />
       </div>
 
       <div className="order-detail-grid">
         <div className="account-card">
-          <h3 className="order-section-title">Items</h3>
+          <h3 className="order-section-title">{t('Items')}</h3>
           <ul className="order-items">
             {(items || []).map((item) => (
               <li key={item.id}>
                 <img src={item.image || '/assets/site-icon.svg'} alt="" />
                 <div>
                   {item.product_id ? (
-                    <Link href={`/product/${item.product_id}`}>{item.name}</Link>
+                    <Link href={`/product/${item.product_id}`}>{tName(item.name)}</Link>
                   ) : (
-                    <span>{item.name}</span>
+                    <span>{tName(item.name)}</span>
                   )}
                   <small>
                     {formatCurrency(item.price)} × {item.qty}
@@ -94,22 +115,22 @@ export default async function OrderDetailPage({ params, searchParams }) {
 
           <dl className="checkout-totals">
             <div>
-              <dt>Subtotal</dt>
+              <dt>{t('Subtotal')}</dt>
               <dd>{formatCurrency(order.subtotal)}</dd>
             </div>
             <div>
-              <dt>Delivery</dt>
-              <dd>{Number(order.shipping) === 0 ? 'FREE' : formatCurrency(order.shipping)}</dd>
+              <dt>{t('Delivery')}</dt>
+              <dd>{Number(order.shipping) === 0 ? t('FREE') : formatCurrency(order.shipping)}</dd>
             </div>
             <div className="grand">
-              <dt>Total</dt>
+              <dt>{t('Total')}</dt>
               <dd>{formatCurrency(order.total)}</dd>
             </div>
           </dl>
         </div>
 
         <div className="account-card">
-          <h3 className="order-section-title">Delivery</h3>
+          <h3 className="order-section-title">{t('Delivery')}</h3>
           <address className="order-address">
             <strong>{order.customer_name}</strong>
             {order.address_line1}
@@ -126,14 +147,14 @@ export default async function OrderDetailPage({ params, searchParams }) {
             )}
           </address>
 
-          <h3 className="order-section-title">Payment</h3>
+          <h3 className="order-section-title">{t('Payment')}</h3>
           <p className="order-payment">
-            {order.payment_method === 'cod' ? 'Pay on delivery' : order.payment_method}
+            {order.payment_method === 'cod' ? t('Pay on delivery') : order.payment_method}
           </p>
 
           {order.notes && (
             <>
-              <h3 className="order-section-title">Your note</h3>
+              <h3 className="order-section-title">{t('Your note')}</h3>
               <p className="order-note">{order.notes}</p>
             </>
           )}

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
 import { saveCategory, deleteCategory } from '../actions';
+import { useLanguage } from '../../../context/LanguageContext';
 
 function SaveButton({ label }) {
   const { pending } = useFormStatus();
@@ -15,6 +16,7 @@ function SaveButton({ label }) {
 }
 
 export default function CategoryManager({ categories = [], counts = {} }) {
+  const { t } = useLanguage();
   const router = useRouter();
   const [editing, setEditing] = useState(null); // null = create mode
   const [state, action] = useFormState(saveCategory, {});
@@ -33,21 +35,21 @@ export default function CategoryManager({ categories = [], counts = {} }) {
     <div className="admin-two-col wide-left">
       <section className="admin-card">
         <div className="admin-card-head">
-          <h2>Categories</h2>
+          <h2>{t('Categories')}</h2>
           <small>{categories.length} total</small>
         </div>
 
         {categories.length === 0 ? (
-          <p className="admin-empty">No categories yet. Create one on the right.</p>
+          <p className="admin-empty">{t('No categories yet. Create one on the right.')}</p>
         ) : (
           <div className="admin-table-wrap">
             <table className="admin-table">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Slug</th>
-                  <th className="right">Products</th>
-                  <th>Status</th>
+                  <th>{t('Name')}</th>
+                  <th>{t('Slug')}</th>
+                  <th className="right">{t('Products')}</th>
+                  <th>{t('Status')}</th>
                   <th />
                 </tr>
               </thead>
@@ -106,28 +108,28 @@ export default function CategoryManager({ categories = [], counts = {} }) {
           <input type="hidden" name="id" value={editing?.id || ''} />
 
           <label>
-            <span>Name *</span>
+            <span>{t('Name *')}</span>
             <input name="name" defaultValue={editing?.name || ''} required />
           </label>
 
           <label>
-            <span>Description</span>
+            <span>{t('Description')}</span>
             <textarea name="description" rows={3} defaultValue={editing?.description || ''} />
           </label>
 
           <label>
-            <span>Image URL</span>
-            <input name="image" defaultValue={editing?.image || ''} placeholder="/assets/…" />
+            <span>{t('Image URL')}</span>
+            <input name="image" defaultValue={editing?.image || ''} placeholder={t('/assets/…')} />
           </label>
 
           <label>
-            <span>Sort order</span>
+            <span>{t('Sort order')}</span>
             <input name="sort_order" type="number" defaultValue={editing?.sort_order ?? 0} />
           </label>
 
           <label className="admin-check">
             <input type="checkbox" name="is_active" defaultChecked={editing ? editing.is_active : true} />
-            <span>Visible on the storefront</span>
+            <span>{t('Visible on the storefront')}</span>
           </label>
 
           {state?.error && <p className="admin-error">{state.error}</p>}

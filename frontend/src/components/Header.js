@@ -7,6 +7,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 import BrandNavStrip from './BrandNavStrip';
 import catalogIndex from '../data/eauto/index.json';
+import { LANGUAGES } from '../lib/translations';
 
 export default function Header({ products = [], brands = [], user = null }) {
   const router = useRouter();
@@ -66,11 +67,11 @@ export default function Header({ products = [], brands = [], user = null }) {
     const nextLang = e.target.value;
     setLanguage(nextLang);
     showToast(
-      nextLang === 'hi'
-        ? 'भाषा हिन्दी में बदल दी गई'
-        : nextLang === 'mr'
-        ? 'भाषा मराठीत बदलली'
-        : 'Language changed to English'
+      {
+        hi: 'भाषा हिन्दी में बदल दी गई',
+        mr: 'भाषा मराठीत बदलली',
+        gu: 'ભાષા ગુજરાતીમાં બદલાઈ'
+      }[nextLang] || 'Language changed to English'
     );
   };
 
@@ -81,7 +82,7 @@ export default function Header({ products = [], brands = [], user = null }) {
       </a>
 
       {/* Live Deals Ticker */}
-      <div id="announcement" className="announcement premium-ticker" aria-label="Current offers">
+      <div id="announcement" className="announcement premium-ticker" aria-label={t('Current offers')}>
         <div className="ticker-label">
           <span aria-hidden="true">⚡</span>
           <strong>{t('LIVE DEALS')}</strong>
@@ -118,15 +119,15 @@ export default function Header({ products = [], brands = [], user = null }) {
           <button
             className="icon-button menu-button"
             id="menuButton"
-            aria-label="Open navigation"
+            aria-label={t('Open navigation')}
             onClick={() => setIsMobileMenuOpen(true)}
           >
             ☰
           </button>
 
-          <Link className="brand" href="/" aria-label="MotoMart home">
+          <Link className="brand" href="/" aria-label={t('MotoMart home')}>
             <span className="brand-mark">
-              <img src="/assets/site-icon.svg" alt="MotoMart logo" width="36" height="36" />
+              <img src="/assets/site-icon.svg" alt={t('MotoMart logo')} width="36" height="36" />
             </span>
             <span className="brand-name">
               moto<span>mart</span>
@@ -137,7 +138,7 @@ export default function Header({ products = [], brands = [], user = null }) {
           <button
             className="deliver-to"
             id="locationButton"
-            aria-label="Change delivery location"
+            aria-label={t('Change delivery location')}
             onClick={() => openModal('location')}
           >
             <span className="pin">⌖</span>
@@ -149,11 +150,11 @@ export default function Header({ products = [], brands = [], user = null }) {
 
           <form className="search" id="searchForm" role="search" ref={searchBoxRef} onSubmit={handleSearchSubmit}>
             <label className="sr-only" htmlFor="categorySelect">
-              Category
+              {t('Category')}
             </label>
             <select
               id="categorySelect"
-              aria-label="Choose company brand"
+              aria-label={t('Choose company brand')}
               value={selectedCategory}
               onChange={(e) => {
                 setSelectedCategory(e.target.value);
@@ -171,7 +172,7 @@ export default function Header({ products = [], brands = [], user = null }) {
             </select>
 
             <label className="sr-only" htmlFor="searchInput">
-              Search MotoMart
+              {t('Search MotoMart')}
             </label>
             <input
               id="searchInput"
@@ -184,7 +185,7 @@ export default function Header({ products = [], brands = [], user = null }) {
                 if (e.key === 'Escape') setIsSuggestOpen(false);
               }}
             />
-            <button type="submit" aria-label="Search">
+            <button type="submit" aria-label={t('Search')}>
               ⌕
             </button>
 
@@ -213,12 +214,14 @@ export default function Header({ products = [], brands = [], user = null }) {
             )}
           </form>
 
-          <label className="language-control" aria-label="Choose language">
+          <label className="language-control" aria-label={t('Choose language')}>
             <span>🇮🇳</span>
             <select id="languageSelect" value={language} onChange={handleLangChange}>
-              <option value="en">English</option>
-              <option value="hi">हिन्दी</option>
-              <option value="mr">मराठी</option>
+              {LANGUAGES.map((l) => (
+                <option key={l.code} value={l.code}>
+                  {l.label}
+                </option>
+              ))}
             </select>
           </label>
 
@@ -242,7 +245,7 @@ export default function Header({ products = [], brands = [], user = null }) {
           <button
             className="cart-button"
             id="cartButton"
-            aria-label="Open shopping cart"
+            aria-label={t('Open shopping cart')}
             onClick={openCartDrawer}
           >
             <span className="cart-icon">🛒</span>
@@ -256,27 +259,28 @@ export default function Header({ products = [], brands = [], user = null }) {
         {/* Brand navigation - every brand, each opening its models on hover */}
         <BrandNavStrip brands={brands} />
 
-        {/* 10 Bike Parts Strip */}
-        <nav className="vehicle-strip" aria-label="Bike parts navigation">
+        {/* Part-category strip */}
+        <nav className="vehicle-strip" aria-label={t('Bike parts navigation')}>
           <strong>{t('GENUINE SPARES')}</strong>
-          <Link href="/search?partType=Brake">{t('Brake')}</Link>
-          <Link href="/search?partType=Clutch">{t('Clutch')}</Link>
-          <Link href="/search?partType=Engine">{t('Engine')}</Link>
-          <Link href="/search?partType=Shocker">{t('Shocker')}</Link>
-          <Link href="/search?partType=Lights">{t('Lights')}</Link>
-          <Link href="/search?partType=Cables">{t('Cables')}</Link>
-          <Link href="/search?partType=Wheels">{t('Wheels')}</Link>
-          <Link href="/search?partType=Handle">{t('Handle')}</Link>
-          <Link href="/search?partType=Petrol%20Tank">{t('Petrol Tank')}</Link>
-          <Link href="/search?partType=Oil">{t('Oil')}</Link>
+          <Link href="/categories/handle-steering">{t('Handle & Steering')}</Link>
+          <Link href="/categories/front-wheel">{t('Front Wheel Parts')}</Link>
+          <Link href="/categories/engine-drive">{t('Engine & Drive')}</Link>
+          <Link href="/categories/bearing">{t('Bearings & Bushes')}</Link>
+          <Link href="/categories/lights">{t('Lights & Indicators')}</Link>
+          <Link href="/categories/fuel-supply">{t('Fuel Supply System')}</Link>
+          <Link href="/categories/oil-seals">{t('Oil, Seals & Lubricants')}</Link>
+          <Link href="/categories/pipes-hoses">{t('Pipes & Hoses')}</Link>
+          <Link href="/categories/electricals">{t('Electricals')}</Link>
+          <Link href="/categories">{t('All categories')}</Link>
         </nav>
+
       </header>
 
       {/* Slide-out Mobile Menu Drawer */}
       <aside className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`} id="mobileMenu" aria-hidden={!isMobileMenuOpen}>
         <div className="mobile-menu-head">
           <strong>{t('MotoMart Brands & Parts')}</strong>
-          <button onClick={() => setIsMobileMenuOpen(false)} aria-label="Close navigation">
+          <button onClick={() => setIsMobileMenuOpen(false)} aria-label={t('Close navigation')}>
             ×
           </button>
         </div>
@@ -284,24 +288,24 @@ export default function Header({ products = [], brands = [], user = null }) {
           <h3>{t('Shop spare parts by brand')}</h3>
           {(brands.length ? brands : catalogIndex.brands).map((b) => (
             <Link key={b.id} href={`/brands/${b.id}`} onClick={() => setIsMobileMenuOpen(false)}>
-              {b.name} <small>({b.modelCount} models)</small>
+              {b.name} <small>({b.modelCount} {t('models')})</small>
             </Link>
           ))}
           <Link href="/brands" onClick={() => setIsMobileMenuOpen(false)}>
-            View all brands →
+            {t('View all brands')} →
           </Link>
           <hr />
           <h3>{t('Bike & Scooter Parts')}</h3>
-          <Link href="/search?partType=Brake" onClick={() => setIsMobileMenuOpen(false)}>Brake (Pads, Shoes, Discs)</Link>
-          <Link href="/search?partType=Clutch" onClick={() => setIsMobileMenuOpen(false)}>Clutch & Plates</Link>
-          <Link href="/search?partType=Engine" onClick={() => setIsMobileMenuOpen(false)}>Engine & Cylinders</Link>
-          <Link href="/search?partType=Shocker" onClick={() => setIsMobileMenuOpen(false)}>Shocker & Forks</Link>
-          <Link href="/search?partType=Lights" onClick={() => setIsMobileMenuOpen(false)}>Lights & Headlamps</Link>
-          <Link href="/search?partType=Cables" onClick={() => setIsMobileMenuOpen(false)}>Cables & Levers</Link>
-          <Link href="/search?partType=Wheels" onClick={() => setIsMobileMenuOpen(false)}>Wheels & Rims</Link>
-          <Link href="/search?partType=Handle" onClick={() => setIsMobileMenuOpen(false)}>Handle & Grips</Link>
-          <Link href="/search?partType=Petrol%20Tank" onClick={() => setIsMobileMenuOpen(false)}>Petrol Tank / EV Bay</Link>
-          <Link href="/search?partType=Oil" onClick={() => setIsMobileMenuOpen(false)}>Oil & Lubricants</Link>
+          <Link href="/search?partType=Brake" onClick={() => setIsMobileMenuOpen(false)}>{t('Brake (Pads, Shoes, Discs)')}</Link>
+          <Link href="/search?partType=Clutch" onClick={() => setIsMobileMenuOpen(false)}>{t('Clutch & Plates')}</Link>
+          <Link href="/search?partType=Engine" onClick={() => setIsMobileMenuOpen(false)}>{t('Engine & Cylinders')}</Link>
+          <Link href="/search?partType=Shocker" onClick={() => setIsMobileMenuOpen(false)}>{t('Shocker & Forks')}</Link>
+          <Link href="/search?partType=Lights" onClick={() => setIsMobileMenuOpen(false)}>{t('Lights & Headlamps')}</Link>
+          <Link href="/search?partType=Cables" onClick={() => setIsMobileMenuOpen(false)}>{t('Cables & Levers')}</Link>
+          <Link href="/search?partType=Wheels" onClick={() => setIsMobileMenuOpen(false)}>{t('Wheels & Rims')}</Link>
+          <Link href="/search?partType=Handle" onClick={() => setIsMobileMenuOpen(false)}>{t('Handle & Grips')}</Link>
+          <Link href="/search?partType=Petrol%20Tank" onClick={() => setIsMobileMenuOpen(false)}>{t('Petrol Tank / EV Bay')}</Link>
+          <Link href="/search?partType=Oil" onClick={() => setIsMobileMenuOpen(false)}>{t('Oil & Lubricants')}</Link>
           <hr />
           <h3>{t('Help & Account')}</h3>
           <button

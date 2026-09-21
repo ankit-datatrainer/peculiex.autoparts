@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useLanguage } from '../../context/LanguageContext';
 
 const LINKS = [
   { href: '/admin', label: 'Dashboard', icon: '▤', exact: true },
@@ -21,6 +22,7 @@ const LINKS = [
  * The button toggles a body class so the sidebar slides in on small screens.
  */
 export default function AdminNav({ variant = 'button' }) {
+  const { t } = useLanguage();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -35,13 +37,13 @@ export default function AdminNav({ variant = 'button' }) {
 
   if (variant === 'links') {
     return (
-      <nav aria-label="Admin sections">
+      <nav aria-label={t('Admin sections')}>
         {LINKS.map((l) => {
           const active = l.exact ? pathname === l.href : pathname.startsWith(l.href);
           return (
             <Link key={l.href} href={l.href} className={active ? 'active' : ''}>
               <span aria-hidden="true">{l.icon}</span>
-              {l.label}
+              {t(l.label)}
             </Link>
           );
         })}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { getT } from '../lib/i18n-server';
 import SiteHeader from '../components/SiteHeader';
 import HeroSlider from '../components/HeroSlider';
 import GarageFinder from '../components/GarageFinder';
@@ -23,6 +24,8 @@ export default async function HomePage() {
     fetchGarageModels()
   ]);
 
+  const { t } = getT();
+
   return (
     <div id="homeView">
       <SiteHeader />
@@ -44,12 +47,16 @@ export default async function HomePage() {
           <div className="page-shell">
             <div className="section-title more-products-title">
               <div>
-                <span className="eyebrow dark">MORE FOR YOUR RIDE</span>
-                <h2>Built to go the distance</h2>
-                <p>Hand-picked essentials for everyday commutes, weekend rides and workshop care.</p>
+                <span className="eyebrow dark">{t('MORE FOR YOUR RIDE')}</span>
+                <h2>{t('Built to go the distance')}</h2>
+                <p>
+                  {t(
+                    'Hand-picked essentials for everyday commutes, weekend rides and workshop care.'
+                  )}
+                </p>
               </div>
               <a href="#products">
-                Explore all products <span>↗</span>
+                {t('Explore all products')} <span>↗</span>
               </a>
             </div>
             <div className="more-products-grid" id="moreProductsGrid">
@@ -64,14 +71,14 @@ export default async function HomePage() {
 
         {/* Sign in Banner */}
         <section className="signin-banner">
-          <h2>See personalised picks for your ride</h2>
+          <h2>{t('See personalised picks for your ride')}</h2>
           <button type="button" id="signInButton">
-            Sign in securely
+            {t('Sign in securely')}
           </button>
           <small>
-            New to MotoMart?{' '}
+            {t('New to MotoMart?')}{' '}
             <button type="button" id="registerButton">
-              Create an account
+              {t('Create an account')}
             </button>
           </small>
         </section>

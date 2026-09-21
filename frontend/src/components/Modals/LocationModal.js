@@ -32,7 +32,7 @@ export default function LocationModal() {
     <>
       <div className="overlay" onClick={closeModal} />
       <div className="modal" id="locationModal" role="dialog" aria-modal="true" aria-labelledby="locationTitle">
-        <button className="modal-close" onClick={closeModal} aria-label="Close">
+        <button className="modal-close" onClick={closeModal} aria-label={t('Close')}>
           ×
         </button>
         <h2 id="locationTitle">{t('Choose your location')}</h2>

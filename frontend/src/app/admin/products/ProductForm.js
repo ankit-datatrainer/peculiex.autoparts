@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
 import { saveProduct, deleteProduct, setProductActive } from '../actions';
+import { useLanguage } from '../../../context/LanguageContext';
 
 function SaveButton({ isNew }) {
   const { pending } = useFormStatus();
@@ -22,6 +23,7 @@ export default function ProductForm({
   models = [],
   fitModelIds = []
 }) {
+  const { t } = useLanguage();
   const router = useRouter();
   const isNew = !product;
   const [state, action] = useFormState(saveProduct, {});
@@ -67,16 +69,16 @@ export default function ProductForm({
 
       <div className="admin-form-grid">
         <section className="admin-card">
-          <h2>Details</h2>
+          <h2>{t('Details')}</h2>
 
           <label>
-            <span>Product name *</span>
+            <span>{t('Product name *')}</span>
             <input name="name" defaultValue={product?.name || ''} required />
           </label>
 
           <div className="admin-form-row">
             <label>
-              <span>Product id {isNew && <em>(optional)</em>}</span>
+              <span>Product id {isNew && <em>{t('(optional)')}</em>}</span>
               <input
                 name="id"
                 defaultValue={product?.id || ''}
@@ -85,16 +87,16 @@ export default function ProductForm({
               />
             </label>
             <label>
-              <span>SKU / part number</span>
+              <span>{t('SKU / part number')}</span>
               <input name="sku" defaultValue={product?.sku || ''} />
             </label>
           </div>
 
           <div className="admin-form-row">
             <label>
-              <span>Brand</span>
+              <span>{t('Brand')}</span>
               <select name="brand_id" value={brandId} onChange={(e) => setBrandId(e.target.value)}>
-                <option value="">— none —</option>
+                <option value="">{t('— none —')}</option>
                 {brands.map((b) => (
                   <option key={b.id} value={b.id}>
                     {b.name}
@@ -103,9 +105,9 @@ export default function ProductForm({
               </select>
             </label>
             <label>
-              <span>Category</span>
+              <span>{t('Category')}</span>
               <select name="category_id" defaultValue={product?.category_id || ''}>
-                <option value="">— none —</option>
+                <option value="">{t('— none —')}</option>
                 {categories.map((c) => (
                   <option key={c.id} value={c.id}>
                     {c.name}
@@ -116,36 +118,36 @@ export default function ProductForm({
           </div>
 
           <label>
-            <span>Supplier / vendor</span>
+            <span>{t('Supplier / vendor')}</span>
             <input name="vendor" defaultValue={product?.vendor || ''} />
           </label>
 
           <label>
-            <span>Description</span>
+            <span>{t('Description')}</span>
             <textarea name="description" rows={5} defaultValue={product?.description || ''} />
           </label>
 
           <label>
-            <span>Fitment note</span>
+            <span>{t('Fitment note')}</span>
             <input
               name="fitment"
               defaultValue={product?.fitment || ''}
-              placeholder="Fits Honda Activa 5G / 6G"
+              placeholder={t('Fits Honda Activa 5G / 6G')}
             />
           </label>
 
           <label>
-            <span>Tags (comma separated)</span>
+            <span>{t('Tags (comma separated)')}</span>
             <input name="tags" defaultValue={(product?.tags || []).join(', ')} />
           </label>
         </section>
 
         <section className="admin-card">
-          <h2>Pricing &amp; stock</h2>
+          <h2>{t('Pricing & stock')}</h2>
 
           <div className="admin-form-row">
             <label>
-              <span>Selling price (₹) *</span>
+              <span>{t('Selling price (₹) *')}</span>
               <input
                 name="price"
                 type="number"
@@ -156,7 +158,7 @@ export default function ProductForm({
               />
             </label>
             <label>
-              <span>MRP (₹)</span>
+              <span>{t('MRP (₹)')}</span>
               <input
                 name="mrp"
                 type="number"
@@ -168,7 +170,7 @@ export default function ProductForm({
           </div>
 
           <label>
-            <span>Stock quantity</span>
+            <span>{t('Stock quantity')}</span>
             <input name="stock" type="number" min="0" defaultValue={product?.stock ?? 0} />
           </label>
 
@@ -178,22 +180,22 @@ export default function ProductForm({
               name="is_active"
               defaultChecked={product ? product.is_active : true}
             />
-            <span>Visible on the storefront</span>
+            <span>{t('Visible on the storefront')}</span>
           </label>
 
           {isNew && (
             <label>
-              <span>Product images</span>
+              <span>{t('Product images')}</span>
               <input type="file" name="images" accept="image/*" multiple />
-              <small className="admin-hint">JPG, PNG or WebP up to 5 MB each.</small>
+              <small className="admin-hint">{t('JPG, PNG or WebP up to 5 MB each.')}</small>
             </label>
           )}
 
-          <h2 className="admin-subhead">Fits these models</h2>
+          <h2 className="admin-subhead">{t('Fits these models')}</h2>
           {!brandId ? (
-            <p className="admin-hint">Pick a brand to choose models.</p>
+            <p className="admin-hint">{t('Pick a brand to choose models.')}</p>
           ) : brandModels.length === 0 ? (
-            <p className="admin-hint">This brand has no models yet.</p>
+            <p className="admin-hint">{t('This brand has no models yet.')}</p>
           ) : (
             <div className="admin-fitment">
               {brandModels.map((m) => (

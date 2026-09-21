@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
 import { saveBrand, saveModel, deleteModel } from '../actions';
+import { useLanguage } from '../../../context/LanguageContext';
 
 function SaveButton({ label }) {
   const { pending } = useFormStatus();
@@ -15,6 +16,7 @@ function SaveButton({ label }) {
 }
 
 export default function BrandManager({ brands = [], models = [], counts = {} }) {
+  const { t } = useLanguage();
   const router = useRouter();
   const [openBrand, setOpenBrand] = useState(brands[0]?.id || null);
   const [editBrand, setEditBrand] = useState(null);
@@ -39,7 +41,7 @@ export default function BrandManager({ brands = [], models = [], counts = {} }) 
     <div className="admin-two-col wide-left">
       <section className="admin-card">
         <div className="admin-card-head">
-          <h2>Brands</h2>
+          <h2>{t('Brands')}</h2>
           <small>{brands.length} total</small>
         </div>
 
@@ -47,10 +49,10 @@ export default function BrandManager({ brands = [], models = [], counts = {} }) 
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Brand</th>
-                <th className="right">Models</th>
-                <th className="right">Products</th>
-                <th>Status</th>
+                <th>{t('Brand')}</th>
+                <th className="right">{t('Models')}</th>
+                <th className="right">{t('Products')}</th>
+                <th>{t('Status')}</th>
                 <th />
               </tr>
             </thead>
@@ -109,7 +111,7 @@ export default function BrandManager({ brands = [], models = [], counts = {} }) 
             </div>
 
             {brandModels.length === 0 ? (
-              <p className="admin-empty">No models for this brand yet.</p>
+              <p className="admin-empty">{t('No models for this brand yet.')}</p>
             ) : (
               <ul className="admin-model-list">
                 {brandModels.map((m) => (
@@ -159,28 +161,28 @@ export default function BrandManager({ brands = [], models = [], counts = {} }) 
           <form action={brandAction} className="admin-form-stack" key={`b-${editBrand?.id || 'new'}`}>
             <input type="hidden" name="id" value={editBrand?.id || ''} />
             <label>
-              <span>Name *</span>
+              <span>{t('Name *')}</span>
               <input name="name" defaultValue={editBrand?.name || ''} required />
             </label>
             <label>
-              <span>Tagline</span>
+              <span>{t('Tagline')}</span>
               <input name="tagline" defaultValue={editBrand?.tagline || ''} />
             </label>
             <label>
-              <span>Logo URL</span>
+              <span>{t('Logo URL')}</span>
               <input name="logo" defaultValue={editBrand?.logo || ''} />
             </label>
             <label>
-              <span>Hero image URL</span>
+              <span>{t('Hero image URL')}</span>
               <input name="hero_image" defaultValue={editBrand?.hero_image || ''} />
             </label>
             <label>
-              <span>Sort order</span>
+              <span>{t('Sort order')}</span>
               <input name="sort_order" type="number" defaultValue={editBrand?.sort_order ?? 0} />
             </label>
             <label className="admin-check">
               <input type="checkbox" name="is_active" defaultChecked={editBrand ? editBrand.is_active : true} />
-              <span>Visible on the storefront</span>
+              <span>{t('Visible on the storefront')}</span>
             </label>
 
             {brandState?.error && <p className="admin-error">{brandState.error}</p>}
@@ -202,7 +204,7 @@ export default function BrandManager({ brands = [], models = [], counts = {} }) 
             <form action={modelAction} className="admin-form-stack" key={`m-${editModel.id || 'new'}`}>
               <input type="hidden" name="id" value={editModel.id || ''} />
               <label>
-                <span>Brand *</span>
+                <span>{t('Brand *')}</span>
                 <select name="brand_id" defaultValue={editModel.brand_id || openBrand} required>
                   {brands.map((b) => (
                     <option key={b.id} value={b.id}>
@@ -212,31 +214,31 @@ export default function BrandManager({ brands = [], models = [], counts = {} }) 
                 </select>
               </label>
               <label>
-                <span>Model name *</span>
+                <span>{t('Model name *')}</span>
                 <input name="name" defaultValue={editModel.name || ''} required />
               </label>
               <label>
-                <span>URL slug</span>
-                <input name="slug" defaultValue={editModel.slug || ''} placeholder="auto from name" />
+                <span>{t('URL slug')}</span>
+                <input name="slug" defaultValue={editModel.slug || ''} placeholder={t('auto from name')} />
               </label>
               <label>
-                <span>Type</span>
+                <span>{t('Type')}</span>
                 <select name="type" defaultValue={editModel.type || 'bike'}>
-                  <option value="bike">Bike</option>
-                  <option value="scooter">Scooter</option>
+                  <option value="bike">{t('Bike')}</option>
+                  <option value="scooter">{t('Scooter')}</option>
                 </select>
               </label>
               <label>
-                <span>Vehicle type label</span>
+                <span>{t('Vehicle type label')}</span>
                 <input name="vehicle_type" defaultValue={editModel.vehicle_type || 'Motorcycle'} />
               </label>
               <label>
-                <span>Image URL</span>
+                <span>{t('Image URL')}</span>
                 <input name="image" defaultValue={editModel.image || ''} />
               </label>
               <label className="admin-check">
                 <input type="checkbox" name="is_active" defaultChecked={editModel.id ? editModel.is_active : true} />
-                <span>Visible on the storefront</span>
+                <span>{t('Visible on the storefront')}</span>
               </label>
 
               {modelState?.error && <p className="admin-error">{modelState.error}</p>}

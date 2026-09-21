@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useLanguage } from '../../context/LanguageContext';
 import { useCart } from '../../context/CartContext';
 import { formatCurrency } from '../../lib/translations';
+import RecommendationRail from '../../components/RecommendationRail';
 
 export default function CartPageClient({ products = [], storeNotice = '' }) {
   const router = useRouter();
@@ -57,7 +58,7 @@ export default function CartPageClient({ products = [], storeNotice = '' }) {
                     <div className="qty-stepper">
                       <button
                         type="button"
-                        aria-label="Decrease quantity"
+                        aria-label={t('Decrease quantity')}
                         onClick={() => updateQty(item.id, -1)}
                       >
                         −
@@ -65,7 +66,7 @@ export default function CartPageClient({ products = [], storeNotice = '' }) {
                       <span>{item.qty}</span>
                       <button
                         type="button"
-                        aria-label="Increase quantity"
+                        aria-label={t('Increase quantity')}
                         onClick={() => updateQty(item.id, 1)}
                       >
                         +
@@ -89,6 +90,8 @@ export default function CartPageClient({ products = [], storeNotice = '' }) {
             <div className="cart-page-subtotal">
               {subtotalLabel} <strong>{formatCurrency(subtotal)}</strong>
             </div>
+
+            <RecommendationRail variant="grid" limit={6} />
           </section>
 
           <aside className="cart-summary">
@@ -127,6 +130,7 @@ export default function CartPageClient({ products = [], storeNotice = '' }) {
                 'सुरक्षित चेकआउट. कर समाविष्ट; डिलिव्हरी चेकआउटवेळी मोजली जाईल.'
               )}
             </small>
+            <RecommendationRail variant="column" limit={3} compact />
           </aside>
         </div>
       ) : (

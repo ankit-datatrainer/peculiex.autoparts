@@ -69,7 +69,7 @@ export async function getBrands() {
     return jsonCatalog.getBrands();
   }
 
-  const counts = await productCountsByBrand();
+  const counts = await getCatalogCounts();
 
   return data
     .map((b) => ({
@@ -79,7 +79,7 @@ export async function getBrands() {
       logo: b.logo,
       heroImage: b.hero_image || b.logo,
       modelCount: b.models?.length || 0,
-      partsCount: counts[b.id] || 0,
+      partsCount: counts.brands[b.id] || 0,
       bikeCount: (b.models || []).filter((m) => m.type === 'bike').length,
       scooterCount: (b.models || []).filter((m) => m.type === 'scooter').length,
       models: (b.models || [])
@@ -88,20 +88,71 @@ export async function getBrands() {
           name: m.name,
           type: m.type,
           image: m.image,
-          partsCount: 0,
-          topCategories: []
+          partsCount: counts.models[m.id] || 0,
+          topCategories: counts.modelTop[m.id] || []
         }))
         .sort((a, z) => a.name.localeCompare(z.name))
     }))
     .sort((a, z) => z.partsCount - a.partsCount);
 }
 
-async function productCountsByBrand() {
+/**
+ * Product counts per brand / model / category.
+ *
+ * Counting by fetching rows is wrong: PostgREST caps an un-ranged select at
+ * 1000 rows, which silently under-reported every brand. Prefer the
+ * catalog_counts() RPC (migration 0002); if it is not installed yet, page
+ * through the id columns so the numbers are still correct.
+ */
+export async function getCatalogCounts() {
   const supabase = createClient();
-  const { data } = await supabase.from('products').select('brand_id').eq('is_active', true);
-  const counts = {};
-  for (const row of data || []) counts[row.brand_id] = (counts[row.brand_id] || 0) + 1;
-  return counts;
+
+  const { data, error } = await supabase.rpc('catalog_counts');
+  if (!error && data) {
+    return {
+      brands: data.brands || {},
+      models: data.models || {},
+      categories: data.categories || {},
+      groups: data.groups || {},
+      modelTop: data.modelTop || {},
+      total: data.total || 0
+    };
+  }
+
+  // Fallback: read every row in 1000-row pages and tally in JS.
+  const PAGE = 1000;
+  const tally = async (table, column, filter) => {
+    const counts = {};
+    let from = 0;
+    for (;;) {
+      let q = supabase.from(table).select(column).range(from, from + PAGE - 1);
+      if (filter) q = filter(q);
+      const { data: rows, error: err } = await q;
+      if (err || !rows?.length) break;
+      for (const row of rows) {
+        const key = row[column];
+        if (key) counts[key] = (counts[key] || 0) + 1;
+      }
+      if (rows.length < PAGE) break;
+      from += PAGE;
+    }
+    return counts;
+  };
+
+  const [brands, categories] = await Promise.all([
+    tally('products', 'brand_id', (q) => q.eq('is_active', true)),
+    tally('products', 'category_id', (q) => q.eq('is_active', true))
+  ]);
+  const models = await tally('product_models', 'model_id');
+
+  return {
+    brands,
+    models,
+    categories,
+    groups: {},
+    modelTop: {},
+    total: Object.values(brands).reduce((n, v) => n + v, 0)
+  };
 }
 
 export async function getBrand(brandId) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { getT } from '../../../lib/i18n-server';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import SiteHeader from '../../../components/SiteHeader';
@@ -17,17 +18,32 @@ export async function generateMetadata({ params }) {
 }
 
 function ModelGrid({ brandId, models }) {
+  const { t, tCat, local } = getT();
+
   return (
     <div className="model-grid">
       {models.map((model) => (
         <Link key={model.id} href={`/brands/${brandId}/${model.id}`} className="model-card">
           <span className="model-card-media">
-            <img src={model.image} alt={`${model.name} spare parts`} loading="lazy" />
+            <img
+              src={model.image}
+              alt={`${model.name} ${t('Spare Parts')}`}
+              loading="lazy"
+            />
           </span>
           <span className="model-card-body">
             <strong>{model.name}</strong>
-            <small>{model.partsCount} parts available</small>
-            {model.topCategories.length > 0 && <em>{model.topCategories.join(' · ')}</em>}
+            <small>
+              {local(
+                `${model.partsCount} parts available`,
+                `${model.partsCount} पार्ट्स उपलब्ध`,
+                `${model.partsCount} पार्ट्स उपलब्ध`,
+                `${model.partsCount} પાર્ટ્સ ઉપલબ્ધ`
+              )}
+            </small>
+            {model.topCategories.length > 0 && (
+              <em>{model.topCategories.map((c) => tCat(c)).join(' · ')}</em>
+            )}
           </span>
         </Link>
       ))}
@@ -42,37 +58,66 @@ export default async function BrandModelsPage({ params }) {
   const bikes = brand.models.filter((m) => m.type === 'bike');
   const scooters = brand.models.filter((m) => m.type === 'scooter');
 
+  const { t, local } = getT();
+
   return (
     <div>
       <SiteHeader />
 
       <main id="main">
         <div className="page-shell catalog-page">
-          <nav className="catalog-crumbs" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
+          <nav className="catalog-crumbs" aria-label={t('Breadcrumb')}>
+            <Link href="/">{t('Home')}</Link>
             <span aria-hidden="true">›</span>
-            <Link href="/brands">Bike Brands</Link>
+            <Link href="/brands">{t('Bike Brands')}</Link>
             <span aria-hidden="true">›</span>
             <strong>{brand.name}</strong>
           </nav>
 
           <header className="catalog-banner">
             <div>
-              <span className="catalog-chip">{brand.name} · GENUINE &amp; OEM-GRADE</span>
-              <h1>{brand.name} spare parts</h1>
+              <span className="catalog-chip">
+                {brand.name} · {t('GENUINE & OEM-GRADE')}
+              </span>
+              <h1>
+                {local(
+                  `${brand.name} spare parts`,
+                  `${brand.name} स्पेयर पार्ट्स`,
+                  `${brand.name} स्पेअर पार्ट्स`,
+                  `${brand.name} સ્પેર પાર્ટ્સ`
+                )}
+              </h1>
               <p>
-                Choose your {brand.name} model to see every part that fits it — engine, brakes,
-                electricals, body and more.
+                {local(
+                  `Choose your ${brand.name} model to see every part that fits it — engine, brakes, electricals, body and more.`,
+                  `अपना ${brand.name} मॉडल चुनें और उसमें फ़िट होने वाला हर पार्ट देखें — इंजन, ब्रेक, इलेक्ट्रिकल्स, बॉडी और बहुत कुछ।`,
+                  `तुमचे ${brand.name} मॉडेल निवडा आणि त्यात बसणारा प्रत्येक पार्ट पाहा — इंजिन, ब्रेक, इलेक्ट्रिकल्स, बॉडी आणि बरेच काही.`,
+                  `તમારું ${brand.name} મોડેલ પસંદ કરો અને તેમાં ફિટ થતો દરેક પાર્ટ જુઓ — એન્જિન, બ્રેક, ઇલેક્ટ્રિકલ્સ, બોડી અને ઘણું બધું.`
+                )}
               </p>
               <ul className="catalog-facts">
-                <li>{brand.modelCount} models</li>
-                <li>{brand.partsCount.toLocaleString('en-IN')} parts in stock</li>
-                <li>Pan-India delivery</li>
+                <li>
+                  {local(
+                    `${brand.modelCount} models`,
+                    `${brand.modelCount} मॉडल`,
+                    `${brand.modelCount} मॉडेल`,
+                    `${brand.modelCount} મોડેલ`
+                  )}
+                </li>
+                <li>
+                  {local(
+                    `${brand.partsCount.toLocaleString('en-IN')} parts in stock`,
+                    `${brand.partsCount.toLocaleString('en-IN')} पार्ट्स स्टॉक में`,
+                    `${brand.partsCount.toLocaleString('en-IN')} पार्ट्स स्टॉकमध्ये`,
+                    `${brand.partsCount.toLocaleString('en-IN')} પાર્ટ્સ સ્ટોકમાં`
+                  )}
+                </li>
+                <li>{t('Pan-India delivery')}</li>
               </ul>
             </div>
             {brand.logo && (
               <div className="catalog-banner-logo">
-                <img src={brand.logo} alt={`${brand.name} logo`} />
+                <img src={brand.logo} alt={`${brand.name} ${t('official logo')}`} />
               </div>
             )}
           </header>
@@ -80,8 +125,22 @@ export default async function BrandModelsPage({ params }) {
           {bikes.length > 0 && (
             <section className="catalog-block">
               <div className="catalog-block-head">
-                <h2>{brand.name} bikes</h2>
-                <small>{bikes.length} models</small>
+                <h2>
+                  {local(
+                    `${brand.name} bikes`,
+                    `${brand.name} बाइक`,
+                    `${brand.name} बाइक`,
+                    `${brand.name} બાઇક`
+                  )}
+                </h2>
+                <small>
+                  {local(
+                    `${bikes.length} models`,
+                    `${bikes.length} मॉडल`,
+                    `${bikes.length} मॉडेल`,
+                    `${bikes.length} મોડેલ`
+                  )}
+                </small>
               </div>
               <ModelGrid brandId={brand.id} models={bikes} />
             </section>
@@ -90,8 +149,22 @@ export default async function BrandModelsPage({ params }) {
           {scooters.length > 0 && (
             <section className="catalog-block">
               <div className="catalog-block-head">
-                <h2>{brand.name} scooters</h2>
-                <small>{scooters.length} models</small>
+                <h2>
+                  {local(
+                    `${brand.name} scooters`,
+                    `${brand.name} स्कूटर`,
+                    `${brand.name} स्कूटर`,
+                    `${brand.name} સ્કૂટર`
+                  )}
+                </h2>
+                <small>
+                  {local(
+                    `${scooters.length} models`,
+                    `${scooters.length} मॉडल`,
+                    `${scooters.length} मॉडेल`,
+                    `${scooters.length} મોડેલ`
+                  )}
+                </small>
               </div>
               <ModelGrid brandId={brand.id} models={scooters} />
             </section>
@@ -99,7 +172,7 @@ export default async function BrandModelsPage({ params }) {
 
           <section className="catalog-block">
             <div className="catalog-block-head">
-              <h2>Other brands</h2>
+              <h2>{t('Other brands')}</h2>
             </div>
             <div className="brand-pill-row">
               {allBrands

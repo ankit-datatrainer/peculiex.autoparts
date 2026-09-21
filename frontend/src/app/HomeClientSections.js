@@ -30,7 +30,7 @@ export default function HomeClientSections({ products = [] }) {
             <button
               className="scroll-btn"
               type="button"
-              aria-label="Scroll products left"
+              aria-label={t('Scroll products left')}
               onClick={() => scrollRow(-1)}
             >
               ‹
@@ -38,7 +38,7 @@ export default function HomeClientSections({ products = [] }) {
             <button
               className="scroll-btn"
               type="button"
-              aria-label="Scroll products right"
+              aria-label={t('Scroll products right')}
               onClick={() => scrollRow(1)}
             >
               ›

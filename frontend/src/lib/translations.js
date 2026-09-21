@@ -1,4 +1,9 @@
-export const translations = {
+import { gu } from './translations.gu.js';
+import { extra } from './translations.extra.js';
+import { site } from './translations.site.js';
+import { partTerms } from './translations.parts.js';
+
+const base = {
   hi: {
     'Skip to products': 'प्रोडक्ट पर जाएँ',
     'LIVE DEALS': 'लाइव डील्स',
@@ -429,3 +434,32 @@ export const formatCurrency = value =>
     currency: 'INR',
     maximumFractionDigits: 0
   }).format(value);
+
+// Merge the session-added strings and the part glossary into every language so
+// t() resolves category names and part terms too, not just page copy.
+const withExtras = (lang, dict) => ({
+  ...dict,
+  ...(extra[lang] || {}),
+  ...(site[lang] || {}),
+  ...Object.fromEntries(
+    Object.entries(partTerms)
+      .filter(([, v]) => v[lang])
+      .map(([term, v]) => [term, v[lang]])
+  )
+});
+
+export const translations = {
+  hi: withExtras('hi', base.hi),
+  mr: withExtras('mr', base.mr),
+  gu: withExtras('gu', gu)
+};
+
+export const LANGUAGES = [
+  { code: 'gu', label: 'ગુજરાતી' },
+  { code: 'en', label: 'English' },
+  { code: 'hi', label: 'हिन्दी' },
+  { code: 'mr', label: 'मराठी' }
+];
+
+export const SUPPORTED_LANGUAGES = LANGUAGES.map((l) => l.code);
+export const DEFAULT_LANGUAGE = 'en';

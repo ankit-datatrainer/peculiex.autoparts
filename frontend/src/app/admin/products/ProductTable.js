@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useFormState, useFormStatus } from 'react-dom';
 import { bulkProductAction } from '../actions';
 import { formatCurrency } from '../../../lib/translations';
+import { useLanguage } from '../../../context/LanguageContext';
 
 function BulkButton({ op, label, danger }) {
   const { pending } = useFormStatus();
@@ -22,6 +23,7 @@ function BulkButton({ op, label, danger }) {
 }
 
 export default function ProductTable({ products }) {
+  const { t, local } = useLanguage();
   const [selected, setSelected] = useState(() => new Set());
   const [state, action] = useFormState(bulkProductAction, {});
 
@@ -38,7 +40,7 @@ export default function ProductTable({ products }) {
     setSelected(allChecked ? new Set() : new Set(products.map((p) => p.id)));
 
   if (!products.length) {
-    return <p className="admin-empty">No products match these filters.</p>;
+    return <p className="admin-empty">{t('No products match these filters.')}</p>;
   }
 
   return (
@@ -49,17 +51,24 @@ export default function ProductTable({ products }) {
 
       {selected.size > 0 && (
         <div className="admin-bulkbar">
-          <strong>{selected.size} selected</strong>
-          <BulkButton op="publish" label="Publish" />
-          <BulkButton op="hide" label="Hide" />
+          <strong>
+            {local(
+              `${selected.size} selected`,
+              `${selected.size} चुने गए`,
+              `${selected.size} निवडले`,
+              `${selected.size} પસંદ કરેલા`
+            )}
+          </strong>
+          <BulkButton op="publish" label={t('Publish')} />
+          <BulkButton op="hide" label={t('Hide')} />
           <label className="admin-bulk-stock">
-            Set stock
+            {t('Set stock')}
             <input name="stock" type="number" min="0" defaultValue={25} />
           </label>
-          <BulkButton op="restock" label="Apply stock" />
-          <BulkButton op="delete" label="Delete" danger />
+          <BulkButton op="restock" label={t('Apply stock')} />
+          <BulkButton op="delete" label={t('Delete')} danger />
           <button type="button" className="admin-ghost-btn" onClick={() => setSelected(new Set())}>
-            Clear
+            {t('Clear')}
           </button>
         </div>
       )}
@@ -76,14 +85,14 @@ export default function ProductTable({ products }) {
                   type="checkbox"
                   checked={allChecked}
                   onChange={toggleAll}
-                  aria-label="Select all products on this page"
+                  aria-label={t('Select all products on this page')}
                 />
               </th>
-              <th>Product</th>
-              <th>Brand</th>
-              <th className="right">Price</th>
-              <th className="right">Stock</th>
-              <th>Status</th>
+              <th>{t('Product')}</th>
+              <th>{t('Brand')}</th>
+              <th className="right">{t('Price')}</th>
+              <th className="right">{t('Stock')}</th>
+              <th>{t('Status')}</th>
               <th />
             </tr>
           </thead>

@@ -6,11 +6,12 @@ import { useRouter } from 'next/navigation';
 import { useLanguage } from '../../../context/LanguageContext';
 import { useCart } from '../../../context/CartContext';
 import { formatCurrency } from '../../../lib/translations';
+import { aboutBullets, fitmentLine, specRows } from '../../../lib/productCopy';
 import ProductCard from '../../../components/ProductCard';
 
 export default function ProductDetailClient({ product, related = [] }) {
   const router = useRouter();
-  const { t, local } = useLanguage();
+  const { t, tName, tCat, local, language } = useLanguage();
   const { addToCart, openCartDrawer, deliveryLocation } = useCart();
 
   const [quantity, setQuantity] = useState(1);
@@ -20,13 +21,19 @@ export default function ProductDetailClient({ product, related = [] }) {
       : [product.image, product.image, product.image];
   const [selectedImg, setSelectedImg] = useState(gallery[0]);
 
+  const title = tName(product.name, product.category);
+  const bullets = aboutBullets(product, language);
+  const fitment = fitmentLine(product, language);
+  const specs = specRows(product, language);
+
   const discountPercent = Math.round((1 - product.price / product.mrp) * 100);
   const emiAmount = Math.ceil(product.price / 6);
 
   const deliveryDateStr = () => {
     const d = new Date();
     d.setDate(d.getDate() + 3);
-    return d.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'short' });
+    const locale = { en: 'en-IN', hi: 'hi-IN', mr: 'mr-IN', gu: 'gu-IN' }[language] || 'en-IN';
+    return d.toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'short' });
   };
 
   const stars = (rating) => {
@@ -64,12 +71,12 @@ export default function ProductDetailClient({ product, related = [] }) {
                   ›{' '}
                 </>
               )}
-              {product.category}
+              {tCat(product.category)}
             </>
           ) : (
             <>
               <Link href={`/search?category=${encodeURIComponent(product.category)}`}>
-                {t(product.category)}
+                {tCat(product.category)}
               </Link>{' '}
               › {product.brand}
             </>
@@ -87,12 +94,12 @@ export default function ProductDetailClient({ product, related = [] }) {
                   className={selectedImg === src ? 'active' : ''}
                   onClick={() => setSelectedImg(src)}
                 >
-                  <img src={src} alt={`${product.name} view ${i + 1}`} />
+                  <img src={src} alt={`${title} ${t('view')} ${i + 1}`} />
                 </button>
               ))}
             </div>
             <div className="main-image-wrap">
-              <img src={selectedImg} alt={product.name} />
+              <img src={selectedImg} alt={title} />
             </div>
           </div>
 
@@ -104,7 +111,7 @@ export default function ProductDetailClient({ product, related = [] }) {
                 href={product.brandId ? `/brands/${product.brandId}` : `/search?brand=${encodeURIComponent(product.brand)}`}
                 style={{ fontWeight: '800' }}
               >
-                {product.brand} Official Store
+                {product.brand} {t('Official Store')}
               </Link>
               {product.oemPartNumber && (
                 <span style={{
@@ -116,7 +123,7 @@ export default function ProductDetailClient({ product, related = [] }) {
                   borderRadius: '4px',
                   fontFamily: 'monospace'
                 }}>
-                  OEM: {product.oemPartNumber}
+                  {t('OEM')}: {product.oemPartNumber}
                 </span>
               )}
               <span style={{
@@ -127,11 +134,11 @@ export default function ProductDetailClient({ product, related = [] }) {
                 padding: '2px 8px',
                 borderRadius: '4px'
               }}>
-                ✓ 100% Genuine Guaranteed
+                ✓ {t('100% Genuine Guaranteed')}
               </span>
             </div>
 
-            <h1>{product.name}</h1>
+            <h1>{title}</h1>
 
             {product.officialSourceUrl && (
               <div style={{ marginBottom: '0.75rem' }}>
@@ -149,7 +156,7 @@ export default function ProductDetailClient({ product, related = [] }) {
                     gap: '4px'
                   }}
                 >
-                  🌐 Verified with {product.brand} Official Portal ↗
+                  🌐 {t('Verified with')} {product.brand} {t('Official Portal')} ↗
                 </a>
               </div>
             )}
@@ -165,11 +172,16 @@ export default function ProductDetailClient({ product, related = [] }) {
             ) : (
               <div className="detail-rating">
                 <span className={product.available === false ? 'stock out' : 'stock'}>
-                  {product.available === false ? 'Out of stock' : 'In stock'}
+                  {product.available === false ? t('Out of stock') : t('In stock')}
                 </span>
                 {product.modelName && (
                   <Link href={`/brands/${product.brandId}/${product.modelId}`}>
-                    All {product.brand} {product.modelName} parts →
+                    {local(
+                      `All ${product.brand} ${product.modelName} parts`,
+                      `${product.brand} ${product.modelName} के सभी पार्ट्स`,
+                      `${product.brand} ${product.modelName} चे सर्व पार्ट्स`,
+                      `${product.brand} ${product.modelName} ના બધા પાર્ટ્સ`
+                    )} →
                   </Link>
                 )}
               </div>
@@ -179,7 +191,7 @@ export default function ProductDetailClient({ product, related = [] }) {
               {discountPercent > 0 && <span className="discount">-{discountPercent}%</span>}
               <strong className="detail-price">{formatCurrency(product.price)}</strong>
               <p>
-                M.R.P.: <s>{formatCurrency(product.mrp)}</s>
+                {t('M.R.P.')}: <s>{formatCurrency(product.mrp)}</s>
               </p>
               <p>{t('Inclusive of all taxes')}</p>
               <p>
@@ -187,7 +199,8 @@ export default function ProductDetailClient({ product, related = [] }) {
                 {local(
                   `starts at ${formatCurrency(emiAmount)} per month.`,
                   `${formatCurrency(emiAmount)} प्रति माह से शुरू।`,
-                  `${formatCurrency(emiAmount)} प्रति महिना पासून.`
+                  `${formatCurrency(emiAmount)} प्रति महिना पासून.`,
+                  `${formatCurrency(emiAmount)} પ્રતિ માસથી શરૂ.`
                 )}
               </p>
             </div>
@@ -201,7 +214,8 @@ export default function ProductDetailClient({ product, related = [] }) {
                     {local(
                       'Up to ₹100 cashback with select payment methods.',
                       'चुनिंदा भुगतान तरीकों पर ₹100 तक कैशबैक।',
-                      'निवडक पेमेंट पद्धतींवर ₹100 पर्यंत कॅशबॅक.'
+                      'निवडक पेमेंट पद्धतींवर ₹100 पर्यंत कॅशबॅक.',
+                      'પસંદગીની પેમેન્ટ પદ્ધતિઓ પર ₹100 સુધી કેશબેક.'
                     )}
                   </p>
                 </div>
@@ -211,7 +225,8 @@ export default function ProductDetailClient({ product, related = [] }) {
                     {local(
                       'Extra 5% off on eligible cards.',
                       'योग्य कार्ड पर अतिरिक्त 5% छूट।',
-                      'पात्र कार्डवर अतिरिक्त 5% सूट.'
+                      'पात्र कार्डवर अतिरिक्त 5% सूट.',
+                      'પાત્ર કાર્ડ પર વધારાની 5% છૂટ.'
                     )}
                   </p>
                 </div>
@@ -221,7 +236,8 @@ export default function ProductDetailClient({ product, related = [] }) {
                     {local(
                       'Get GST invoice for business purchases.',
                       'बिज़नेस खरीद पर GST इनवॉइस पाएँ।',
-                      'व्यवसाय खरेदीसाठी GST इनव्हॉइस मिळवा.'
+                      'व्यवसाय खरेदीसाठी GST इनव्हॉइस मिळवा.',
+                      'વ્યવસાય ખરીદી માટે GST ઇન્વોઇસ મેળવો.'
                     )}
                   </p>
                 </div>
@@ -238,17 +254,17 @@ export default function ProductDetailClient({ product, related = [] }) {
                 margin: '1.5rem 0'
               }}>
                 <h3 style={{ fontSize: '15px', fontWeight: '800', margin: '0 0 0.75rem 0', color: '#0F172A' }}>
-                  🔧 OEM Technical Specifications
+                  🔧 {t('OEM Technical Specifications')}
                 </h3>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
                   <tbody>
-                    {Object.entries(product.specs).map(([key, val]) => (
-                      <tr key={key} style={{ borderBottom: '1px solid #E2E8F0' }}>
+                    {specs.map((row) => (
+                      <tr key={row.key} style={{ borderBottom: '1px solid #E2E8F0' }}>
                         <td style={{ padding: '6px 8px', color: '#64748B', fontWeight: '600', width: '40%' }}>
-                          {key}
+                          {row.label}
                         </td>
                         <td style={{ padding: '6px 8px', color: '#1E293B', fontWeight: '500' }}>
-                          {val}
+                          {row.value}
                         </td>
                       </tr>
                     ))}
@@ -260,13 +276,14 @@ export default function ProductDetailClient({ product, related = [] }) {
             <div className="about-product">
               <h3>{t('About this item')}</h3>
               <ul>
-                {product.about?.map((a, i) => (
+                {bullets.map((a, i) => (
                   <li key={i}>{a}</li>
                 ))}
-                <li>
-                  <strong>{t('Fitment:')}</strong> {product.fit}.{' '}
-                  {t('Check your vehicle before ordering.')}
-                </li>
+                {fitment.value && (
+                  <li>
+                    <strong>{fitment.label}</strong> {fitment.value}. {fitment.check}
+                  </li>
+                )}
               </ul>
             </div>
           </div>

@@ -7,7 +7,7 @@ import { companyBrands, bikePartTypes } from '../lib/catalogData';
 
 export default function CategoryGrid({ categories = [] }) {
   const router = useRouter();
-  const { t } = useLanguage();
+  const { t, tCat } = useLanguage();
 
   const handleImgError = (e) => {
     e.target.onerror = null;
@@ -23,10 +23,10 @@ export default function CategoryGrid({ categories = [] }) {
       {/* 12 Company Brands Category Grid */}
       <div className="section-title">
         <div>
-          <span className="eyebrow dark">OFFICIAL MANUFACTURER SPARES</span>
-          <h2>Shop Genuine Spares by Company</h2>
+          <span className="eyebrow dark">{t('OFFICIAL MANUFACTURER SPARES')}</span>
+          <h2>{t('Shop Genuine Spares by Company')}</h2>
           <p style={{ color: '#64748B', margin: '4px 0 0 0', fontSize: '14px' }}>
-            Direct factory fitment for scooters and bikes across India's top two-wheeler brands.
+            {t("Direct factory fitment for scooters and bikes across India's top two-wheeler brands.")}
           </p>
         </div>
         <button
@@ -34,7 +34,7 @@ export default function CategoryGrid({ categories = [] }) {
           onClick={() => router.push('/search')}
           style={{ background: 'none', border: 'none', color: '#DC2626', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
         >
-          View all brands <span>→</span>
+          {t('View all brands')} <span>→</span>
         </button>
       </div>
 
@@ -82,7 +82,7 @@ export default function CategoryGrid({ categories = [] }) {
             }}>
               <img
                 src={b.image}
-                alt={`${b.name} official logo`}
+                alt={`${b.name} ${t('official logo')}`}
                 loading="lazy"
                 onError={handleImgError}
                 style={{
@@ -106,7 +106,11 @@ export default function CategoryGrid({ categories = [] }) {
                   {b.name}
                 </strong>
                 <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
-                  {b.models.scooters.length > 0 && b.models.bikes.length > 0 ? 'Scooters & Bikes' : b.models.scooters.length > 0 ? 'Electric & Petrol' : 'Bikes & Cruisers'}
+                  {b.models.scooters.length > 0 && b.models.bikes.length > 0
+                    ? t('Scooters & Bikes')
+                    : b.models.scooters.length > 0
+                      ? t('Electric & Petrol')
+                      : t('Bikes & Cruisers')}
                 </span>
               </div>
               <div style={{
@@ -131,10 +135,10 @@ export default function CategoryGrid({ categories = [] }) {
       {/* 10 Vital Bike Parts Grid */}
       <div className="section-title">
         <div>
-          <span className="eyebrow dark">ESSENTIAL SPARE PARTS</span>
-          <h2>Shop by Bike Part Category</h2>
+          <span className="eyebrow dark">{t('ESSENTIAL SPARE PARTS')}</span>
+          <h2>{t('Shop by Bike Part Category')}</h2>
           <p style={{ color: '#64748B', margin: '4px 0 0 0', fontSize: '14px' }}>
-            Precision-engineered replacement components tested to factory tolerance.
+            {t('Precision-engineered replacement components tested to factory tolerance.')}
           </p>
         </div>
       </div>
@@ -186,17 +190,15 @@ export default function CategoryGrid({ categories = [] }) {
               }}>
                 <img
                   src={`/assets/parts/${partSlug}.jpg`}
-                  alt={pt}
+                  alt={tCat(pt)}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   onError={handleImgError}
                 />
               </div>
               <strong style={{ display: 'block', fontSize: '13px', color: '#0F172A', fontWeight: '800' }}>
-                {pt}
+                {tCat(pt)}
               </strong>
-              <small style={{ fontSize: '11px', color: '#64748B' }}>
-                OEM Spares
-              </small>
+              <small style={{ fontSize: '11px', color: '#64748B' }}>{t('OEM Spares')}</small>
             </button>
           );
         })}

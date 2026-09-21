@@ -5,6 +5,12 @@ const nextConfig = {
   // Emits .next/standalone so the Docker image ships only what it needs.
   output: 'standalone',
 
+  // pdfkit ships binary font metrics that must not go through webpack; keep it
+  // as a plain runtime require from node_modules.
+  experimental: {
+    serverComponentsExternalPackages: ['pdfkit']
+  },
+
   images: {
     unoptimized: true
   },

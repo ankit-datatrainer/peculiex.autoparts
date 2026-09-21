@@ -2,8 +2,10 @@
 
 import React, { useRef } from 'react';
 import Link from 'next/link';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function BrandRail({ brands = [] }) {
+  const { t, tName } = useLanguage();
   const railRef = useRef(null);
 
   const scroll = (dir) => {
@@ -16,12 +18,12 @@ export default function BrandRail({ brands = [] }) {
     <section className="section page-shell brand-rail-section" id="shop-by-brand">
       <div className="section-title">
         <div>
-          <span className="eyebrow dark">SPARES BY BIKE</span>
-          <h2>Shop spare parts by brand</h2>
-          <p className="brand-rail-sub">Genuine &amp; OEM-grade fitment for every model</p>
+          <span className="eyebrow dark">{t('SPARES BY BIKE')}</span>
+          <h2>{t('Shop spare parts by brand')}</h2>
+          <p className="brand-rail-sub">{t('Genuine & OEM-grade fitment for every model')}</p>
         </div>
         <Link href="/brands">
-          View all brands <span>→</span>
+          {t('View all brands')} <span>→</span>
         </Link>
       </div>
 
@@ -29,7 +31,7 @@ export default function BrandRail({ brands = [] }) {
         <button
           type="button"
           className="brand-rail-arrow prev"
-          aria-label="Scroll brands left"
+          aria-label={t('Scroll brands left')}
           onClick={() => scroll(-1)}
         >
           ‹
@@ -49,7 +51,7 @@ export default function BrandRail({ brands = [] }) {
                   {brand.name.charAt(0) + brand.name.slice(1).toLowerCase()}
                   <span aria-hidden="true">›</span>
                 </strong>
-                <small>{brand.tagline}</small>
+                <small>{tName(brand.tagline)}</small>
               </span>
             </Link>
           ))}
@@ -58,7 +60,7 @@ export default function BrandRail({ brands = [] }) {
         <button
           type="button"
           className="brand-rail-arrow next"
-          aria-label="Scroll brands right"
+          aria-label={t('Scroll brands right')}
           onClick={() => scroll(1)}
         >
           ›

@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import catalogIndex from '../data/eauto/index.json';
+import { useLanguage } from '../context/LanguageContext';
 
 const shape = (list) =>
   list.map((b) => ({
@@ -24,6 +25,7 @@ const PANEL_WIDTH = 760;
 const CLOSE_DELAY = 160;
 
 export default function BrandNavStrip({ brands }) {
+  const { t } = useLanguage();
   const BRANDS = brands?.length ? shape(brands) : FALLBACK_BRANDS;
 
   const [openId, setOpenId] = useState(null);
@@ -110,7 +112,7 @@ export default function BrandNavStrip({ brands }) {
   return (
     <nav
       className="nav-strip brand-nav"
-      aria-label="Shop spare parts by brand"
+      aria-label={t('Shop spare parts by brand')}
       ref={navRef}
       onMouseLeave={scheduleClose}
     >
@@ -130,13 +132,23 @@ export default function BrandNavStrip({ brands }) {
       ))}
 
       <Link
+        href="/categories"
+        className="brand-nav-all"
+        onMouseEnter={scheduleClose}
+        onFocus={scheduleClose}
+        onClick={closeNow}
+      >
+        {t('Shop by category')}
+      </Link>
+
+      <Link
         href="/brands"
         className="brand-nav-all"
         onMouseEnter={scheduleClose}
         onFocus={scheduleClose}
         onClick={closeNow}
       >
-        All brands →
+        {t('All brands')} →
       </Link>
 
       {active && (
@@ -160,13 +172,13 @@ export default function BrandNavStrip({ brands }) {
           <div className="brand-nav-panel-body">
             {bikes.length > 0 && (
               <>
-                <h4>Bikes</h4>
+                <h4>{t('Bikes')}</h4>
                 {renderModels(bikes)}
               </>
             )}
             {scooters.length > 0 && (
               <>
-                <h4>Scooters</h4>
+                <h4>{t('Scooters')}</h4>
                 {renderModels(scooters)}
               </>
             )}
