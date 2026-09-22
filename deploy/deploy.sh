@@ -67,8 +67,50 @@ step "Restarting PM2"
 cd "$APP_DIR"
 mkdir -p logs
 pm2 delete "$PM2_APP" >/dev/null 2>&1 || true
+
+# pids currently listening on the app port
+port_pids() { ss -ltnpH "sport = :$PORT" 2>/dev/null | grep -oE 'pid=[0-9]+' | cut -d= -f2 | sort -u; }
+# the PM2 app name that owns a pid, or nothing if PM2 does not manage it
+pm2_name_of() {
+  pm2 jlist 2>/dev/null | node -e '
+    const pid = Number(process.argv[1]);
+    const list = JSON.parse(require("fs").readFileSync(0, "utf8"));
+    const app = list.find((a) => a.pid === pid);
+    if (app) process.stdout.write(app.name);
+  ' "$1" 2>/dev/null || true
+}
+
+# Anything else already bound to the port would keep answering instead of the
+# build we are about to start — a leftover app under an old name did exactly
+# that and served new HTML with a stale asset table. Clear it first.
+for pid in $(port_pids); do
+  owner=$(pm2_name_of "$pid")
+  if [ -n "$owner" ] && [ "$owner" != "$PM2_APP" ]; then
+    echo "port $PORT is held by PM2 app '$owner' (pid $pid) — stopping it so $PM2_APP can bind"
+    pm2 delete "$owner" >/dev/null 2>&1 || true
+  elif [ -z "$owner" ]; then
+    fail "port $PORT is held by pid $pid ($(ps -o comm= -p "$pid" 2>/dev/null || echo unknown)), which PM2 does not manage — stop it, then re-run"
+  fi
+done
+for _ in $(seq 1 10); do [ -z "$(port_pids)" ] && break; sleep 1; done
+[ -z "$(port_pids)" ] || fail "port $PORT is still in use after stopping the old app"
+
 pm2 start deploy/ecosystem.config.js
 pm2 save >/dev/null
+
+# A process that crashes on boot still shows "online" for a moment; give it a
+# few seconds and then refuse to call a restart-looping app a deploy.
+sleep 5
+pm2 jlist 2>/dev/null | node -e '
+  const want = process.argv[1];
+  const list = JSON.parse(require("fs").readFileSync(0, "utf8")).filter((a) => a.name === want);
+  const bad = list.filter((a) => a.pm2_env.status !== "online" || a.pm2_env.restart_time > 0);
+  if (!list.length || bad.length) {
+    for (const a of list) console.error(`  ${a.name} pid=${a.pid} status=${a.pm2_env.status} restarts=${a.pm2_env.restart_time}`);
+    process.exit(1);
+  }
+  console.log(`${list.length} instance(s) online, 0 restarts`);
+' "$PM2_APP" || { pm2 logs "$PM2_APP" --lines 40 --nostream 2>/dev/null || true; fail "$PM2_APP is not running cleanly (see logs above)"; }
 
 step "Reloading nginx"
 if grep -rqsE 'server[[:space:]]+web:3000' /etc/nginx/; then
@@ -86,7 +128,12 @@ step "Health check"
 for _ in $(seq 1 15); do
   code=$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:$PORT/api/health" || true)
   if [ "$code" = "200" ]; then
-    echo "app answering on :$PORT"
+    # Make sure the thing answering is the app we just started.
+    for pid in $(port_pids); do
+      owner=$(pm2_name_of "$pid")
+      [ "$owner" = "$PM2_APP" ] || fail "port $PORT is being answered by '${owner:-an unmanaged process}' (pid $pid), not $PM2_APP"
+    done
+    echo "app answering on :$PORT ($PM2_APP)"
 
     # The 400 bug only showed on assets, so check one for real.
     asset=$(curl -s "http://127.0.0.1:$PORT/" | grep -oE '/_next/static/[^"]+\.css' | head -1 || true)
