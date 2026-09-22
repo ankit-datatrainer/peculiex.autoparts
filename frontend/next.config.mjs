@@ -2,8 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
 
-  // Emits .next/standalone so the Docker image ships only what it needs.
-  output: 'standalone',
+  // Emits .next/standalone only in Docker to keep the container minimal;
+  // host/PM2 deployments run standard Next.js for reliable static asset serving.
+  output: process.env.DOCKER_BUILD ? 'standalone' : undefined,
 
   // pdfkit ships binary font metrics that must not go through webpack; keep it
   // as a plain runtime require from node_modules.
