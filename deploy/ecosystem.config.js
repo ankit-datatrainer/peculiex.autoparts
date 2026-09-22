@@ -12,13 +12,11 @@ module.exports = {
       instances: 'max',
       exec_mode: 'cluster',
       autorestart: true,
-      max_memory_restart: '512M',
+      max_memory_restart: '1G',
       env: {
         NODE_ENV: 'production',
         PORT: 3000
       },
-      error_file: './logs/web-error.log',
-      out_file: './logs/web-out.log',
       time: true
     }
   ]
