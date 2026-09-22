@@ -80,20 +80,57 @@ pm2_name_of() {
   ' "$1" 2>/dev/null || true
 }
 
-# Anything else already bound to the port would keep answering instead of the
+# Cluster-mode apps do not bind the port themselves: the PM2 daemon ("God")
+# listens and hands connections to the workers, so ss reports the daemon's
+# pid and jlist cannot attribute it. Identify those by configured port.
+is_pm2_daemon() { ps -o args= -p "$1" 2>/dev/null | grep -qiE 'pm2.*god'; }
+cluster_apps_on_port() {
+  pm2 jlist 2>/dev/null | node -e '
+    const port = String(process.argv[1]);
+    const list = JSON.parse(require("fs").readFileSync(0, "utf8"));
+    const hit = new Set();
+    for (const a of list) {
+      const e = a.pm2_env || {};
+      if (e.exec_mode !== "cluster_mode") continue;
+      const args = [].concat(e.args || []).join(" ");
+      const envPort = String(e.PORT ?? (e.env && e.env.PORT) ?? "");
+      // No backslashes here on purpose: args are space-joined, and an escaped
+      // class inside a shell-quoted one-liner is too easy to mangle.
+      const argPort = new RegExp("(^| )(-p|--port)[ =]" + port + "( |$)").test(args);
+      if (envPort === port || argPort) hit.add(a.name);
+    }
+    process.stdout.write([...hit].join(" "));
+  ' "$PORT" 2>/dev/null || true
+}
+
+# Give PM2 a moment to close the old app's socket before judging the port —
+# checking straight after `pm2 delete` sees a socket that is mid-teardown.
+for _ in $(seq 1 15); do [ -z "$(port_pids)" ] && break; sleep 1; done
+
+# Anything else still bound to the port would keep answering instead of the
 # build we are about to start — a leftover app under an old name did exactly
 # that and served new HTML with a stale asset table. Clear it first.
 for pid in $(port_pids); do
-  owner=$(pm2_name_of "$pid")
-  if [ -n "$owner" ] && [ "$owner" != "$PM2_APP" ]; then
-    echo "port $PORT is held by PM2 app '$owner' (pid $pid) — stopping it so $PM2_APP can bind"
-    pm2 delete "$owner" >/dev/null 2>&1 || true
-  elif [ -z "$owner" ]; then
-    fail "port $PORT is held by pid $pid ($(ps -o comm= -p "$pid" 2>/dev/null || echo unknown)), which PM2 does not manage — stop it, then re-run"
+  if is_pm2_daemon "$pid"; then
+    others=$(cluster_apps_on_port)
+    [ -n "$others" ] || fail "port $PORT is held by the PM2 daemon for a cluster app I could not identify — run: pm2 list, delete the app using port $PORT, then re-run"
+    for name in $others; do
+      [ "$name" = "$PM2_APP" ] && continue
+      echo "port $PORT is held by PM2 cluster app '$name' — stopping it so $PM2_APP can bind"
+      pm2 delete "$name" >/dev/null 2>&1 || true
+    done
+  else
+    owner=$(pm2_name_of "$pid")
+    if [ -n "$owner" ] && [ "$owner" != "$PM2_APP" ]; then
+      echo "port $PORT is held by PM2 app '$owner' (pid $pid) — stopping it so $PM2_APP can bind"
+      pm2 delete "$owner" >/dev/null 2>&1 || true
+    elif [ -z "$owner" ]; then
+      fail "port $PORT is held by pid $pid ($(ps -o args= -p "$pid" 2>/dev/null | head -c 80)), which PM2 does not manage — stop it, then re-run"
+    fi
   fi
 done
-for _ in $(seq 1 10); do [ -z "$(port_pids)" ] && break; sleep 1; done
-[ -z "$(port_pids)" ] || fail "port $PORT is still in use after stopping the old app"
+for _ in $(seq 1 15); do [ -z "$(port_pids)" ] && break; sleep 1; done
+[ -z "$(port_pids)" ] || fail "port $PORT is still in use — run:  ss -ltnp 'sport = :$PORT'  to see the holder"
 
 pm2 start deploy/ecosystem.config.js
 pm2 save >/dev/null
@@ -128,8 +165,11 @@ step "Health check"
 for _ in $(seq 1 15); do
   code=$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:$PORT/api/health" || true)
   if [ "$code" = "200" ]; then
-    # Make sure the thing answering is the app we just started.
+    # Make sure the thing answering is the app we just started. In cluster
+    # mode the listener is the PM2 daemon acting for the workers we already
+    # verified online above, so that pid is accepted.
     for pid in $(port_pids); do
+      is_pm2_daemon "$pid" && continue
       owner=$(pm2_name_of "$pid")
       [ "$owner" = "$PM2_APP" ] || fail "port $PORT is being answered by '${owner:-an unmanaged process}' (pid $pid), not $PM2_APP"
     done
