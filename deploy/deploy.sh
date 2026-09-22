@@ -110,20 +110,21 @@ for _ in $(seq 1 15); do [ -z "$(port_pids)" ] && break; sleep 1; done
 # Anything else still bound to the port would keep answering instead of the
 # build we are about to start — a leftover app under an old name did exactly
 # that and served new HTML with a stale asset table. Clear it first.
+# This box hosts other sites. A deploy must never stop an app it did not
+# start: an earlier version of this script deleted another site's process
+# because its PM2 config named port 3000. Report the conflict and let the
+# operator decide — it is one command for them and unrecoverable for us.
 for pid in $(port_pids); do
   if is_pm2_daemon "$pid"; then
-    others=$(cluster_apps_on_port)
-    [ -n "$others" ] || fail "port $PORT is held by the PM2 daemon for a cluster app I could not identify — run: pm2 list, delete the app using port $PORT, then re-run"
-    for name in $others; do
-      [ "$name" = "$PM2_APP" ] && continue
-      echo "port $PORT is held by PM2 cluster app '$name' — stopping it so $PM2_APP can bind"
-      pm2 delete "$name" >/dev/null 2>&1 || true
-    done
+    others=$(cluster_apps_on_port | tr ' ' '\n' | grep -vx "$PM2_APP" | tr '\n' ' ')
+    if [ -n "${others// /}" ]; then
+      fail "port $PORT is held by the PM2 daemon for cluster app(s): $others. If that app should not be on port $PORT, run:  pm2 delete <name>  and re-run. If it should, change PORT in deploy/ecosystem.config.js and the nginx upstream."
+    fi
+    fail "port $PORT is held by the PM2 daemon for a cluster app I could not identify — run: pm2 list, then:  ss -ltnp 'sport = :$PORT'"
   else
     owner=$(pm2_name_of "$pid")
     if [ -n "$owner" ] && [ "$owner" != "$PM2_APP" ]; then
-      echo "port $PORT is held by PM2 app '$owner' (pid $pid) — stopping it so $PM2_APP can bind"
-      pm2 delete "$owner" >/dev/null 2>&1 || true
+      fail "port $PORT is held by PM2 app '$owner' (pid $pid). If it is an old copy of this site, run:  pm2 delete $owner  and re-run."
     elif [ -z "$owner" ]; then
       fail "port $PORT is held by pid $pid ($(ps -o args= -p "$pid" 2>/dev/null | head -c 80)), which PM2 does not manage — stop it, then re-run"
     fi
@@ -149,16 +150,44 @@ pm2 jlist 2>/dev/null | node -e '
   console.log(`${list.length} instance(s) online, 0 restarts`);
 ' "$PM2_APP" || { pm2 logs "$PM2_APP" --lines 40 --nostream 2>/dev/null || true; fail "$PM2_APP is not running cleanly (see logs above)"; }
 
-step "Reloading nginx"
-if grep -rqsE 'server[[:space:]]+web:3000' /etc/nginx/; then
-  echo "WARNING: an nginx config under /etc/nginx still points its upstream at web:3000."
-  echo "         That is the Docker service name. On this host it must read: server 127.0.0.1:3000;"
-fi
+step "Installing nginx site config"
+DOMAIN="${DOMAIN:-autoparts.peculiex.com}"
 if command -v nginx >/dev/null; then
-  nginx -t 2>&1 | tail -2
+  # deploy/nginx.conf is the source of truth, but it was never copied to the
+  # host, so a fix to its /_next/static/ block (the missing Host header that
+  # made Next answer 400 and the browser show "Application error") never took
+  # effect. Install it into whichever ONE file under /etc/nginx names this
+  # domain — this box hosts other sites, so nothing else is touched — with a
+  # backup, validation, and automatic restore if validation fails.
+  mapfile -t SITE_FILES < <(grep -rlsE "server_name[[:space:]].*$DOMAIN" /etc/nginx/ 2>/dev/null | grep -v '[.]bak[.]' | sort -u)
+  render_site() { sed 's/server web:3000;/server 127.0.0.1:3000;/' deploy/nginx.conf; }
+
+  if [ "${#SITE_FILES[@]}" -eq 1 ]; then
+    SITE="${SITE_FILES[0]}"
+    if diff -q <(render_site) "$SITE" >/dev/null 2>&1; then
+      echo "$SITE already matches deploy/nginx.conf"
+    else
+      BAK="$SITE.bak.$(date +%Y%m%d%H%M%S)"
+      cp "$SITE" "$BAK"
+      render_site > "$SITE"
+      if nginx -t >/dev/null 2>&1; then
+        echo "updated $SITE  (backup: $BAK)"
+      else
+        cp "$BAK" "$SITE"
+        nginx -t 2>&1 | tail -3
+        fail "new nginx config failed validation — original restored from $BAK"
+      fi
+    fi
+  else
+    echo "found ${#SITE_FILES[@]} nginx file(s) naming $DOMAIN — not changing nginx automatically:"
+    [ "${#SITE_FILES[@]}" -gt 0 ] && printf '  %s\n' "${SITE_FILES[@]}"
+    echo "  install deploy/nginx.conf by hand (upstream 127.0.0.1:3000) and re-run"
+  fi
+
+  nginx -t 2>&1 | tail -1
   systemctl reload nginx || fail "nginx reload"
 else
-  echo "nginx not found on PATH — skipping reload"
+  echo "nginx not found on PATH — skipping"
 fi
 
 step "Health check"
@@ -180,7 +209,23 @@ for _ in $(seq 1 15); do
     if [ -n "$asset" ]; then
       acode=$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:$PORT$asset" || true)
       [ "$acode" = "200" ] || fail "static asset $asset returned $acode (expected 200)"
-      echo "static assets ok"
+      echo "static assets ok (direct)"
+    fi
+
+    # The direct check passed once while the site was still broken, because
+    # nginx — not Next — was answering 400 for assets. So check the way the
+    # browser does: through the public URL.
+    PUBLIC_URL="${PUBLIC_URL:-https://$DOMAIN}"
+    pcode=$(curl -s -o /dev/null -w '%{http_code}' --max-time 15 "$PUBLIC_URL/" || true)
+    if [ "$pcode" = "200" ]; then
+      passet=$(curl -s --max-time 15 "$PUBLIC_URL/" | grep -oE '/_next/static/[^"]+[.]css' | head -1 || true)
+      if [ -n "$passet" ]; then
+        pacode=$(curl -s -o /dev/null -w '%{http_code}' --max-time 15 "$PUBLIC_URL$passet" || true)
+        [ "$pacode" = "200" ] || fail "through nginx, $PUBLIC_URL$passet returned $pacode — the browser will show 'Application error'. The nginx site config is not the one in deploy/nginx.conf (see the nginx step above)."
+        echo "public site ok: $PUBLIC_URL (assets 200)"
+      fi
+    else
+      echo "note: $PUBLIC_URL answered $pcode from this host — public check skipped"
     fi
 
     printf '\n\033[1;32mDEPLOY OK\033[0m  %s\n' "$(git log --oneline -1)"
