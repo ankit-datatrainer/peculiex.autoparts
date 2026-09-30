@@ -4,6 +4,7 @@ import { createClient, isSupabaseConfigured } from '../../lib/supabase/server';
 import { formatCurrency } from '../../lib/translations';
 import { STATUS_LABEL } from '../../lib/orderStatus';
 import { getT } from '../../lib/i18n-server';
+import { getPriceAccess } from '../../lib/priceAccess';
 
 export async function generateMetadata() {
   return { title: `${getT().t('YOUR ACCOUNT')} | MotoMart India` };
@@ -33,6 +34,7 @@ export default async function AccountOverview({ searchParams }) {
     .order('placed_at', { ascending: false })
     .limit(5);
 
+  const access = await getPriceAccess();
   const list = orders || [];
   const spent = list.reduce((sum, o) => sum + (o.status === 'cancelled' ? 0 : Number(o.total)), 0);
   const open = list.filter((o) => !['delivered', 'cancelled'].includes(o.status)).length;
@@ -42,6 +44,17 @@ export default async function AccountOverview({ searchParams }) {
       {searchParams?.denied === 'admin' && (
         <p className="account-denied" role="alert">
           {t('That area is for super admins only.')}
+        </p>
+      )}
+
+      {access.canSee ? (
+        <p className="account-verified">
+          ✓ {t('Email verified')} — {t('you can see prices on every product.')}
+        </p>
+      ) : (
+        <p className="account-verify-cta">
+          🔒 {t('Prices are hidden until you verify your email.')}{' '}
+          <Link href="/verify-email?next=/account">{t('Click here to verify your email')}</Link>
         </p>
       )}
 

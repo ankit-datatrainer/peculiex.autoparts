@@ -14,15 +14,17 @@ import { fetchProducts, fetchCategories, fetchGarageModels } from '../lib/api';
 import HomeClientSections from './HomeClientSections';
 import BrandRail from '../components/BrandRail';
 import { getBrands } from '../lib/eautoCatalog';
+import { forViewer } from '../lib/priceAccess';
 
 export const revalidate = 0;
 
 export default async function HomePage() {
-  const [products, categories, garageModels] = await Promise.all([
+  const [allProducts, categories, garageModels] = await Promise.all([
     fetchProducts(),
     fetchCategories(),
     fetchGarageModels()
   ]);
+  const products = await forViewer(allProducts);
 
   const { t } = getT();
 

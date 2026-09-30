@@ -6,6 +6,7 @@ import SiteHeader from '../../../../components/SiteHeader';
 import Footer from '../../../../components/Footer';
 import ModelPartsClient from './ModelPartsClient';
 import { getBrand, getModel } from '../../../../lib/catalog';
+import { forViewer } from '../../../../lib/priceAccess';
 
 export const revalidate = 0;
 
@@ -113,7 +114,7 @@ export default async function ModelPartsPage({ params }) {
             </div>
           )}
 
-          <ModelPartsClient model={model} />
+          <ModelPartsClient model={await forViewer(model)} />
         </div>
       </main>
 

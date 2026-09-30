@@ -32,7 +32,10 @@ export default async function EditProduct({ params }) {
         <div>
           <Link href="/admin/products" className="admin-back">← {t('Products')}</Link>
           <h1>{product.name}</h1>
-          <p>{product.sku || product.id}</p>
+          <p>
+            {product.reference_no ? `${product.reference_no} · ` : ''}
+            {product.sku || product.id}
+          </p>
         </div>
       </div>
 
@@ -44,7 +47,11 @@ export default async function EditProduct({ params }) {
         fitModelIds={(fits || []).map((f) => f.model_id)}
       />
 
-      <ImageManager productId={product.id} images={product.images || []} />
+      <ImageManager
+        productId={product.id}
+        images={product.images || []}
+        labels={product.image_labels || []}
+      />
     </>
   );
 }

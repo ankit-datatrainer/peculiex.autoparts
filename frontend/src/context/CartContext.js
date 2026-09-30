@@ -1,6 +1,8 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useStore } from './StoreContext';
+import { clampQty } from '../lib/commerce';
 
 const CartContext = createContext({
   cart: {},
@@ -11,6 +13,8 @@ const CartContext = createContext({
   closeCartDrawer: () => {},
   addToCart: () => {},
   updateQty: () => {},
+  setQty: () => {},
+  moqOf: () => 1,
   removeFromCart: () => {},
   clearCart: () => {},
   // Modals
@@ -34,6 +38,11 @@ export function CartProvider({ children }) {
   const [activeModal, setActiveModal] = useState(null); // 'location', 'trade', 'signin', null
   const [deliveryLocation, setDeliveryLocation] = useState('Bengaluru 560001');
   const [toastMessage, setToastMessage] = useState('');
+  const [loaded, setLoaded] = useState(false);
+  const { moqFor } = useStore();
+
+  /** Minimum order quantity for a cart line (its own MOQ, else the store's). */
+  const moqOf = (productId, snapshot = null) => moqFor(snapshot || cartSnapshots[productId] || {});
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -50,7 +59,25 @@ export function CartProvider({ children }) {
         if (parsed.pin) setDeliveryLocation(parsed.pin);
       }
     } catch (e) {}
+    setLoaded(true);
   }, []);
+
+  // Carts saved before minimum order quantities existed can hold 1 or 2 of a
+  // part; lift those lines to the MOQ once, so checkout does not reject them.
+  useEffect(() => {
+    if (!loaded) return;
+    let changed = false;
+    const next = { ...cart };
+    for (const [id, qty] of Object.entries(cart)) {
+      const min = moqOf(id);
+      if (qty > 0 && qty < min) {
+        next[id] = min;
+        changed = true;
+      }
+    }
+    if (changed) saveCartToStorage(next);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loaded]);
 
   const saveCartToStorage = (newCart) => {
     setCart(newCart);
@@ -68,10 +95,12 @@ export function CartProvider({ children }) {
     } catch (e) {}
   };
 
-  const addToCart = (productId, qty = 1, productBrand = '', snapshot = null) => {
-    const quantity = Number(qty) || 1;
+  const addToCart = (productId, qty = null, productBrand = '', snapshot = null) => {
+    const min = moqOf(productId, snapshot);
     const current = cart[productId] || 0;
-    const updated = { ...cart, [productId]: current + quantity };
+    // Card buttons pass no quantity: add one minimum order's worth.
+    const quantity = Number(qty) || min;
+    const updated = { ...cart, [productId]: clampQty(current + quantity, min) };
     saveCartToStorage(updated);
     saveSnapshot(snapshot);
     // slide the cart out so the shopper sees what they just added
@@ -79,16 +108,17 @@ export function CartProvider({ children }) {
     showToast(productBrand ? `${productBrand} item added to cart` : 'Item added to cart');
   };
 
+  /** +1 / -1 steppers. Never drops below the MOQ; "Delete" removes a line. */
   const updateQty = (productId, delta) => {
     const current = cart[productId] || 0;
-    const next = current + delta;
-    const updated = { ...cart };
-    if (next <= 0) {
-      delete updated[productId];
-    } else {
-      updated[productId] = next;
-    }
-    saveCartToStorage(updated);
+    if (!current) return;
+    saveCartToStorage({ ...cart, [productId]: clampQty(current + delta, moqOf(productId)) });
+  };
+
+  /** A typed quantity, kept between the MOQ and the safety ceiling. */
+  const setQty = (productId, qty) => {
+    if (!cart[productId]) return;
+    saveCartToStorage({ ...cart, [productId]: clampQty(qty, moqOf(productId)) });
   };
 
   const removeFromCart = (productId) => {
@@ -124,6 +154,8 @@ export function CartProvider({ children }) {
         closeCartDrawer,
         addToCart,
         updateQty,
+        setQty,
+        moqOf,
         removeFromCart,
         clearCart,
         activeModal,

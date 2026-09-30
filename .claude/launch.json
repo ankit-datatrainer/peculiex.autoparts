@@ -4,7 +4,20 @@
     {
       "name": "motomart-frontend",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "cwd": "frontend",
+      "port": 3000
+    },
+    {
+      "name": "motomart-prod",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "start"
+      ],
       "cwd": "frontend",
       "port": 3000
     }

@@ -126,7 +126,7 @@ export async function getGroupProducts(groupId, { brand = '', category = '', pag
   let query = supabase
     .from('products')
     .select(
-      'id, name, sku, brand_id, category_id, vendor, description, price, mrp, stock, images, fitment, tags, source_url, is_active, brands(name), categories(name)',
+      '*, brands(name), categories(name)',
       { count: 'exact' }
     )
     .in('category_id', categoryIds)

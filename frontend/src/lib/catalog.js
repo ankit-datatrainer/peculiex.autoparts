@@ -44,12 +44,19 @@ export function mapProduct(row) {
     tags: row.tags || [],
     sourceUrl: row.source_url || null,
     modelId: row.model_slug || null,
-    modelName: row.model_name || null
+    modelName: row.model_name || null,
+    // Added by migration 0003; absent (undefined) until it has run.
+    referenceNo: row.reference_no || '',
+    moq: row.moq ?? null,
+    gstRate: row.gst_rate === null || row.gst_rate === undefined ? null : Number(row.gst_rate),
+    imageLabels: row.image_labels || [],
+    model3dUrl: row.model_3d_url || null
   };
 }
 
-const PRODUCT_COLUMNS =
-  'id, name, sku, brand_id, category_id, vendor, description, price, mrp, stock, images, fitment, tags, source_url, is_active, brands(name), categories(name)';
+// '*' so the columns added by later migrations (reference_no, moq, gst_rate…)
+// come through when present without breaking the query before they exist.
+const PRODUCT_COLUMNS = '*, brands(name), categories(name)';
 
 // -----------------------------------------------------------------------------
 // Brands
@@ -295,7 +302,12 @@ export async function searchProducts({ q = '', brand = '', category = '', limit 
   const supabase = createClient();
   let query = supabase.from('products').select(PRODUCT_COLUMNS).eq('is_active', true);
 
-  if (q) query = query.ilike('name', `%${q}%`);
+  if (q) {
+    // A reference number (MM-100123) finds its product directly.
+    query = /^mm-\d{3,}$/i.test(q.trim())
+      ? query.eq('reference_no', q.trim().toUpperCase())
+      : query.ilike('name', `%${q}%`);
+  }
   if (brand) query = query.eq('brand_id', brand);
   if (category) query = query.eq('category_id', category);
 
@@ -327,6 +339,8 @@ export async function getStoreSettings() {
     supportEmail: 'support@motomart.in',
     freeShippingAbove: 999,
     shippingFee: 59,
+    gstRate: 18,
+    defaultMoq: 10,
     cartNotice:
       'Orders are dispatched within 24 hours. Pay on delivery available across 18,000+ pin codes.'
   };

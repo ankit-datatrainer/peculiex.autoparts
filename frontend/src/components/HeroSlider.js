@@ -19,21 +19,23 @@ export default function HeroSlider() {
     router.push(`/search?category=${encodeURIComponent(category)}`);
   };
 
+  const goToGroup = (group) => router.push(`/categories/${group}`);
+
   return (
     <section className="market-hero" aria-label={t('Featured auto-parts offers')}>
       <div className="market-hero-track" id="heroSlides" ref={trackRef}>
         <article className="promo-tile promo-dark">
           <div className="promo-copy-top">
-            <p>{t('Rider safety kits')}</p>
+            <p>{t('Brakes & wheels')}</p>
             <h1>{t('Up to 35% off')}</h1>
-            <span>{t('Helmets, gloves & mounts')}</span>
+            <span>{t('Discs, pads, tyres & bearings')}</span>
           </div>
           <img
-            src="/assets/ai-riding-essentials.png"
-            alt={t('Helmet, riding gloves and phone mount arrangement')}
+            src="/assets/ai-brakes-wheels.jpg"
+            alt={t('Brake disc and motorcycle tyre')}
           />
-          <button type="button" onClick={() => goToCategory('Riding Gear')}>
-            {t('Shop safety gear')}
+          <button type="button" onClick={() => goToGroup('front-wheel')}>
+            {t('Shop brake & wheel parts')}
           </button>
         </article>
 
@@ -69,16 +71,16 @@ export default function HeroSlider() {
 
         <article className="promo-tile promo-amber">
           <div className="promo-copy-top">
-            <p>{t('Helmet clearance')}</p>
+            <p>{t('Lighting & electricals')}</p>
             <h2>{t('Up to 40% off')}</h2>
-            <span>{t('ISI-rated protection')}</span>
+            <span>{t('Headlights, indicators & horns')}</span>
           </div>
           <img
-            src="/assets/ai-riding-essentials.png"
-            alt={t('Full-face helmet and protective riding equipment')}
+            src="/assets/ai-lighting-electricals.jpg"
+            alt={t('LED motorcycle headlight')}
           />
-          <button type="button" onClick={() => goToCategory('Helmets')}>
-            {t('Shop helmets')}
+          <button type="button" onClick={() => goToGroup('lights')}>
+            {t('Shop lighting')}
           </button>
         </article>
 

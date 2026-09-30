@@ -258,3 +258,12 @@ a.admin-stat:hover { border-color: var(--a-dark); box-shadow: 0 6px 18px rgba(0,
   .admin-image-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
   .admin-image-grid img { height: 100px; }
 }
+
+/* GST / MOQ / reference number / verification controls */
+.admin-inline { display: flex; gap: .4rem; align-items: center; }
+.admin-inline input { flex: 1; min-width: 0; }
+.admin-inline .admin-ghost-btn.small { margin-left: 0; flex: none; }
+.admin-image-label { display: block; width: 100%; height: 30px; border: 0; border-top: 1px solid var(--a-line); background: #fafafa; font-size: .72rem; font-weight: 700; padding: 0 .35rem; }
+.admin-verify { display: flex; align-items: center; gap: .3rem; flex-wrap: wrap; }
+.admin-table td.mono { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .76rem; white-space: nowrap; }
+.admin-table td.right small { display: block; color: #6b7280; font-size: .68rem; }

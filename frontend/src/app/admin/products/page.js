@@ -22,28 +22,36 @@ export default async function AdminProducts({ searchParams }) {
   const stock = searchParams?.stock || '';
   const status = searchParams?.status || '';
 
-  let query = supabase
-    .from('products')
-    .select('id, name, sku, price, mrp, stock, images, is_active, brand_id, category_id', {
-      count: 'exact'
-    });
-
-  if (q) query = query.or(`name.ilike.%${q}%,sku.ilike.%${q}%,id.ilike.%${q}%`);
-  if (brand) query = query.eq('brand_id', brand);
-  if (category) query = query.eq('category_id', category);
-  if (stock === 'low') query = query.lte('stock', 5);
-  if (stock === 'out') query = query.eq('stock', 0);
-  if (status === 'active') query = query.eq('is_active', true);
-  if (status === 'hidden') query = query.eq('is_active', false);
-
+  // PostgREST's or() treats commas and brackets as syntax.
+  const term = q.replace(/[,()]/g, ' ').trim();
   const from = (page - 1) * PAGE_SIZE;
 
-  const [{ data: products, count, error }, { data: brands }, { data: categories }] =
-    await Promise.all([
-      query.order('name').range(from, from + PAGE_SIZE - 1),
-      supabase.from('brands').select('id, name').order('name'),
-      supabase.from('categories').select('id, name').order('name')
-    ]);
+  const buildQuery = (withRef) => {
+    let query = supabase.from('products').select('*', { count: 'exact' });
+    if (term) {
+      query = query.or(
+        [`name.ilike.%${term}%`, `sku.ilike.%${term}%`, `id.ilike.%${term}%`]
+          .concat(withRef ? [`reference_no.ilike.%${term}%`] : [])
+          .join(',')
+      );
+    }
+    if (brand) query = query.eq('brand_id', brand);
+    if (category) query = query.eq('category_id', category);
+    if (stock === 'low') query = query.lte('stock', 5);
+    if (stock === 'out') query = query.eq('stock', 0);
+    if (status === 'active') query = query.eq('is_active', true);
+    if (status === 'hidden') query = query.eq('is_active', false);
+    return query.order('name').range(from, from + PAGE_SIZE - 1);
+  };
+
+  const [first, { data: brands }, { data: categories }] = await Promise.all([
+    buildQuery(true),
+    supabase.from('brands').select('id, name').order('name'),
+    supabase.from('categories').select('id, name').order('name')
+  ]);
+  // Before migration 0003 there is no reference_no column to search.
+  const { data: products, count, error } =
+    first.error && term ? await buildQuery(false) : first;
 
   const total = count || 0;
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
@@ -66,7 +74,7 @@ export default async function AdminProducts({ searchParams }) {
       </div>
 
       <form className="admin-filters" method="get">
-        <input name="q" defaultValue={q} placeholder={t('Search name, SKU or id')} aria-label={t('Search products')} />
+        <input name="q" defaultValue={q} placeholder={t('Search name, SKU, id or reference no.')} aria-label={t('Search products')} />
         <select name="brand" defaultValue={brand} aria-label={t('Filter by brand')}>
           <option value="">{t('All brands')}</option>
           {(brands || []).map((b) => (

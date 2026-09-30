@@ -1,9 +1,13 @@
 import './globals.css';
 import { LanguageProvider } from '../context/LanguageContext';
 import { CartProvider } from '../context/CartContext';
+import { StoreProvider } from '../context/StoreContext';
 import StorefrontChrome from '../components/StorefrontChrome';
 import { fetchProducts } from '../lib/api';
 import { getLanguage } from '../lib/i18n-server';
+import { getStoreSettings } from '../lib/catalog';
+import { getPriceAccess, hidePrices } from '../lib/priceAccess';
+import { storeCommerce } from '../lib/commerce';
 
 export const viewport = {
   themeColor: '#c62828',
@@ -26,7 +30,12 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const [products, language] = await Promise.all([fetchProducts(), getLanguage()]);
+  const [products, language, access, settings] = await Promise.all([
+    fetchProducts(),
+    getLanguage(),
+    getPriceAccess(),
+    getStoreSettings()
+  ]);
 
   // Karla and Work Sans carry no Devanagari or Gujarati glyphs, so those
   // readers would otherwise be at the mercy of whatever the device happens to
@@ -54,10 +63,12 @@ export default async function RootLayout({ children }) {
       </head>
       <body>
         <LanguageProvider initialLanguage={language}>
-          <CartProvider>
-            {children}
-            <StorefrontChrome products={products} />
-          </CartProvider>
+          <StoreProvider access={access} commerce={storeCommerce(settings)}>
+            <CartProvider>
+              {children}
+              <StorefrontChrome products={access.canSee ? products : hidePrices(products)} />
+            </CartProvider>
+          </StoreProvider>
         </LanguageProvider>
       </body>
     </html>

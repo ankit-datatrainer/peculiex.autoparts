@@ -9,6 +9,7 @@ import { formatCurrency } from '../../lib/translations';
 import { loadCart, placeOrder } from './actions';
 import RecommendationRail from '../../components/RecommendationRail';
 import { useLanguage } from '../../context/LanguageContext';
+import { orderTotals, formatRate } from '../../lib/commerce';
 
 const STATES = [
   'Andhra Pradesh', 'Assam', 'Bihar', 'Chandigarh', 'Chhattisgarh', 'Delhi', 'Goa', 'Gujarat',
@@ -60,11 +61,22 @@ export default function CheckoutClient({ profile, email, notFromCart }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state?.success]);
 
+  useEffect(() => {
+    if (data.error === 'verify-email') router.replace('/verify-email?next=/checkout');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data.error]);
+
   const items = data.items.filter((i) => !i.unavailable);
-  const subtotal = items.reduce((sum, i) => sum + i.lineTotal, 0);
   const settings = data.settings || { freeShippingAbove: 999, shippingFee: 59 };
-  const shipping = subtotal >= Number(settings.freeShippingAbove) ? 0 : Number(settings.shippingFee);
-  const total = subtotal + shipping;
+  const { subtotal, shipping, total } = orderTotals(
+    items.map((i) => ({ price: i.price, qty: i.qty, gstRate: i.gstRate })),
+    settings
+  );
+  // One GST line per rate, so a mixed cart shows 18% and 12% separately.
+  const taxByRate = items.reduce((acc, i) => {
+    acc[i.gstRate] = Math.round(((acc[i.gstRate] || 0) + (i.tax || 0)) * 100) / 100;
+    return acc;
+  }, {});
 
   if (loading) {
     return (
@@ -204,16 +216,17 @@ export default function CheckoutClient({ profile, email, notFromCart }) {
                 <div>
                   <Link href={`/product/${item.id}`}>{tName(item.name, item.category)}</Link>
                   <small>
-                    {formatCurrency(item.price)} × {item.qty}
-                    {item.reduced && (
+                    {formatCurrency(item.price)} × {item.qty} · {t('GST')} {formatRate(item.gstRate)}%
+                    {item.referenceNo && <> · {item.referenceNo}</>}
+                    {item.raisedToMoq && (
                       <em>
                         {' '}
                         ·{' '}
                         {local(
-                          `only ${item.stock} left, quantity reduced`,
-                          `केवल ${item.stock} बचे हैं, मात्रा घटाई गई`,
-                          `फक्त ${item.stock} शिल्लक, प्रमाण कमी केले`,
-                          `માત્ર ${item.stock} બાકી, જથ્થો ઘટાડ્યો`
+                          `raised to the minimum order of ${item.moq}`,
+                          `न्यूनतम ऑर्डर ${item.moq} तक बढ़ाया गया`,
+                          `किमान ऑर्डर ${item.moq} पर्यंत वाढवले`,
+                          `ન્યૂનતમ ઓર્ડર ${item.moq} સુધી વધાર્યું`
                         )}
                       </em>
                     )}
@@ -229,6 +242,14 @@ export default function CheckoutClient({ profile, email, notFromCart }) {
               <dt>{t('Subtotal')}</dt>
               <dd>{formatCurrency(subtotal)}</dd>
             </div>
+            {Object.entries(taxByRate).map(([rate, amount]) => (
+              <div key={rate}>
+                <dt>
+                  {t('GST')} ({formatRate(rate)}%)
+                </dt>
+                <dd>{formatCurrency(amount)}</dd>
+              </div>
+            ))}
             <div>
               <dt>{t('Delivery')}</dt>
               <dd>{shipping === 0 ? t('FREE') : formatCurrency(shipping)}</dd>
@@ -251,7 +272,7 @@ export default function CheckoutClient({ profile, email, notFromCart }) {
             waiting={t('Placing your order…')}
           />
           <small className="checkout-fineprint">
-            {t('By placing this order you agree to our returns and fitment policy. Taxes included.')}
+            {t('By placing this order you agree to our returns and fitment policy. GST included in the total.')}
           </small>
 
           <RecommendationRail variant="column" limit={3} compact />

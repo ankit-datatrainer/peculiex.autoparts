@@ -10,12 +10,15 @@
     "make:admin": "node scripts/make-admin.mjs",
     "lint": "next lint",
     "import:parts-list": "node scripts/add-parts-list.mjs --write",
-    "art:parts-list": "node scripts/parts-list/make-art.mjs"
+    "art:parts-list": "node scripts/parts-list/make-art.mjs",
+    "import:digital-speedos": "node scripts/add-digital-speedometers.mjs --write",
+    "art:hero": "python scripts/make-hero-tiles.py"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.116.0",
     "next": "^14.2.24",
+    "nodemailer": "^10.0.13",
     "pdfkit": "^0.20.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

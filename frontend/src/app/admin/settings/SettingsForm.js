@@ -60,6 +60,29 @@ export default function SettingsForm({ settings = {} }) {
         what customers are charged.
       </p>
 
+      <h2 className="admin-subhead">{t('GST and minimum order')}</h2>
+
+      <div className="admin-form-row">
+        <label>
+          <span>{t('GST % added to every product')}</span>
+          <input
+            name="gstRate"
+            type="number"
+            min="0"
+            max="100"
+            step="0.01"
+            defaultValue={settings.gstRate ?? 18}
+          />
+        </label>
+        <label>
+          <span>{t('Default minimum order quantity (MOQ)')}</span>
+          <input name="defaultMoq" type="number" min="1" step="1" defaultValue={settings.defaultMoq ?? 10} />
+        </label>
+      </div>
+      <p className="admin-hint">
+        {t('Selling prices are before GST; this rate is added at checkout and on the invoice. A product can override both on its edit page, or in bulk from the product list.')}
+      </p>
+
       <h2 className="admin-subhead">{t('Cart message')}</h2>
       <label>
         <span>{t('Notice shown on the cart and checkout pages')}</span>

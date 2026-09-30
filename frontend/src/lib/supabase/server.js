@@ -49,9 +49,11 @@ export async function getSessionUser() {
 
   if (!user) return { user: null, profile: null };
 
+  // '*' rather than a column list: the verification columns only exist once
+  // migration 0003 has run, and naming a missing column would fail the query.
   const { data: profile } = await supabase
     .from('profiles')
-    .select('id, full_name, phone, role')
+    .select('*')
     .eq('id', user.id)
     .maybeSingle();
 

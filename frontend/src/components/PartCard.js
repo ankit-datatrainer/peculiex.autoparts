@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import { formatCurrency } from '../lib/translations';
+import Price from './Price';
+import { useStore } from '../context/StoreContext';
 
 const FALLBACK =
   'data:image/svg+xml;charset=UTF-8,' +
@@ -15,9 +17,10 @@ const FALLBACK =
 export default function PartCard({ part }) {
   const { addToCart } = useCart();
   const { t, tName, tCat } = useLanguage();
+  const { access, moqFor } = useStore();
   if (!part) return null;
 
-  const saving = part.mrp > part.price ? part.mrp - part.price : 0;
+  const saving = access.canSee && part.mrp > part.price ? part.mrp - part.price : 0;
 
   return (
     <article className="part-card" data-product={part.id}>
@@ -41,7 +44,7 @@ export default function PartCard({ part }) {
 
       <div className="part-card-body">
         <div className="part-price-line">
-          <span className="part-price">{formatCurrency(part.price)}</span>
+          <Price amount={part.price} className="part-price" />
           {saving > 0 && <span className="part-mrp">{formatCurrency(part.mrp)}</span>}
           {part.discountPercent > 0 && (
             <span className="part-off">
@@ -61,6 +64,9 @@ export default function PartCard({ part }) {
 
         <span className={`part-stock ${part.available ? '' : 'out'}`}>
           <i aria-hidden="true">●</i> {part.available ? t('In stock') : t('Out of stock')}
+          <em className="card-moq">
+            {t('MOQ')}: {moqFor(part)}
+          </em>
         </span>
 
         <button
@@ -68,14 +74,17 @@ export default function PartCard({ part }) {
           className="part-add"
           disabled={!part.available}
           onClick={() =>
-            addToCart(part.id, 1, part.brand, {
+            addToCart(part.id, null, part.brand, {
               id: part.id,
               name: part.name,
               brand: part.brand,
               price: part.price,
               mrp: part.mrp,
               image: part.image,
-              category: part.category
+              category: part.category,
+              moq: part.moq ?? null,
+              gstRate: part.gstRate ?? null,
+              referenceNo: part.referenceNo || ''
             })
           }
         >

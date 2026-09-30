@@ -2,6 +2,7 @@ import React from 'react';
 import { createClient, isSupabaseConfigured } from '../../../lib/supabase/server';
 import { formatCurrency } from '../../../lib/translations';
 import { getT } from '../../../lib/i18n-server';
+import VerifyToggle from './VerifyToggle';
 
 export const revalidate = 0;
 
@@ -13,7 +14,7 @@ export default async function AdminCustomers() {
 
   const supabase = createClient();
   const [{ data: profiles }, { data: orders }] = await Promise.all([
-    supabase.from('profiles').select('id, full_name, phone, role, created_at').order('created_at', { ascending: false }),
+    supabase.from('profiles').select('*').order('created_at', { ascending: false }),
     supabase.from('orders').select('user_id, total, status')
   ]);
 
@@ -47,6 +48,7 @@ export default async function AdminCustomers() {
                   <th>{t('Name')}</th>
                   <th>{t('Phone')}</th>
                   <th>{t('Role')}</th>
+                  <th>{t('Email verified')}</th>
                   <th className="right">{t('Orders')}</th>
                   <th className="right">{t('Spend')}</th>
                   <th>{t('Joined')}</th>
@@ -59,6 +61,13 @@ export default async function AdminCustomers() {
                     <td>{p.phone || '—'}</td>
                     <td>
                       <span className={`admin-pill ${p.role === 'admin' ? 'on' : 'off'}`}>{p.role}</span>
+                    </td>
+                    <td>
+                      <VerifyToggle
+                        userId={p.id}
+                        verified={Boolean(p.email_verified_at)}
+                        email={p.verified_email || ''}
+                      />
                     </td>
                     <td className="right">{stats[p.id]?.orders || 0}</td>
                     <td className="right">{formatCurrency(stats[p.id]?.spend || 0)}</td>

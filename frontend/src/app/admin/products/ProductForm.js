@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
-import { saveProduct, deleteProduct, setProductActive } from '../actions';
+import { saveProduct, deleteProduct, setProductActive, suggestReferenceNo } from '../actions';
 import { useLanguage } from '../../../context/LanguageContext';
+import { useStore } from '../../../context/StoreContext';
 
 function SaveButton({ isNew }) {
   const { pending } = useFormStatus();
@@ -24,8 +25,19 @@ export default function ProductForm({
   fitModelIds = []
 }) {
   const { t } = useLanguage();
+  const { gstRate: storeGst, defaultMoq } = useStore();
   const router = useRouter();
   const isNew = !product;
+  const [refNo, setRefNo] = useState(product?.reference_no || '');
+  const [refBusy, setRefBusy] = useState(false);
+
+  const generateRef = async () => {
+    setRefBusy(true);
+    const res = await suggestReferenceNo();
+    setRefBusy(false);
+    if (res?.error) alert(res.error);
+    else if (res?.referenceNo) setRefNo(res.referenceNo);
+  };
   const [state, action] = useFormState(saveProduct, {});
   const [brandId, setBrandId] = useState(product?.brand_id || '');
   const [fits, setFits] = useState(() => new Set(fitModelIds));
@@ -75,6 +87,25 @@ export default function ProductForm({
             <span>{t('Product name *')}</span>
             <input name="name" defaultValue={product?.name || ''} required />
           </label>
+
+          <div className="admin-form-row">
+            <label>
+              <span>{t('Reference No.')}</span>
+              <div className="admin-inline">
+                <input
+                  name="reference_no"
+                  value={refNo}
+                  onChange={(e) => setRefNo(e.target.value.toUpperCase())}
+                  placeholder={isNew ? t('Auto-generated when saved') : ''}
+                  maxLength={40}
+                />
+                <button type="button" className="admin-ghost-btn small" onClick={generateRef} disabled={refBusy}>
+                  {t('Generate')}
+                </button>
+              </div>
+              <small className="admin-hint">{t('Shown on the product page. Must be unique.')}</small>
+            </label>
+          </div>
 
           <div className="admin-form-row">
             <label>
@@ -169,9 +200,52 @@ export default function ProductForm({
             </label>
           </div>
 
+          <div className="admin-form-row">
+            <label>
+              <span>{t('GST %')}</span>
+              <input
+                name="gst_rate"
+                type="number"
+                min="0"
+                max="100"
+                step="0.01"
+                defaultValue={product?.gst_rate ?? ''}
+                placeholder={`${t('Store default')}: ${storeGst}%`}
+              />
+            </label>
+            <label>
+              <span>{t('Minimum order quantity (MOQ)')}</span>
+              <input
+                name="moq"
+                type="number"
+                min="1"
+                step="1"
+                defaultValue={product?.moq ?? ''}
+                placeholder={`${t('Store default')}: ${defaultMoq}`}
+              />
+            </label>
+          </div>
+          <p className="admin-hint">
+            {t('Selling price is before GST. Leave GST % or MOQ blank to use the store default from Settings.')}
+          </p>
+
           <label>
             <span>{t('Stock quantity')}</span>
             <input name="stock" type="number" min="0" defaultValue={product?.stock ?? 0} />
+            <small className="admin-hint">{t('0 marks the product out of stock. Orders are not limited by this number.')}</small>
+          </label>
+
+          <label>
+            <span>{t('3D model (.glb link, optional)')}</span>
+            <input
+              name="model_3d_url"
+              type="url"
+              defaultValue={product?.model_3d_url || ''}
+              placeholder="https://…/part.glb"
+            />
+            <small className="admin-hint">
+              {t('With a model, the 3D view shows it. Without one, the photos are shown as a rotating 3D panel.')}
+            </small>
           </label>
 
           <label className="admin-check">

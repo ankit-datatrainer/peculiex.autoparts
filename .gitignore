@@ -32,3 +32,6 @@ eauto_catalog.json
 # os
 .DS_Store
 Thumbs.db
+
+# local scratch for one-off checks
+frontend/scripts/.tmp/

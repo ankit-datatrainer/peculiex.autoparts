@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
-import { formatCurrency } from '../lib/translations';
+import Price from './Price';
+import { useStore } from '../context/StoreContext';
 import { cartRecommendations } from '../app/cart/recommendActions';
 
 const FALLBACK =
@@ -29,6 +30,7 @@ export default function RecommendationRail({
 }) {
   const { cart, addToCart } = useCart();
   const { t, tName } = useLanguage();
+  const { access } = useStore();
   const [derived, setDerived] = useState([]);
   const [loading, setLoading] = useState(items === null);
 
@@ -98,9 +100,13 @@ export default function RecommendationRail({
               </Link>
 
               <div className="rec-price">
-                <strong>{formatCurrency(p.price)}</strong>
-                {p.mrp > p.price && <s>{formatCurrency(p.mrp)}</s>}
-                {p.discountPercent > 0 && <em>{p.discountPercent}% off</em>}
+                <Price amount={p.price} as="strong" />
+                {access.canSee && p.mrp > p.price && <Price amount={p.mrp} as="s" />}
+                {p.discountPercent > 0 && (
+                  <em>
+                    {p.discountPercent}% {t('off')}
+                  </em>
+                )}
               </div>
 
               <button
@@ -108,14 +114,15 @@ export default function RecommendationRail({
                 className="rec-add"
                 disabled={p.available === false}
                 onClick={() =>
-                  addToCart(p.id, 1, p.brand, {
+                  addToCart(p.id, null, p.brand, {
                     id: p.id,
                     name: p.name,
                     brand: p.brand,
                     price: p.price,
                     mrp: p.mrp,
                     image: p.image,
-                    category: p.category
+                    category: p.category,
+                    moq: p.moq ?? null
                   })
                 }
               >

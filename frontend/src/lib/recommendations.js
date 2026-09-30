@@ -14,7 +14,7 @@ import { mapProduct } from './catalog';
 import * as jsonCatalog from './eautoCatalog';
 
 const COLUMNS =
-  'id, name, sku, brand_id, category_id, vendor, description, price, mrp, stock, images, fitment, tags, source_url, is_active, brands(name), categories(name)';
+  '*, brands(name), categories(name)';
 
 const saving = (p) => Math.max(0, Number(p.mrp || 0) - Number(p.price || 0));
 

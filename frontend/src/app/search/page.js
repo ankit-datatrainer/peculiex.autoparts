@@ -5,6 +5,7 @@ import Footer from '../../components/Footer';
 import ProductCard from '../../components/ProductCard';
 import Link from 'next/link';
 import { fetchProducts } from '../../lib/api';
+import { forViewer } from '../../lib/priceAccess';
 import { companyBrands, bikePartTypes } from '../../lib/catalogData';
 
 export const revalidate = 0;
@@ -36,7 +37,7 @@ export default async function SearchPage({ searchParams }) {
     (b) => b.name.toLowerCase() === brand.toLowerCase() || b.id.toLowerCase() === brand.toLowerCase()
   );
 
-  const [products, allProducts] = await Promise.all([
+  const [rawProducts, rawAllProducts] = await Promise.all([
     fetchProducts({
       search: q === 'all' ? '' : q,
       category: category === 'all' ? '' : category,
@@ -46,6 +47,7 @@ export default async function SearchPage({ searchParams }) {
     }),
     fetchProducts()
   ]);
+  const [products, allProducts] = await forViewer([rawProducts, rawAllProducts]);
 
   const displayTitle = brand
     ? `${currentBrandObj ? currentBrandObj.fullName : brand + ' Genuine Parts'}`
@@ -287,7 +289,7 @@ export default async function SearchPage({ searchParams }) {
                           `सर्व प्रमुख उत्पादकांचे अस्सल ${tCat(partType)} दाखवले जात आहेत.`,
                           `બધા મુખ્ય ઉત્પાદકોના અસલી ${tCat(partType)} બતાવવામાં આવે છે.`
                         )
-                      : t('All prices include applicable GST. Guaranteed genuine or 100% money back.')}
+                      : t('Prices are shown before GST, which is added at checkout. Guaranteed genuine or 100% money back.')}
               </p>
             </div>
 

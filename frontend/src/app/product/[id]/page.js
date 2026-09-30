@@ -9,6 +9,7 @@ import { getRecommendationsForProduct } from '../../../lib/recommendations';
 import { getBrand as getJsonBrand } from '../../../lib/eautoCatalog';
 import { getT, getLanguage } from '../../../lib/i18n-server';
 import { aboutBullets } from '../../../lib/productCopy';
+import { forViewer } from '../../../lib/priceAccess';
 
 export const revalidate = 0;
 
@@ -68,7 +69,10 @@ export default async function ProductPage({ params }) {
     <div>
       <SiteHeader />
       <main id="main">
-        <ProductDetailClient product={product} related={relatedProducts} />
+        <ProductDetailClient
+          product={await forViewer(product)}
+          related={await forViewer(relatedProducts)}
+        />
       </main>
       <Footer />
     </div>

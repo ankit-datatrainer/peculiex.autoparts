@@ -4,11 +4,13 @@ import React from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
-import { formatCurrency } from '../lib/translations';
+import Price from './Price';
+import { useStore } from '../context/StoreContext';
 
 export default function ProductCard({ product }) {
   const { t, tName, tCat, tFit } = useLanguage();
   const { addToCart } = useCart();
+  const { access, moqFor } = useStore();
 
   if (!product) return null;
 
@@ -101,11 +103,15 @@ export default function ProductCard({ product }) {
         )}
 
         <div className="price-line">
-          <span className="price">{formatCurrency(product.price)}</span>
-          {product.mrp > product.price && (
-            <span className="mrp">{formatCurrency(product.mrp)}</span>
+          <Price amount={product.price} className="price" />
+          {access.canSee && product.mrp > product.price && (
+            <Price amount={product.mrp} className="mrp" />
           )}
+          {access.canSee && <span className="plus-gst">+ {t('GST')}</span>}
         </div>
+        <span className="card-moq">
+          {t('MOQ')}: {moqFor(product)}
+        </span>
 
         <span className="prime">
           {product.prime
@@ -118,14 +124,17 @@ export default function ProductCard({ product }) {
           type="button"
           onClick={(e) => {
             e.preventDefault();
-            addToCart(product.id, 1, product.brand, {
+            addToCart(product.id, null, product.brand, {
               id: product.id,
               name: product.name,
               brand: product.brand,
               price: product.price,
               mrp: product.mrp,
               image: product.image,
-              category: product.category
+              category: product.category,
+              moq: product.moq ?? null,
+              gstRate: product.gstRate ?? null,
+              referenceNo: product.referenceNo || ''
             });
           }}
         >

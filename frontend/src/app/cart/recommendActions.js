@@ -1,6 +1,7 @@
 'use server';
 
 import { getRecommendationsForCart } from '../../lib/recommendations';
+import { forViewer } from '../../lib/priceAccess';
 
 /**
  * The cart lives in the browser, so the client hands us its product ids and we
@@ -14,7 +15,7 @@ export async function cartRecommendations(productIds = [], limit = 6) {
 
   const items = await getRecommendationsForCart(ids.slice(0, 40), limit);
 
-  return items.map((p) => ({
+  return forViewer(items.map((p) => ({
     id: p.id,
     name: p.name,
     brand: p.brand,
@@ -23,6 +24,7 @@ export async function cartRecommendations(productIds = [], limit = 6) {
     mrp: p.mrp,
     discountPercent: p.discountPercent,
     image: p.image,
-    available: p.available
-  }));
+    available: p.available,
+    moq: p.moq ?? null
+  })));
 }

@@ -3,27 +3,62 @@
 //
 // Provider is chosen from the environment, so nothing here needs changing when
 // you switch sender:
-//   RESEND_API_KEY   -> Resend HTTPS API (no extra dependency)
-//   SMTP_URL         -> any SMTP server, via nodemailer (npm i nodemailer)
-//   neither          -> disabled; calls are logged and report why
+//   SMTP_HOST + SMTP_USER + SMTP_PASS (+ SMTP_PORT) -> any SMTP server, e.g.
+//                      Gmail with an app password, via nodemailer
+//   SMTP_URL         -> the same, as one smtps://user:pass@host:465 URL
+//   RESEND_API_KEY   -> Resend HTTPS API
+//   none             -> disabled; calls are logged and report why
 //
-// Sending is always best-effort: an order must never fail because the mail
+// Invoice mail is best-effort: an order must never fail because the mail
 // server is down, so every path resolves rather than throws.
 // =============================================================================
 
 import { paymentLabel } from './orderStatus.js';
 import { translateProductName } from './translations.parts.js';
 
-const FROM = process.env.MAIL_FROM || 'MotoMart <orders@motomart.in>';
+function fromAddress() {
+  if (process.env.MAIL_FROM) return process.env.MAIL_FROM;
+  // Gmail rewrites any other From to the signed-in account, so match it.
+  if (process.env.SMTP_USER) return `MotoMart <${process.env.SMTP_USER}>`;
+  return 'MotoMart <orders@motomart.in>';
+}
+
+function smtpOptions() {
+  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+    const port = Number(process.env.SMTP_PORT) || 587;
+    return {
+      host: process.env.SMTP_HOST,
+      port,
+      secure: port === 465, // 587 upgrades with STARTTLS
+      auth: {
+        user: process.env.SMTP_USER,
+        // Gmail shows app passwords in groups of four; the spaces are not part of it.
+        pass: process.env.SMTP_PASS.replace(/\s+/g, '')
+      }
+    };
+  }
+  return process.env.SMTP_URL || null;
+}
 
 export function emailProvider() {
+  if (smtpOptions()) return 'smtp';
   if (process.env.RESEND_API_KEY) return 'resend';
-  if (process.env.SMTP_URL) return 'smtp';
   return null;
 }
 
 export function emailConfigured() {
   return emailProvider() !== null;
+}
+
+let transportPromise = null;
+
+async function smtpTransport() {
+  if (!transportPromise) {
+    transportPromise = import('nodemailer').then((nodemailer) =>
+      (nodemailer.default || nodemailer).createTransport(smtpOptions())
+    );
+  }
+  return transportPromise;
 }
 
 /**
@@ -41,7 +76,7 @@ export async function sendMail({ to, subject, html, text, attachments = [] }) {
   if (!provider) {
     console.info(
       `[email] skipped "${subject}" to ${to} — no provider configured. ` +
-        'Set RESEND_API_KEY or SMTP_URL to enable sending.'
+        'Set SMTP_HOST/SMTP_USER/SMTP_PASS (or RESEND_API_KEY) to enable sending.'
     );
     return { sent: false, reason: 'not-configured' };
   }
@@ -57,7 +92,7 @@ export async function sendMail({ to, subject, html, text, attachments = [] }) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          from: FROM,
+          from: fromAddress(),
           to: [to],
           subject,
           html,
@@ -77,18 +112,12 @@ export async function sendMail({ to, subject, html, text, attachments = [] }) {
       return { sent: true, provider };
     }
 
-    // SMTP — nodemailer is an optional dependency. webpackIgnore keeps the
-    // bundler from trying to resolve it at build time when it is not installed.
-    const nodemailer = await import(/* webpackIgnore: true */ 'nodemailer').catch(() => null);
-    if (!nodemailer) {
-      console.error('[email] SMTP_URL is set but nodemailer is not installed. Run: npm i nodemailer');
-      return { sent: false, provider, error: 'nodemailer-missing' };
-    }
-
-    const transport = nodemailer.default.createTransport(process.env.SMTP_URL);
-    await transport.sendMail({ from: FROM, to, subject, html, text, attachments });
+    const transport = await smtpTransport();
+    await transport.sendMail({ from: fromAddress(), to, subject, html, text, attachments });
     return { sent: true, provider };
   } catch (err) {
+    // A bad password or blocked login would otherwise fail the same way forever.
+    transportPromise = null;
     console.error('[email] send failed:', err.message);
     return { sent: false, provider, error: err.message };
   }
@@ -105,6 +134,7 @@ const COPY = {
     tracking: 'Track your order',
     subtotal: 'Subtotal',
     deliveryFee: 'Delivery',
+    gst: 'GST',
     free: 'FREE',
     total: 'Order total',
     paymentMethod: 'Payment method',
@@ -121,6 +151,7 @@ const COPY = {
     tracking: 'अपना ऑर्डर ट्रैक करें',
     subtotal: 'उप-योग',
     deliveryFee: 'डिलीवरी',
+    gst: 'जीएसटी',
     free: 'मुफ़्त',
     total: 'ऑर्डर कुल',
     paymentMethod: 'भुगतान विधि',
@@ -137,6 +168,7 @@ const COPY = {
     tracking: 'तुमची ऑर्डर ट्रॅक करा',
     subtotal: 'उप-एकूण',
     deliveryFee: 'डिलिव्हरी',
+    gst: 'जीएसटी',
     free: 'मोफत',
     total: 'ऑर्डर एकूण',
     paymentMethod: 'पेमेंट पद्धत',
@@ -153,6 +185,7 @@ const COPY = {
     tracking: 'તમારો ઓર્ડર ટ્રેક કરો',
     subtotal: 'પેટા-કુલ',
     deliveryFee: 'ડિલિવરી',
+    gst: 'જીએસટી',
     free: 'મફત',
     total: 'ઓર્ડર કુલ',
     paymentMethod: 'પેમેન્ટ પદ્ધતિ',
@@ -227,6 +260,7 @@ ${
 }
   <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:18px">
 ${row(C.subtotal, money(order.subtotal))}
+${Number(order.tax) > 0 ? row(`${C.gst}`, money(order.tax)) : ''}
 ${row(C.deliveryFee, shipping === 0 ? C.free : money(shipping))}
 ${row(C.total, money(order.total), true)}
 ${row(C.paymentMethod, payment)}
@@ -261,5 +295,57 @@ ${deliverTo ? row(C.deliverTo, deliverTo) : ''}
     attachments: pdf
       ? [{ filename: `INV-${order.order_number}.pdf`, content: pdf, contentType: 'application/pdf' }]
       : []
+  });
+}
+
+const OTP_COPY = {
+  en: {
+    subject: (code) => `${code} is your MotoMart verification code`,
+    heading: 'Verify your email',
+    body: 'Enter this code on MotoMart to verify your email and see prices. It expires in 10 minutes.',
+    ignore: 'If you did not ask for this code, you can ignore this email.'
+  },
+  hi: {
+    subject: (code) => `${code} आपका MotoMart सत्यापन कोड है`,
+    heading: 'अपना ईमेल सत्यापित करें',
+    body: 'अपना ईमेल सत्यापित करने और कीमतें देखने के लिए यह कोड MotoMart पर डालें। यह 10 मिनट में समाप्त हो जाएगा।',
+    ignore: 'अगर आपने यह कोड नहीं माँगा था, तो इस ईमेल को अनदेखा करें।'
+  },
+  mr: {
+    subject: (code) => `${code} हा तुमचा MotoMart पडताळणी कोड आहे`,
+    heading: 'तुमचा ईमेल पडताळा',
+    body: 'तुमचा ईमेल पडताळण्यासाठी आणि किमती पाहण्यासाठी हा कोड MotoMart वर टाका. तो 10 मिनिटांत कालबाह्य होईल.',
+    ignore: 'तुम्ही हा कोड मागितला नसेल, तर हा ईमेल दुर्लक्षित करा.'
+  },
+  gu: {
+    subject: (code) => `${code} તમારો MotoMart ચકાસણી કોડ છે`,
+    heading: 'તમારો ઇમેઇલ ચકાસો',
+    body: 'તમારો ઇમેઇલ ચકાસવા અને કિંમતો જોવા માટે આ કોડ MotoMart પર દાખલ કરો. તે 10 મિનિટમાં સમાપ્ત થશે.',
+    ignore: 'જો તમે આ કોડ માંગ્યો ન હોય, તો આ ઇમેઇલને અવગણો.'
+  }
+};
+
+/** The one-time code that unlocks prices for a signed-in customer. */
+export async function sendVerificationEmail({ to, code, lang = 'en' }) {
+  const C = OTP_COPY[lang] || OTP_COPY.en;
+  const html = `<!doctype html>
+<html lang="${lang}">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width"></head>
+<body style="margin:0;background:#f6f7f8">
+<div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:480px;margin:0 auto;padding:28px 24px;background:#fff;color:#111827">
+  <h1 style="font-size:20px;margin:0 0 16px">MotoMart</h1>
+  <h2 style="font-size:16px;margin:0 0 8px">${escapeHtml(C.heading)}</h2>
+  <p style="font-size:14px;line-height:1.55;margin:0 0 18px">${escapeHtml(C.body)}</p>
+  <p style="font-size:32px;font-weight:800;letter-spacing:8px;margin:0 0 18px;font-family:ui-monospace,Menlo,Consolas,monospace">${escapeHtml(code)}</p>
+  <p style="font-size:12px;color:#6b7280;margin:0">${escapeHtml(C.ignore)}</p>
+</div>
+</body>
+</html>`;
+
+  return sendMail({
+    to,
+    subject: C.subject(code),
+    html,
+    text: [C.heading, '', C.body, '', code, '', C.ignore].join('\n')
   });
 }

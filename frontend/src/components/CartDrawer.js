@@ -7,29 +7,15 @@ import { useCart } from '../context/CartContext';
 import { formatCurrency } from '../lib/translations';
 import RecommendationRail from './RecommendationRail';
 import { onImageError } from '../lib/imageFallback';
+import Price from './Price';
+import QtyStepper from './QtyStepper';
+import { useCartLines } from '../lib/useCartLines';
 
 export default function CartDrawer({ products = [] }) {
   const router = useRouter();
-  const { t } = useLanguage();
-  const {
-    cart,
-    cartSnapshots,
-    isCartDrawerOpen,
-    closeCartDrawer,
-    updateQty,
-    removeFromCart,
-    showToast
-  } = useCart();
-
-  const cartEntries = Object.entries(cart).filter(([id, qty]) => qty > 0);
-  const detailedItems = cartEntries
-    .map(([id, qty]) => {
-      const product = products.find((p) => p.id === id) || cartSnapshots[id];
-      return product ? { ...product, qty } : null;
-    })
-    .filter(Boolean);
-
-  const subtotal = detailedItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const { t, tName } = useLanguage();
+  const { isCartDrawerOpen, closeCartDrawer, setQty, removeFromCart, showToast } = useCart();
+  const { lines: detailedItems, totals } = useCartLines(products);
 
   const goToCheckout = () => {
     if (detailedItems.length === 0) {
@@ -70,25 +56,19 @@ export default function CartDrawer({ products = [] }) {
               <article className="cart-item" key={item.id}>
                 <img src={item.image} alt={item.name} onError={onImageError} />
                 <div>
-                  <h3>{item.name}</h3>
-                  <strong>{formatCurrency(item.price * item.qty)}</strong>
-                  <div className="qty-stepper">
-                    <button
-                      type="button"
-                      aria-label={t('Decrease quantity')}
-                      onClick={() => updateQty(item.id, -1)}
-                    >
-                      −
-                    </button>
-                    <span>{item.qty}</span>
-                    <button
-                      type="button"
-                      aria-label={t('Increase quantity')}
-                      onClick={() => updateQty(item.id, 1)}
-                    >
-                      +
-                    </button>
-                  </div>
+                  <h3>{tName(item.name, item.category)}</h3>
+                  <strong>
+                    <Price amount={item.amounts ? item.amounts.base : null} />
+                  </strong>
+                  {item.amounts && (
+                    <small className="cart-unit">
+                      {formatCurrency(item.price)} × {item.qty}
+                    </small>
+                  )}
+                  <QtyStepper value={item.qty} min={item.moq} onChange={(q) => setQty(item.id, q)} />
+                  <small className="cart-moq">
+                    {t('MOQ')}: {item.moq}
+                  </small>
                 </div>
                 <button
                   className="remove-item"
@@ -114,11 +94,28 @@ export default function CartDrawer({ products = [] }) {
         </div>
 
         <div className="cart-footer">
-          <div>
-            <span>{t('Subtotal')}</span>
-            <strong id="cartSubtotal">{formatCurrency(subtotal)}</strong>
-          </div>
-          <small>{t('Taxes included. Delivery calculated at checkout.')}</small>
+          {totals ? (
+            <>
+              <div>
+                <span>{t('Subtotal')}</span>
+                <strong id="cartSubtotal">{formatCurrency(totals.subtotal)}</strong>
+              </div>
+              <div className="cart-gst-row">
+                <span>{t('GST')}</span>
+                <span>{formatCurrency(totals.tax)}</span>
+              </div>
+              <div>
+                <span>{t('Total (incl. GST)')}</span>
+                <strong>{formatCurrency(totals.total)}</strong>
+              </div>
+            </>
+          ) : detailedItems.length > 0 ? (
+            <div>
+              <span>{t('Subtotal')}</span>
+              <Price amount={null} />
+            </div>
+          ) : null}
+          <small>{t('GST is added to every item. Delivery is calculated at checkout.')}</small>
 
           <button
             id="checkoutButton"

@@ -50,6 +50,9 @@ const LABELS = {
     note: 'Order note',
     thanks: 'Thank you for shopping with us.',
     footer: 'Prices are inclusive of all applicable taxes. This is a computer-generated invoice.',
+    gst: 'GST',
+    footerGst: 'Prices are before GST; GST is shown separately. This is a computer-generated invoice.',
+    ref: 'Ref',
     free: 'FREE'
   },
   hi: {
@@ -72,6 +75,9 @@ const LABELS = {
     note: 'ऑर्डर नोट',
     thanks: 'हमारे साथ खरीदारी करने के लिए धन्यवाद।',
     footer: 'कीमतों में सभी लागू कर शामिल हैं। यह कंप्यूटर से बनाया गया चालान है।',
+    gst: 'जीएसटी',
+    footerGst: 'कीमतें GST से पहले की हैं; GST अलग से दिखाया गया है। यह कंप्यूटर से बनाया गया चालान है।',
+    ref: 'संदर्भ',
     free: 'मुफ़्त'
   },
   mr: {
@@ -94,6 +100,9 @@ const LABELS = {
     note: 'ऑर्डर नोट',
     thanks: 'आमच्यासोबत खरेदी केल्याबद्दल धन्यवाद.',
     footer: 'किमतींमध्ये सर्व लागू कर समाविष्ट आहेत. हे संगणकाने तयार केलेले चलन आहे.',
+    gst: 'जीएसटी',
+    footerGst: 'किमती GST पूर्वीच्या आहेत; GST वेगळा दाखवला आहे. हे संगणकाने तयार केलेले चलन आहे.',
+    ref: 'संदर्भ',
     free: 'मोफत'
   },
   gu: {
@@ -116,6 +125,9 @@ const LABELS = {
     note: 'ઓર્ડર નોંધ',
     thanks: 'અમારી સાથે ખરીદી કરવા બદલ આભાર.',
     footer: 'ભાવમાં તમામ લાગુ કર સામેલ છે. આ કમ્પ્યુટરથી બનેલું ઇન્વોઇસ છે.',
+    gst: 'જીએસટી',
+    footerGst: 'ભાવ GST પહેલાંના છે; GST અલગથી દર્શાવેલ છે. આ કમ્પ્યુટરથી બનેલું ઇન્વોઇસ છે.',
+    ref: 'સંદર્ભ',
     free: 'મફત'
   }
 };
@@ -347,7 +359,14 @@ export function renderInvoicePdf(order, items = [], opts = {}) {
 
     for (const item of items) {
       const lines = wrapLines(translateProductName(item.name, lang), NAME_W, { size: 9 });
-      const rowHeight = Math.max(18, lines.length * 12 + 6);
+      // Reference number and GST rate under the name, for orders that have them.
+      const detail = [
+        item.reference_no ? `${L.ref}: ${item.reference_no}` : '',
+        Number(item.gst_rate) > 0 ? `${L.gst} ${Number(item.gst_rate)}%` : ''
+      ]
+        .filter(Boolean)
+        .join('  ·  ');
+      const rowHeight = Math.max(18, lines.length * 12 + (detail ? 12 : 0) + 6);
 
       if (y + rowHeight > doc.page.height - 150) {
         doc.addPage();
@@ -355,6 +374,7 @@ export function renderInvoicePdf(order, items = [], opts = {}) {
       }
 
       lines.forEach((line, i) => drawText(line, COL.item + 6, y + i * 12, { size: 9 }));
+      if (detail) drawText(detail, COL.item + 6, y + lines.length * 12, { size: 7.5, color: '#6b7280' });
       rightAlign(String(item.qty), COL.qty + 28, y, { size: 9 });
       rightAlign(money(item.price), COL.rate + 60, y, { size: 9 });
       rightAlign(money(item.line_total), COL.amount - 6, y, { size: 9, bold: true });
@@ -367,6 +387,7 @@ export function renderInvoicePdf(order, items = [], opts = {}) {
     y += 10;
     const totals = [
       [L.subtotal, money(order.subtotal), false],
+      ...(Number(order.tax) > 0 ? [[L.gst, money(order.tax), false]] : []),
       [L.delivery, Number(order.shipping) === 0 ? L.free : money(order.shipping), false],
       [L.total, money(order.total), true]
     ];
@@ -395,7 +416,7 @@ export function renderInvoicePdf(order, items = [], opts = {}) {
     y += 12;
     drawText(L.thanks, M, y, { size: 10, bold: true });
     y += 15;
-    drawText(L.footer, M, y, { size: 8, color: '#6b7280', width: RIGHT - M });
+    drawText((Number(order.tax) > 0 ? L.footerGst : L.footer), M, y, { size: 8, color: '#6b7280', width: RIGHT - M });
 
     doc.end();
   });

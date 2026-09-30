@@ -50,7 +50,28 @@ grep -Eq '^NEXT_PUBLIC_SUPABASE_URL=https://' frontend/.env.local \
   || fail "NEXT_PUBLIC_SUPABASE_URL is not set in frontend/.env.local"
 grep -Eq '^NEXT_PUBLIC_SUPABASE_ANON_KEY=.{20,}' frontend/.env.local \
   || fail "NEXT_PUBLIC_SUPABASE_ANON_KEY is not set in frontend/.env.local"
+
+# Prices are shown only after a customer verifies their email with a code, so
+# the server needs a mail account and the service-role key to issue codes.
+env_val() { grep -E "^$1=" frontend/.env.local | tail -1 | cut -d= -f2- | sed -e "s/^[\"']//" -e "s/[\"']\$//"; }
+missing=""
+[ -n "$(env_val SUPABASE_SERVICE_ROLE_KEY)" ] || missing="$missing SUPABASE_SERVICE_ROLE_KEY"
+if [ -z "$(env_val SMTP_URL)$(env_val RESEND_API_KEY)" ]; then
+  for k in SMTP_HOST SMTP_PORT SMTP_USER SMTP_PASS; do
+    [ -n "$(env_val "$k")" ] || missing="$missing $k"
+  done
+fi
+[ -z "$missing" ] || fail "add to frontend/.env.local:$missing  (without them customers cannot verify their email, so nobody can see prices)"
 echo "env ok"
+
+step "Checking database update 0003"
+SB_URL=$(env_val NEXT_PUBLIC_SUPABASE_URL)
+SB_KEY=$(env_val NEXT_PUBLIC_SUPABASE_ANON_KEY)
+for probe in "products?select=reference_no,moq,gst_rate&limit=1" "profiles?select=email_verified_at&limit=1"; do
+  code=$(curl -s -o /dev/null -w '%{http_code}' "$SB_URL/rest/v1/$probe" -H "apikey: $SB_KEY" -H "Authorization: Bearer $SB_KEY")
+  [ "$code" = "200" ] || fail "database update 0003 is not applied (HTTP $code for ${probe%%\?*}). In Supabase open SQL Editor, paste all of supabase/migrations/0003_gst_moq_refs_price_access.sql, click Run, then run this deploy again"
+done
+echo "database ok"
 
 step "Installing dependencies"
 cd frontend

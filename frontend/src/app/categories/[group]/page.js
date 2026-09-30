@@ -7,6 +7,7 @@ import PartCard from '../../../components/PartCard';
 import { getCategoryGroup, getGroupProducts } from '../../../lib/categoryGroups';
 import { getBrands, mapProduct } from '../../../lib/catalog';
 import { getT } from '../../../lib/i18n-server';
+import { forViewer } from '../../../lib/priceAccess';
 
 export const revalidate = 0;
 
@@ -42,7 +43,7 @@ export default async function CategoryGroupPage({ params, searchParams }) {
   if (!result) notFound();
 
   const { group, rows, total } = result;
-  const parts = (rows || []).map(mapProduct);
+  const parts = await forViewer((rows || []).map(mapProduct));
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
   const linkFor = (next) => ({

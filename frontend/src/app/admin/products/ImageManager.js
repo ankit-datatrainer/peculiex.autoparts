@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
-import { uploadProductImages, removeProductImage, reorderProductImages } from '../actions';
+import { uploadProductImages, removeProductImage, reorderProductImages, saveImageLabels } from '../actions';
 import { useLanguage } from '../../../context/LanguageContext';
 
 function UploadButton({ label }) {
@@ -15,7 +15,12 @@ function UploadButton({ label }) {
   );
 }
 
-export default function ImageManager({ productId, images = [] }) {
+const VIEW_OPTIONS = ['', 'Front view', 'Back view', 'Side view', 'Top view', 'Detail view'];
+
+// What the storefront shows when an image has no label of its own.
+const defaultLabel = (i) => (i === 0 ? 'Front view' : i === 1 ? 'Back view' : 'Detail view');
+
+export default function ImageManager({ productId, images = [], labels = [] }) {
   const { t } = useLanguage();
   const router = useRouter();
   const [state, action] = useFormState(uploadProductImages, {});
@@ -31,13 +36,26 @@ export default function ImageManager({ productId, images = [] }) {
     router.refresh();
   };
 
+  const labelAt = (i) => labels[i] || '';
+
+  const setLabel = async (index, value) => {
+    const next = images.map((_, i) => (i === index ? value : labelAt(i)));
+    setBusy(true);
+    const res = await saveImageLabels(productId, next);
+    setBusy(false);
+    if (res?.error) alert(res.error);
+    router.refresh();
+  };
+
   const move = async (index, delta) => {
     const next = [...images];
+    const nextLabels = images.map((_, i) => labelAt(i));
     const target = index + delta;
     if (target < 0 || target >= next.length) return;
     [next[index], next[target]] = [next[target], next[index]];
+    [nextLabels[index], nextLabels[target]] = [nextLabels[target], nextLabels[index]];
     setBusy(true);
-    const res = await reorderProductImages(productId, next);
+    const res = await reorderProductImages(productId, next, nextLabels);
     setBusy(false);
     if (res?.error) alert(res.error);
     router.refresh();
@@ -47,7 +65,7 @@ export default function ImageManager({ productId, images = [] }) {
     <section className="admin-card">
       <h2>{t('Images')}</h2>
       <p className="admin-hint">
-        The first image is the one shoppers see on cards and search results.
+        {t('The first image is the one shoppers see on cards and search results. Label each photo (front, back, side…) — the product page gallery shows the labels and turns through the views by itself.')}
       </p>
 
       {images.length === 0 ? (
@@ -58,6 +76,19 @@ export default function ImageManager({ productId, images = [] }) {
             <li key={url}>
               <img src={url} alt={`Product image ${i + 1}`} />
               {i === 0 && <span className="admin-image-primary">{t('Primary')}</span>}
+              <select
+                className="admin-image-label"
+                value={labelAt(i)}
+                onChange={(e) => setLabel(i, e.target.value)}
+                disabled={busy}
+                aria-label={t('View label')}
+              >
+                {VIEW_OPTIONS.map((v) => (
+                  <option key={v || 'auto'} value={v}>
+                    {v ? t(v) : `${t('Automatic')} (${t(defaultLabel(i))})`}
+                  </option>
+                ))}
+              </select>
               <div className="admin-image-actions">
                 <button type="button" onClick={() => move(i, -1)} disabled={busy || i === 0} aria-label={t('Move earlier')}>
                   ←

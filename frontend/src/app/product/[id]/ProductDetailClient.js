@@ -8,27 +8,38 @@ import { useCart } from '../../../context/CartContext';
 import { formatCurrency } from '../../../lib/translations';
 import { aboutBullets, fitmentLine, specRows } from '../../../lib/productCopy';
 import ProductCard from '../../../components/ProductCard';
-import { onImageError } from '../../../lib/imageFallback';
+import Price, { PriceLock } from '../../../components/Price';
+import { useStore } from '../../../context/StoreContext';
+import { clampQty, lineAmounts, formatRate, MAX_QTY } from '../../../lib/commerce';
+import ProductGallery from './ProductGallery';
 
 export default function ProductDetailClient({ product, related = [] }) {
   const router = useRouter();
   const { t, tName, tCat, local, language } = useLanguage();
   const { addToCart, openCartDrawer, deliveryLocation } = useCart();
+  const { access, moqFor, gstFor } = useStore();
 
-  const [quantity, setQuantity] = useState(1);
-  const gallery =
-    Array.isArray(product.images) && product.images.length > 0
-      ? [...new Set(product.images)]
-      : [product.image, product.image, product.image];
-  const [selectedImg, setSelectedImg] = useState(gallery[0]);
+  const moq = moqFor(product);
+  const gstRate = gstFor(product);
+  const [quantity, setQuantity] = useState(moq);
+  // What the shopper is typing, so the field can be emptied mid-edit.
+  const [qtyText, setQtyText] = useState(String(moq));
+  const canSee = access.canSee && product.price !== null && product.price !== undefined;
+  const amounts = canSee ? lineAmounts(product.price, quantity, gstRate) : null;
+
+  const changeQty = (next) => {
+    const q = clampQty(next, moq);
+    setQuantity(q);
+    setQtyText(String(q));
+  };
 
   const title = tName(product.name, product.category);
   const bullets = aboutBullets(product, language);
   const fitment = fitmentLine(product, language);
   const specs = specRows(product, language);
 
-  const discountPercent = Math.round((1 - product.price / product.mrp) * 100);
-  const emiAmount = Math.ceil(product.price / 6);
+  const discountPercent = product.discountPercent || 0;
+  const emiAmount = canSee ? Math.ceil(amounts.total / 6) : null;
 
   const deliveryDateStr = () => {
     const d = new Date();
@@ -42,16 +53,26 @@ export default function ProductDetailClient({ product, related = [] }) {
     return `${'★'.repeat(full)}${'☆'.repeat(Math.max(0, 5 - full))}`;
   };
 
+  const snapshot = {
+    id: product.id,
+    name: product.name,
+    brand: product.brand,
+    price: product.price,
+    mrp: product.mrp,
+    image: product.image,
+    category: product.category,
+    moq: product.moq ?? null,
+    gstRate: product.gstRate ?? null,
+    referenceNo: product.referenceNo || ''
+  };
+
+  const handleAdd = () => {
+    addToCart(product.id, quantity, product.brand, snapshot);
+    openCartDrawer();
+  };
+
   const handleBuyNow = () => {
-    addToCart(product.id, quantity, product.brand, {
-      id: product.id,
-      name: product.name,
-      brand: product.brand,
-      price: product.price,
-      mrp: product.mrp,
-      image: product.image,
-      category: product.category
-    });
+    addToCart(product.id, quantity, product.brand, snapshot);
     router.push('/cart');
   };
 
@@ -86,23 +107,12 @@ export default function ProductDetailClient({ product, related = [] }) {
 
         <section className="detail-layout">
           {/* Gallery */}
-          <div className="detail-gallery">
-            <div className="thumb-list">
-              {gallery.map((src, i) => (
-                <button
-                  key={`${src}-${i}`}
-                  type="button"
-                  className={selectedImg === src ? 'active' : ''}
-                  onClick={() => setSelectedImg(src)}
-                >
-                  <img src={src} alt={`${title} ${t('view')} ${i + 1}`} onError={onImageError} />
-                </button>
-              ))}
-            </div>
-            <div className="main-image-wrap">
-              <img src={selectedImg} alt={title} onError={onImageError} />
-            </div>
-          </div>
+          <ProductGallery
+            images={product.images?.length ? product.images : [product.image].filter(Boolean)}
+            labels={product.imageLabels || []}
+            title={title}
+            model3dUrl={product.model3dUrl}
+          />
 
           {/* Info */}
           <div className="detail-info">
@@ -141,6 +151,12 @@ export default function ProductDetailClient({ product, related = [] }) {
 
             <h1>{title}</h1>
 
+            {product.referenceNo && (
+              <p className="detail-ref">
+                {t('Reference No.')}: <strong>{product.referenceNo}</strong>
+              </p>
+            )}
+
             {product.officialSourceUrl && (
               <div style={{ marginBottom: '0.75rem' }}>
                 <a
@@ -175,6 +191,9 @@ export default function ProductDetailClient({ product, related = [] }) {
                 <span className={product.available === false ? 'stock out' : 'stock'}>
                   {product.available === false ? t('Out of stock') : t('In stock')}
                 </span>
+                <span className="moq-badge">
+                  {t('MOQ')}: {moq} {t('units')}
+                </span>
                 {product.modelName && (
                   <Link href={`/brands/${product.brandId}/${product.modelId}`}>
                     {local(
@@ -189,21 +208,42 @@ export default function ProductDetailClient({ product, related = [] }) {
             )}
 
             <div className="price-block">
-              {discountPercent > 0 && <span className="discount">-{discountPercent}%</span>}
-              <strong className="detail-price">{formatCurrency(product.price)}</strong>
-              <p>
-                {t('M.R.P.')}: <s>{formatCurrency(product.mrp)}</s>
-              </p>
-              <p>{t('Inclusive of all taxes')}</p>
-              <p>
-                <strong>EMI</strong>{' '}
-                {local(
-                  `starts at ${formatCurrency(emiAmount)} per month.`,
-                  `${formatCurrency(emiAmount)} प्रति माह से शुरू।`,
-                  `${formatCurrency(emiAmount)} प्रति महिना पासून.`,
-                  `${formatCurrency(emiAmount)} પ્રતિ માસથી શરૂ.`
-                )}
-              </p>
+              {canSee ? (
+                <>
+                  {discountPercent > 0 && <span className="discount">-{discountPercent}%</span>}
+                  <strong className="detail-price">
+                    <Price amount={product.price} />
+                  </strong>
+                  <span className="per-unit">/ {t('unit')}</span>
+                  {product.mrp > product.price && (
+                    <p>
+                      {t('M.R.P.')}: <s><Price amount={product.mrp} /></s>
+                    </p>
+                  )}
+                  <p className="gst-note">
+                    + {t('GST')} {formatRate(gstRate)}% ({t('added at checkout')})
+                  </p>
+                  <p>
+                    <strong>EMI</strong>{' '}
+                    {local(
+                      `starts at ${formatCurrency(emiAmount)} per month.`,
+                      `${formatCurrency(emiAmount)} प्रति माह से शुरू।`,
+                      `${formatCurrency(emiAmount)} प्रति महिना पासून.`,
+                      `${formatCurrency(emiAmount)} પ્રતિ માસથી શરૂ.`
+                    )}
+                  </p>
+                </>
+              ) : (
+                <div className="price-locked-block">
+                  {discountPercent > 0 && <span className="discount">-{discountPercent}%</span>}
+                  <PriceLock size="lg" />
+                  <p>
+                    {access.status === 'guest'
+                      ? t('Prices are visible after you log in and verify your email.')
+                      : t('Verify your email once to see prices on every product.')}
+                  </p>
+                </div>
+              )}
             </div>
 
             <div className="offers">
@@ -291,7 +331,14 @@ export default function ProductDetailClient({ product, related = [] }) {
 
           {/* Buy Box */}
           <aside className="buy-box">
-            <strong className="detail-price">{formatCurrency(product.price)}</strong>
+            {canSee ? (
+              <strong className="detail-price">
+                <Price amount={product.price} />
+                <small className="per-unit"> / {t('unit')}</small>
+              </strong>
+            ) : (
+              <PriceLock size="lg" />
+            )}
             <p className="delivery-message">
               <strong>{t('FREE delivery')}</strong> {local('by', 'तक', 'पर्यंत')}{' '}
               <b>{deliveryDateStr()}</b>
@@ -301,42 +348,96 @@ export default function ProductDetailClient({ product, related = [] }) {
             <p>
               ⌖ {t('Delivering to')} <strong>{deliveryLocation}</strong>
             </p>
-            <p className="stock">{t('In stock')}</p>
+            <p className="stock">
+              {product.available === false ? t('Out of stock') : t('In stock')}
+              <span className="moq-badge">
+                {t('MOQ')}: {moq} {t('units')}
+              </span>
+            </p>
 
-            <label>
-              {t('Quantity')}{' '}
-              <select
-                value={quantity}
-                onChange={(e) => setQuantity(Number(e.target.value))}
-              >
-                {[1, 2, 3, 4, 5].map((n) => (
-                  <option key={n} value={n}>
-                    {n}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <div className="buy-qty">
+              <span id="qty-label">{t('Quantity')}</span>
+              <div className="qty-stepper qty-typed qty-stepper-lg" role="group" aria-labelledby="qty-label">
+                <button
+                  type="button"
+                  aria-label={t('Decrease quantity')}
+                  onClick={() => changeQty(quantity - 1)}
+                  disabled={quantity <= moq}
+                >
+                  −
+                </button>
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  min={moq}
+                  max={MAX_QTY}
+                  value={qtyText}
+                  aria-label={t('Quantity')}
+                  onChange={(e) => {
+                    setQtyText(e.target.value);
+                    const n = Number(e.target.value);
+                    if (e.target.value !== '' && Number.isFinite(n) && n >= moq) {
+                      setQuantity(clampQty(n, moq));
+                    }
+                  }}
+                  onBlur={() => changeQty(qtyText === '' ? moq : qtyText)}
+                />
+                <button
+                  type="button"
+                  aria-label={t('Increase quantity')}
+                  onClick={() => changeQty(quantity + 1)}
+                  disabled={quantity >= MAX_QTY}
+                >
+                  +
+                </button>
+              </div>
+              <small className="moq-hint">
+                {t('Minimum order')}: {moq} {t('units')}
+              </small>
+            </div>
+
+            {canSee ? (
+              <dl className="buy-totals" aria-live="polite">
+                <div>
+                  <dt>
+                    {formatCurrency(product.price)} × {quantity}
+                  </dt>
+                  <dd>{formatCurrency(amounts.base)}</dd>
+                </div>
+                <div>
+                  <dt>
+                    {t('GST')} ({formatRate(gstRate)}%)
+                  </dt>
+                  <dd>{formatCurrency(amounts.tax)}</dd>
+                </div>
+                <div className="grand">
+                  <dt>{t('Total')}</dt>
+                  <dd>{formatCurrency(amounts.total)}</dd>
+                </div>
+              </dl>
+            ) : (
+              <p className="buy-locked-note">
+                {access.status === 'guest'
+                  ? t('Log in and verify your email to see the total for this quantity.')
+                  : t('Verify your email to see the total for this quantity.')}
+              </p>
+            )}
 
             <button
               className="buy-add"
               type="button"
-              onClick={() => {
-                addToCart(product.id, quantity, product.brand, {
-      id: product.id,
-      name: product.name,
-      brand: product.brand,
-      price: product.price,
-      mrp: product.mrp,
-      image: product.image,
-      category: product.category
-    });
-                openCartDrawer();
-              }}
+              onClick={handleAdd}
+              disabled={product.available === false}
             >
               {t('Add to cart')}
             </button>
 
-            <button className="buy-now" type="button" onClick={handleBuyNow}>
+            <button
+              className="buy-now"
+              type="button"
+              onClick={handleBuyNow}
+              disabled={product.available === false}
+            >
               {t('Buy now')}
             </button>
 

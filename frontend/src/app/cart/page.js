@@ -4,6 +4,7 @@ import Footer from '../../components/Footer';
 import CartPageClient from './CartPageClient';
 import { fetchProducts } from '../../lib/api';
 import { getStoreSettings } from '../../lib/catalog';
+import { forViewer } from '../../lib/priceAccess';
 
 export const revalidate = 0;
 
@@ -19,7 +20,7 @@ export default async function CartPage() {
     <div>
       <SiteHeader />
       <main id="main">
-        <CartPageClient products={products} storeNotice={settings.cartNotice} />
+        <CartPageClient products={await forViewer(products)} storeNotice={settings.cartNotice} />
       </main>
       <Footer />
     </div>

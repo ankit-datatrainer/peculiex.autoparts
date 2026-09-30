@@ -24,7 +24,7 @@ export default async function OrderDetailPage({ params, searchParams }) {
   const { data: order } = await supabase
     .from('orders')
     .select(
-      'id, order_number, status, subtotal, shipping, total, payment_method, customer_name, customer_phone, customer_email, address_line1, address_line2, city, state, pincode, notes, placed_at'
+      '*'
     )
     .eq('id', params.id)
     .maybeSingle();
@@ -118,6 +118,12 @@ export default async function OrderDetailPage({ params, searchParams }) {
               <dt>{t('Subtotal')}</dt>
               <dd>{formatCurrency(order.subtotal)}</dd>
             </div>
+            {Number(order.tax) > 0 && (
+              <div>
+                <dt>{t('GST')}</dt>
+                <dd>{formatCurrency(order.tax)}</dd>
+              </div>
+            )}
             <div>
               <dt>{t('Delivery')}</dt>
               <dd>{Number(order.shipping) === 0 ? t('FREE') : formatCurrency(order.shipping)}</dd>

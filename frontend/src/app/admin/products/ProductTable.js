@@ -66,6 +66,16 @@ export default function ProductTable({ products }) {
             <input name="stock" type="number" min="0" defaultValue={25} />
           </label>
           <BulkButton op="restock" label={t('Apply stock')} />
+          <label className="admin-bulk-stock">
+            {t('MOQ')}
+            <input name="bulk_moq" type="number" min="1" placeholder={t('default')} />
+          </label>
+          <BulkButton op="moq" label={t('Apply MOQ')} />
+          <label className="admin-bulk-stock">
+            {t('GST %')}
+            <input name="bulk_gst" type="number" min="0" max="100" step="0.01" placeholder={t('default')} />
+          </label>
+          <BulkButton op="gst" label={t('Apply GST')} />
           <BulkButton op="delete" label={t('Delete')} danger />
           <button type="button" className="admin-ghost-btn" onClick={() => setSelected(new Set())}>
             {t('Clear')}
@@ -89,6 +99,7 @@ export default function ProductTable({ products }) {
                 />
               </th>
               <th>{t('Product')}</th>
+              <th>{t('Reference No.')}</th>
               <th>{t('Brand')}</th>
               <th className="right">{t('Price')}</th>
               <th className="right">{t('Stock')}</th>
@@ -116,10 +127,14 @@ export default function ProductTable({ products }) {
                     </div>
                   </div>
                 </td>
+                <td className="mono">{p.reference_no || '—'}</td>
                 <td>{p.brand_id || '—'}</td>
                 <td className="right">
                   {formatCurrency(p.price)}
                   {p.mrp > p.price && <small className="strike">{formatCurrency(p.mrp)}</small>}
+                  <small>
+                    {t('MOQ')} {p.moq ?? '·'} · {t('GST')} {p.gst_rate ?? '·'}%
+                  </small>
                 </td>
                 <td className="right">
                   <span className={p.stock === 0 ? 'stock-out' : p.stock <= 5 ? 'stock-low' : ''}>

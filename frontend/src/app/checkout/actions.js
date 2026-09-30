@@ -6,6 +6,8 @@ import { mapProduct, getStoreSettings } from '../../lib/catalog';
 import { renderInvoicePdf } from '../../lib/invoice';
 import { sendInvoiceEmail } from '../../lib/email';
 import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from '../../lib/translations';
+import { getPriceAccess } from '../../lib/priceAccess';
+import { storeCommerce, gstRateFor, moqFor, clampQty, lineAmounts } from '../../lib/commerce';
 import { cookies, headers } from 'next/headers';
 
 /**
@@ -19,36 +21,44 @@ export async function loadCart(cart) {
   const ids = Object.keys(cart || {}).filter((id) => cart[id] > 0);
   if (!ids.length) return { items: [], settings: null };
 
+  const access = await getPriceAccess();
+  if (!access.canSee) return { items: [], settings: null, error: 'verify-email' };
+
   const supabase = createClient();
 
-  const [{ data: rows, error }, { data: setting }] = await Promise.all([
-    supabase
-      .from('products')
-      .select('id, name, sku, price, mrp, stock, images, is_active, brand_id, category_id, brands(name), categories(name)')
-      .in('id', ids),
-    supabase.from('settings').select('value').eq('key', 'store').maybeSingle()
+  const [{ data: rows, error }, store] = await Promise.all([
+    supabase.from('products').select('*, brands(name), categories(name)').in('id', ids),
+    getStoreSettings()
   ]);
 
   if (error) return { items: [], settings: null, error: error.message };
 
+  const commerce = storeCommerce(store);
   const items = (rows || []).map((row) => {
     const product = mapProduct(row);
-    const requested = Number(cart[row.id]) || 1;
-    const qty = Math.min(requested, product.stock);
+    const moq = moqFor(product, commerce);
+    const gstRate = gstRateFor(product, commerce);
+    const requested = Number(cart[row.id]) || moq;
+    // Quantity is not capped by stock any more; only lifted to the MOQ.
+    const qty = clampQty(requested, moq);
+    const amounts = lineAmounts(product.price, qty, gstRate);
     return {
       ...product,
+      moq,
+      gstRate,
       requestedQty: requested,
       qty,
-      lineTotal: product.price * qty,
+      lineTotal: amounts.base,
+      tax: amounts.tax,
       unavailable: !product.isActive || product.stock === 0,
-      reduced: qty < requested
+      raisedToMoq: qty > requested
     };
   });
 
   // ids the browser has but the catalog no longer does
   const missing = ids.filter((id) => !items.some((i) => i.id === id));
 
-  return { items, missing, settings: setting?.value || null };
+  return { items, missing, settings: store };
 }
 
 export async function placeOrder(_prevState, formData) {
@@ -60,6 +70,9 @@ export async function placeOrder(_prevState, formData) {
   } = await supabase.auth.getUser();
 
   if (!user) return { error: 'Please sign in to place your order.' };
+
+  const access = await getPriceAccess();
+  if (!access.canSee) return { error: 'Verify your email before placing an order.' };
 
   let cart;
   try {
@@ -94,8 +107,15 @@ export async function placeOrder(_prevState, formData) {
   if (error) {
     const raw = error.message || '';
     if (raw.includes('OUT_OF_STOCK')) {
-      return { error: `Not enough stock: ${raw.split('OUT_OF_STOCK:')[1]?.trim() || 'item unavailable'}` };
+      return { error: `Out of stock: ${raw.split('OUT_OF_STOCK:')[1]?.trim() || 'item unavailable'}` };
     }
+    if (raw.includes('BELOW_MOQ')) {
+      return { error: `Below the minimum order quantity: ${raw.split('BELOW_MOQ:')[1]?.trim() || ''}` };
+    }
+    if (raw.includes('QTY_TOO_LARGE')) {
+      return { error: 'Quantity is too large for one order. Split it into smaller orders.' };
+    }
+    if (raw.includes('EMAIL_NOT_VERIFIED')) return { error: 'Verify your email before placing an order.' };
     if (raw.includes('PRODUCT_UNAVAILABLE')) {
       return { error: 'One of your items is no longer available. Remove it and try again.' };
     }

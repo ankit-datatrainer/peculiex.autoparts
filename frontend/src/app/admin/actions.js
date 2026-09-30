@@ -2,6 +2,8 @@
 
 import { revalidatePath } from 'next/cache';
 import { createClient, isSupabaseConfigured, isAdmin } from '../../lib/supabase/server';
+import { createAdminClient } from '../../lib/supabase/admin';
+import { DEFAULT_GST_RATE, DEFAULT_MOQ } from '../../lib/commerce';
 
 const DENIED = { error: 'Super admin access required.' };
 const NOT_CONFIGURED = { error: 'Supabase is not configured for this site.' };
@@ -23,6 +25,26 @@ const slugify = (s) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
     .slice(0, 60);
+
+/** Postgres / PostgREST "no such column" — migration 0003 has not run yet. */
+const missingColumn = (error) =>
+  Boolean(error) && (error.code === '42703' || error.code === 'PGRST204' || /column .* does not exist|Could not find the '.*' column/i.test(error.message || ''));
+
+const NEEDS_0003 =
+  ' Reference number, MOQ, GST and 3D model were not saved — run supabase/migrations/0003_gst_moq_refs_price_access.sql in the Supabase SQL editor first.';
+
+/** Blank -> null (use the store default); otherwise a number within range. */
+function optionalNumber(fd, key, { min, max, integer = false }) {
+  const raw = String(fd.get(key) ?? '').trim();
+  if (raw === '') return { value: null };
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n < min || n > max || (integer && !Number.isInteger(n))) {
+    return { error: true };
+  }
+  return { value: n };
+}
+
+const REF_PATTERN = /^[A-Z0-9][A-Z0-9\-_/]{1,39}$/;
 
 function refreshStorefront(productId) {
   revalidatePath('/admin/products');
@@ -98,12 +120,20 @@ export async function removeProductImage(productId, url) {
   const supabase = createClient();
   const { data: current } = await supabase
     .from('products')
-    .select('images')
+    .select('*')
     .eq('id', productId)
     .maybeSingle();
 
-  const next = (current?.images || []).filter((i) => i !== url);
-  const { error } = await supabase.from('products').update({ images: next }).eq('id', productId);
+  const images = current?.images || [];
+  const labels = current?.image_labels || [];
+  const keep = images.map((i, idx) => (i === url ? -1 : idx)).filter((idx) => idx >= 0);
+  let { error } = await supabase
+    .from('products')
+    .update({ images: keep.map((idx) => images[idx]), image_labels: keep.map((idx) => labels[idx] || '') })
+    .eq('id', productId);
+  if (missingColumn(error)) {
+    ({ error } = await supabase.from('products').update({ images: keep.map((idx) => images[idx]) }).eq('id', productId));
+  }
   if (error) return { error: error.message };
 
   // Only delete from storage if we are the ones hosting it.
@@ -117,12 +147,15 @@ export async function removeProductImage(productId, url) {
   return { notice: 'Image removed.' };
 }
 
-export async function reorderProductImages(productId, urls) {
+export async function reorderProductImages(productId, urls, labels = null) {
   const denied = await guard();
   if (denied) return denied;
 
   const supabase = createClient();
-  const { error } = await supabase.from('products').update({ images: urls }).eq('id', productId);
+  const update = { images: urls };
+  if (Array.isArray(labels)) update.image_labels = labels.map((l) => String(l || '').slice(0, 40));
+  let { error } = await supabase.from('products').update(update).eq('id', productId);
+  if (missingColumn(error)) ({ error } = await supabase.from('products').update({ images: urls }).eq('id', productId));
   if (error) return { error: error.message };
 
   refreshStorefront(productId);
@@ -149,6 +182,20 @@ export async function saveProduct(_prevState, formData) {
 
   const id = isNew ? str(formData, 'id') || `mm-${slugify(name)}-${Date.now().toString(36)}` : str(formData, 'id');
 
+  const moq = optionalNumber(formData, 'moq', { min: 1, max: 99999, integer: true });
+  if (moq.error) return { error: 'MOQ must be a whole number of 1 or more (or blank for the store default).' };
+  const gst = optionalNumber(formData, 'gst_rate', { min: 0, max: 100 });
+  if (gst.error) return { error: 'GST % must be between 0 and 100 (or blank for the store default).' };
+
+  const referenceNo = str(formData, 'reference_no').toUpperCase();
+  if (referenceNo && !REF_PATTERN.test(referenceNo)) {
+    return { error: 'Reference number: 2–40 letters, digits, "-", "_" or "/".' };
+  }
+  const model3d = str(formData, 'model_3d_url');
+  if (model3d && !/^https?:\/\/\S+\.(glb|gltf)(\?\S*)?$/i.test(model3d)) {
+    return { error: '3D model must be a link to a .glb or .gltf file.' };
+  }
+
   const row = {
     id,
     name,
@@ -167,13 +214,38 @@ export async function saveProduct(_prevState, formData) {
   const tags = str(formData, 'tags');
   if (tags) row.tags = tags.split(',').map((t) => t.trim()).filter(Boolean);
 
-  let error;
-  if (isNew) {
-    ({ error } = await supabase.from('products').insert(row));
-  } else {
-    ({ error } = await supabase.from('products').update(row).eq('id', id));
+  // Columns from migration 0003. A blank reference number on a new product is
+  // left out so the database numbers it; on an existing one it keeps its number.
+  const extra = { moq: moq.value, gst_rate: gst.value, model_3d_url: model3d || null };
+  if (referenceNo) extra.reference_no = referenceNo;
+
+  if (referenceNo) {
+    const { data: taken } = await supabase
+      .from('products')
+      .select('id')
+      .eq('reference_no', referenceNo)
+      .neq('id', id)
+      .limit(1);
+    if (taken?.length) return { error: `Reference number ${referenceNo} is already used by ${taken[0].id}.` };
   }
-  if (error) return { error: error.message };
+
+  const write = (values) =>
+    isNew
+      ? supabase.from('products').insert(values)
+      : supabase.from('products').update(values).eq('id', id);
+
+  let { error } = await write({ ...row, ...extra });
+  let warning = '';
+  if (missingColumn(error)) {
+    ({ error } = await write(row));
+    warning = NEEDS_0003;
+  }
+  if (error) {
+    if (error.code === '23505' && /reference_no/.test(error.message)) {
+      return { error: `Reference number ${referenceNo} is already in use.` };
+    }
+    return { error: error.message };
+  }
 
   // Fitment links
   const modelIds = formData.getAll('model_ids').map(String).filter(Boolean);
@@ -214,7 +286,7 @@ export async function saveProduct(_prevState, formData) {
 
   refreshStorefront(id);
   revalidatePath(`/admin/products/${id}`);
-  return { notice: isNew ? 'Product created.' : 'Product saved.', id };
+  return { notice: (isNew ? 'Product created.' : 'Product saved.') + warning, id };
 }
 
 export async function setProductActive(id, active) {
@@ -250,10 +322,19 @@ export async function bulkProductAction(_prevState, formData) {
   } else if (op === 'restock') {
     const stock = Math.max(0, Math.round(num(formData, 'stock', 25)));
     ({ error } = await supabase.from('products').update({ stock }).in('id', ids));
+  } else if (op === 'moq') {
+    const moq = optionalNumber(formData, 'bulk_moq', { min: 1, max: 99999, integer: true });
+    if (moq.error) return { error: 'MOQ must be a whole number of 1 or more (blank = store default).' };
+    ({ error } = await supabase.from('products').update({ moq: moq.value }).in('id', ids));
+  } else if (op === 'gst') {
+    const gst = optionalNumber(formData, 'bulk_gst', { min: 0, max: 100 });
+    if (gst.error) return { error: 'GST % must be between 0 and 100 (blank = store default).' };
+    ({ error } = await supabase.from('products').update({ gst_rate: gst.value }).in('id', ids));
   } else {
     return { error: 'Unknown bulk action.' };
   }
 
+  if (missingColumn(error)) return { error: NEEDS_0003.trim() };
   if (error) return { error: error.message };
 
   refreshStorefront();
@@ -324,7 +405,12 @@ export async function importProducts(_prevState, formData) {
             .filter(Boolean)
         : [],
       fitment: r.fitment || '',
-      is_active: String(r.is_active ?? 'true') !== 'false'
+      is_active: String(r.is_active ?? 'true') !== 'false',
+      ...(r.reference_no ? { reference_no: String(r.reference_no).trim().toUpperCase() } : {}),
+      ...(r.moq !== undefined && r.moq !== '' ? { moq: Math.max(1, Math.round(Number(r.moq)) || 1) } : {}),
+      ...(r.gst_rate !== undefined && r.gst_rate !== '' && Number.isFinite(Number(r.gst_rate))
+        ? { gst_rate: Math.min(100, Math.max(0, Number(r.gst_rate))) }
+        : {})
     }));
 
   if (!prepared.length) return { error: 'Every row needs at least a name.' };
@@ -491,16 +577,26 @@ export async function saveSettings(_prevState, formData) {
   const denied = await guard();
   if (denied) return denied;
 
+  const gstRate = num(formData, 'gstRate', DEFAULT_GST_RATE);
+  if (gstRate < 0 || gstRate > 100) return { error: 'GST % must be between 0 and 100.' };
+  const defaultMoq = Math.round(num(formData, 'defaultMoq', DEFAULT_MOQ));
+  if (defaultMoq < 1) return { error: 'Minimum order quantity must be at least 1.' };
+
+  const supabase = createClient();
+  const { data: current } = await supabase.from('settings').select('value').eq('key', 'store').maybeSingle();
+
   const value = {
+    ...(current?.value || {}),
     name: str(formData, 'name'),
     supportPhone: str(formData, 'supportPhone'),
     supportEmail: str(formData, 'supportEmail'),
     freeShippingAbove: num(formData, 'freeShippingAbove', 999),
     shippingFee: num(formData, 'shippingFee', 59),
+    gstRate,
+    defaultMoq,
     cartNotice: str(formData, 'cartNotice')
   };
 
-  const supabase = createClient();
   const { error } = await supabase
     .from('settings')
     .upsert({ key: 'store', value, updated_at: new Date().toISOString() }, { onConflict: 'key' });
@@ -509,4 +605,76 @@ export async function saveSettings(_prevState, formData) {
 
   revalidatePath('/', 'layout');
   return { notice: 'Store settings saved.' };
+}
+
+// -----------------------------------------------------------------------------
+// Gallery view labels (Front view, Back view, …), one per image
+// -----------------------------------------------------------------------------
+export async function saveImageLabels(productId, labels) {
+  const denied = await guard();
+  if (denied) return denied;
+
+  const clean = (Array.isArray(labels) ? labels : []).map((l) => String(l || '').slice(0, 40));
+  const supabase = createClient();
+  const { error } = await supabase.from('products').update({ image_labels: clean }).eq('id', productId);
+  if (missingColumn(error)) return { error: NEEDS_0003.trim() };
+  if (error) return { error: error.message };
+
+  refreshStorefront(productId);
+  revalidatePath(`/admin/products/${productId}`);
+  return { notice: 'Image labels saved.' };
+}
+
+// -----------------------------------------------------------------------------
+// Customers: mark an email verified (or not) by hand
+// -----------------------------------------------------------------------------
+export async function setCustomerVerified(userId, verified) {
+  const denied = await guard();
+  if (denied) return denied;
+
+  let email = null;
+  if (verified) {
+    // The verification is tied to the account's current email address.
+    const admin = createAdminClient();
+    if (!admin) return { error: 'SUPABASE_SERVICE_ROLE_KEY is not set on the server.' };
+    const { data, error } = await admin.auth.admin.getUserById(userId);
+    if (error || !data?.user?.email) return { error: error?.message || 'Account has no email address.' };
+    email = data.user.email;
+  }
+
+  const supabase = createClient();
+  const { error } = await supabase
+    .from('profiles')
+    .update({ email_verified_at: verified ? new Date().toISOString() : null, verified_email: email })
+    .eq('id', userId);
+  if (missingColumn(error)) return { error: NEEDS_0003.trim() };
+  if (error) return { error: error.message };
+
+  revalidatePath('/admin/customers');
+  return { notice: verified ? 'Customer marked verified.' : 'Verification removed.' };
+}
+
+// -----------------------------------------------------------------------------
+// Reference numbers
+// -----------------------------------------------------------------------------
+/** The next unused MM-number, for the "Generate" button on the product form. */
+export async function suggestReferenceNo() {
+  const denied = await guard();
+  if (denied) return denied;
+
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('products')
+    .select('reference_no')
+    .like('reference_no', 'MM-%')
+    .order('reference_no', { ascending: false })
+    .limit(200);
+  if (missingColumn(error)) return { error: NEEDS_0003.trim() };
+  if (error) return { error: error.message };
+
+  const max = (data || []).reduce((m, r) => {
+    const n = Number(String(r.reference_no).slice(3));
+    return Number.isFinite(n) && n > m ? n : m;
+  }, 100000);
+  return { referenceNo: `MM-${max + 1}` };
 }

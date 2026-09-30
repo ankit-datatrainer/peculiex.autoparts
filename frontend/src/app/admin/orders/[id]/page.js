@@ -93,6 +93,12 @@ export default async function AdminOrderDetail({ params }) {
               <dt>{t('Subtotal')}</dt>
               <dd>{formatCurrency(order.subtotal)}</dd>
             </div>
+            {Number(order.tax) > 0 && (
+              <div>
+                <dt>{t('GST')}</dt>
+                <dd>{formatCurrency(order.tax)}</dd>
+              </div>
+            )}
             <div>
               <dt>{t('Delivery')}</dt>
               <dd>{Number(order.shipping) === 0 ? 'FREE' : formatCurrency(order.shipping)}</dd>

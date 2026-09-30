@@ -8,24 +8,17 @@ import { useCart } from '../../context/CartContext';
 import { formatCurrency } from '../../lib/translations';
 import RecommendationRail from '../../components/RecommendationRail';
 import { onImageError } from '../../lib/imageFallback';
+import Price from '../../components/Price';
+import QtyStepper from '../../components/QtyStepper';
+import { useCartLines } from '../../lib/useCartLines';
 
 export default function CartPageClient({ products = [], storeNotice = '' }) {
   const router = useRouter();
-  const { t, local } = useLanguage();
-  const { cart, cartSnapshots, updateQty, removeFromCart } = useCart();
+  const { t, tName, local } = useLanguage();
+  const { setQty, removeFromCart } = useCart();
 
   const [note, setNote] = useState('');
-
-  const cartEntries = Object.entries(cart).filter(([id, qty]) => qty > 0);
-  const items = cartEntries
-    .map(([id, qty]) => {
-      const product = products.find((p) => p.id === id) || cartSnapshots[id];
-      return product ? { ...product, qty } : null;
-    })
-    .filter(Boolean);
-
-  const totalItems = items.reduce((sum, item) => sum + item.qty, 0);
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const { lines: items, totals, totalItems } = useCartLines(products);
 
   const subtotalLabel = local(
     `Subtotal (${totalItems} items):`,
@@ -48,31 +41,30 @@ export default function CartPageClient({ products = [], storeNotice = '' }) {
                 <img src={item.image} alt={item.name} onError={onImageError} />
                 <div>
                   <Link href={`/product/${item.id}`}>
-                    <h2>{item.name}</h2>
+                    <h2>{tName(item.name, item.category)}</h2>
                   </Link>
-                  <p className="in-stock">{t('In stock')}</p>
-                  <p>{t('Eligible for FREE delivery')}</p>
-                  <p>
-                    <strong>{t('Fitment:')}</strong> {item.fit}
+                  {item.referenceNo && (
+                    <p className="cart-ref">
+                      {t('Reference No.')}: {item.referenceNo}
+                    </p>
+                  )}
+                  <p className="in-stock">
+                    {t('In stock')} · {t('MOQ')}: {item.moq} {t('units')}
                   </p>
+                  <p>{t('Eligible for FREE delivery')}</p>
+                  {item.fit && (
+                    <p>
+                      <strong>{t('Fitment:')}</strong> {item.fit}
+                    </p>
+                  )}
+                  {item.amounts && (
+                    <p className="cart-unit">
+                      {formatCurrency(item.price)} × {item.qty} + {t('GST')} {item.gstRate}% ={' '}
+                      <strong>{formatCurrency(item.amounts.total)}</strong>
+                    </p>
+                  )}
                   <div className="cart-page-actions">
-                    <div className="qty-stepper">
-                      <button
-                        type="button"
-                        aria-label={t('Decrease quantity')}
-                        onClick={() => updateQty(item.id, -1)}
-                      >
-                        −
-                      </button>
-                      <span>{item.qty}</span>
-                      <button
-                        type="button"
-                        aria-label={t('Increase quantity')}
-                        onClick={() => updateQty(item.id, 1)}
-                      >
-                        +
-                      </button>
-                    </div>
+                    <QtyStepper value={item.qty} min={item.moq} onChange={(q) => setQty(item.id, q)} />
                     <button
                       className="remove-link"
                       type="button"
@@ -83,22 +75,42 @@ export default function CartPageClient({ products = [], storeNotice = '' }) {
                   </div>
                 </div>
                 <strong className="cart-page-price">
-                  {formatCurrency(item.price * item.qty)}
+                  <Price amount={item.amounts ? item.amounts.base : null} />
                 </strong>
               </article>
             ))}
 
             <div className="cart-page-subtotal">
-              {subtotalLabel} <strong>{formatCurrency(subtotal)}</strong>
+              {subtotalLabel}{' '}
+              <strong>
+                <Price amount={totals ? totals.subtotal : null} />
+              </strong>
             </div>
 
             <RecommendationRail variant="grid" limit={6} />
           </section>
 
           <aside className="cart-summary">
-            <h2>
-              {subtotalLabel} <strong>{formatCurrency(subtotal)}</strong>
-            </h2>
+            {totals ? (
+              <dl className="cart-summary-totals">
+                <div>
+                  <dt>{subtotalLabel}</dt>
+                  <dd>{formatCurrency(totals.subtotal)}</dd>
+                </div>
+                <div>
+                  <dt>{t('GST')}</dt>
+                  <dd>{formatCurrency(totals.tax)}</dd>
+                </div>
+                <div className="grand">
+                  <dt>{t('Total (incl. GST)')}</dt>
+                  <dd>{formatCurrency(totals.total)}</dd>
+                </div>
+              </dl>
+            ) : (
+              <h2>
+                {subtotalLabel} <Price amount={null} size="lg" />
+              </h2>
+            )}
 
             <label className="cart-note">
               <span>{t('Add a note to this order')}</span>
@@ -126,9 +138,10 @@ export default function CartPageClient({ products = [], storeNotice = '' }) {
             <small>
               🔒{' '}
               {local(
-                'Secure checkout. Taxes included; delivery is calculated at checkout.',
-                'सुरक्षित चेकआउट। कर शामिल हैं; डिलीवरी चेकआउट पर तय होगी।',
-                'सुरक्षित चेकआउट. कर समाविष्ट; डिलिव्हरी चेकआउटवेळी मोजली जाईल.'
+                'Secure checkout. GST is added per item; delivery is calculated at checkout.',
+                'सुरक्षित चेकआउट। हर आइटम पर GST जुड़ता है; डिलीवरी चेकआउट पर तय होगी।',
+                'सुरक्षित चेकआउट. प्रत्येक वस्तूवर GST जोडला जातो; डिलिव्हरी चेकआउटवेळी मोजली जाईल.',
+                'સુરક્ષિત ચેકઆઉટ. દરેક વસ્તુ પર GST ઉમેરાય છે; ડિલિવરી ચેકઆઉટ વખતે ગણાશે.'
               )}
             </small>
             <RecommendationRail variant="column" limit={3} compact />

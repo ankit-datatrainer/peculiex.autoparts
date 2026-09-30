@@ -1,6 +1,7 @@
 import { gu } from './translations.gu.js';
 import { extra } from './translations.extra.js';
 import { site } from './translations.site.js';
+import { commerce } from './translations.commerce.js';
 import { partTerms } from './translations.parts.js';
 
 const base = {
@@ -441,6 +442,7 @@ const withExtras = (lang, dict) => ({
   ...dict,
   ...(extra[lang] || {}),
   ...(site[lang] || {}),
+  ...(commerce[lang] || {}),
   ...Object.fromEntries(
     Object.entries(partTerms)
       .filter(([, v]) => v[lang])
