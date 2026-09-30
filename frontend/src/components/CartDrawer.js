@@ -6,6 +6,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 import { formatCurrency } from '../lib/translations';
 import RecommendationRail from './RecommendationRail';
+import { onImageError } from '../lib/imageFallback';
 
 export default function CartDrawer({ products = [] }) {
   const router = useRouter();
@@ -67,7 +68,7 @@ export default function CartDrawer({ products = [] }) {
           {detailedItems.length > 0 ? (
             detailedItems.map((item) => (
               <article className="cart-item" key={item.id}>
-                <img src={item.image} alt={item.name} />
+                <img src={item.image} alt={item.name} onError={onImageError} />
                 <div>
                   <h3>{item.name}</h3>
                   <strong>{formatCurrency(item.price * item.qty)}</strong>

@@ -8,6 +8,7 @@ import { useCart } from '../../../context/CartContext';
 import { formatCurrency } from '../../../lib/translations';
 import { aboutBullets, fitmentLine, specRows } from '../../../lib/productCopy';
 import ProductCard from '../../../components/ProductCard';
+import { onImageError } from '../../../lib/imageFallback';
 
 export default function ProductDetailClient({ product, related = [] }) {
   const router = useRouter();
@@ -94,12 +95,12 @@ export default function ProductDetailClient({ product, related = [] }) {
                   className={selectedImg === src ? 'active' : ''}
                   onClick={() => setSelectedImg(src)}
                 >
-                  <img src={src} alt={`${title} ${t('view')} ${i + 1}`} />
+                  <img src={src} alt={`${title} ${t('view')} ${i + 1}`} onError={onImageError} />
                 </button>
               ))}
             </div>
             <div className="main-image-wrap">
-              <img src={selectedImg} alt={title} />
+              <img src={selectedImg} alt={title} onError={onImageError} />
             </div>
           </div>
 

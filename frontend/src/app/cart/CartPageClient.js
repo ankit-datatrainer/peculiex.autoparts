@@ -7,6 +7,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useCart } from '../../context/CartContext';
 import { formatCurrency } from '../../lib/translations';
 import RecommendationRail from '../../components/RecommendationRail';
+import { onImageError } from '../../lib/imageFallback';
 
 export default function CartPageClient({ products = [], storeNotice = '' }) {
   const router = useRouter();
@@ -44,7 +45,7 @@ export default function CartPageClient({ products = [], storeNotice = '' }) {
 
             {items.map((item) => (
               <article className="cart-page-item" key={item.id}>
-                <img src={item.image} alt={item.name} />
+                <img src={item.image} alt={item.name} onError={onImageError} />
                 <div>
                   <Link href={`/product/${item.id}`}>
                     <h2>{item.name}</h2>

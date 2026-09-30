@@ -35,6 +35,12 @@ export const site = {
       'पिस्टन, क्लच, कैम, स्प्रोकेट और गियरबॉक्स के अंदरूनी पार्ट्स।',
     'CDI, ECU, coils, sensors, wiring and starter motors.':
       'सीडीआई, ईसीयू, कॉइल, सेंसर, वायरिंग और स्टार्टर मोटर।',
+    'Clutch, brake, accelerator, choke, seat and speedometer cables.':
+      'क्लच, ब्रेक, एक्सेलेरेटर, चोक, सीट और स्पीडोमीटर केबल।',
+    'Side and main stands, footrests, brackets and chain covers.':
+      'साइड और मेन स्टैंड, फुटरेस्ट, ब्रैकेट और चेन कवर।',
+    'Rear shockers, shock absorbers and suspension parts.':
+      'रियर शॉकर, शॉक अब्जॉर्बर और सस्पेंशन पार्ट्स।',
     'Side panels, visors, floor boards, stickers and monograms.':
       'साइड पैनल, वाइज़र, फ्लोर बोर्ड, स्टिकर और मोनोग्राम।',
     'Full View': 'पूरा देखें',
@@ -443,6 +449,12 @@ export const site = {
       'पिस्टन, क्लच, कॅम, स्प्रॉकेट आणि गिअरबॉक्सचे आतील पार्ट्स.',
     'CDI, ECU, coils, sensors, wiring and starter motors.':
       'सीडीआय, ईसीयू, कॉइल, सेन्सर, वायरिंग आणि स्टार्टर मोटर.',
+    'Clutch, brake, accelerator, choke, seat and speedometer cables.':
+      'क्लच, ब्रेक, अ‍ॅक्सिलरेटर, चोक, सीट आणि स्पीडोमीटर केबल.',
+    'Side and main stands, footrests, brackets and chain covers.':
+      'साइड आणि मेन स्टँड, फूटरेस्ट, ब्रॅकेट आणि चेन कव्हर.',
+    'Rear shockers, shock absorbers and suspension parts.':
+      'रिअर शॉकर, शॉक अ‍ॅब्झॉर्बर आणि सस्पेंशन पार्ट्स.',
     'Side panels, visors, floor boards, stickers and monograms.':
       'साइड पॅनल, व्हायझर, फ्लोअर बोर्ड, स्टिकर आणि मोनोग्राम.',
     'Full View': 'पूर्ण पाहा',
@@ -842,6 +854,12 @@ export const site = {
       'પિસ્ટન, ક્લચ, કેમ, સ્પ્રોકેટ અને ગિયરબોક્સના આંતરિક પાર્ટ્સ.',
     'CDI, ECU, coils, sensors, wiring and starter motors.':
       'સીડીઆઈ, ઈસીયુ, કોઇલ, સેન્સર, વાયરિંગ અને સ્ટાર્ટર મોટર.',
+    'Clutch, brake, accelerator, choke, seat and speedometer cables.':
+      'ક્લચ, બ્રેક, એક્સેલરેટર, ચોક, સીટ અને સ્પીડોમીટર કેબલ.',
+    'Side and main stands, footrests, brackets and chain covers.':
+      'સાઇડ અને મેઇન સ્ટેન્ડ, ફૂટરેસ્ટ, બ્રેકેટ અને ચેઇન કવર.',
+    'Rear shockers, shock absorbers and suspension parts.':
+      'રિયર શોકર, શોક એબ્ઝોર્બર અને સસ્પેન્શન પાર્ટ્સ.',
     'Side panels, visors, floor boards, stickers and monograms.':
       'સાઇડ પેનલ, વાઇઝર, ફ્લોર બોર્ડ, સ્ટીકર અને મોનોગ્રામ.',
     'Full View': 'સંપૂર્ણ જુઓ',

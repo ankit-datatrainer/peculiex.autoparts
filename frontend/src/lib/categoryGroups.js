@@ -8,76 +8,9 @@
 // =============================================================================
 
 import { createClient, isSupabaseConfigured } from './supabase/server';
+import { GROUP_RULES, groupForCategory } from './categoryGroupRules';
 
-/** Ordered most specific first — the first rule that matches a category wins. */
-export const GROUP_RULES = [
-  {
-    id: 'handle-steering',
-    name: 'Handle & Steering',
-    description: 'Handlebars, tees, levers, switches and steering hardware.',
-    pattern: /(handle|steering|yoke|\btee\b|grip|lever|switch)/i
-  },
-  {
-    id: 'front-wheel',
-    name: 'Front Wheel Parts',
-    description: 'Forks, rims, discs, drums, mudguards and front axle parts.',
-    pattern: /(front|fork|wheel|rim|spoke|axle|mudguard|disc|drum|caliper|master cylinder)/i
-  },
-  {
-    id: 'oil-seals',
-    name: 'Oil, Seals & Lubricants',
-    description: 'Engine oil, gear oil, oil seals and O-rings.',
-    pattern: /(^oil|lubric|seal|o.?ring|gasket)/i
-  },
-  {
-    id: 'bearing',
-    name: 'Bearings & Bushes',
-    description: 'Wheel bearings, ball racer sets, bushes and kits.',
-    pattern: /(bearing|racer|bush)/i
-  },
-  {
-    id: 'lights',
-    name: 'Lights & Indicators',
-    description: 'Head lamps, tail lamps, indicators and bulbs.',
-    pattern: /(light|lamp|indicator|bulb|blinker)/i
-  },
-  {
-    id: 'fuel-supply',
-    name: 'Fuel Supply System',
-    description: 'Carburettors, injectors, pumps, tanks and throttle bodies.',
-    pattern: /(fuel|carburet|carburat|petrol|tank|injector|pump|throttle|choke)/i
-  },
-  {
-    id: 'pipes-hoses',
-    name: 'Pipes & Hoses',
-    description: 'Fork pipes, fuel lines, brake hoses and silencers.',
-    pattern: /(pipe|hose|tube|silencer|exhaust|manifold)/i
-  },
-  {
-    id: 'engine-drive',
-    name: 'Engine & Drive',
-    description: 'Pistons, clutches, cams, sprockets and gearbox internals.',
-    pattern: /(engine|piston|clutch|cam|crank|gear|chain|sprocket|valve|rocker|kick)/i
-  },
-  {
-    id: 'electricals',
-    name: 'Electricals',
-    description: 'CDI, ECU, coils, sensors, wiring and starter motors.',
-    pattern: /(cdi|ecu|tci|coil|sensor|wiring|harness|starter|armature|ignit|speedo|rr unit|tpfc|control unit)/i
-  },
-  {
-    id: 'body-panels',
-    name: 'Body & Panels',
-    description: 'Side panels, visors, floor boards, stickers and monograms.',
-    pattern: /(panel|visor|floor|sticker|monogram|cover|guard|foot rest|body)/i
-  }
-];
-
-export function groupForCategory(categoryName) {
-  if (!categoryName) return null;
-  const rule = GROUP_RULES.find((g) => g.pattern.test(categoryName));
-  return rule ? rule.id : null;
-}
+export { GROUP_RULES, groupForCategory };
 
 /** True once migration 0002 has been applied. */
 async function hasGroupTable(supabase) {

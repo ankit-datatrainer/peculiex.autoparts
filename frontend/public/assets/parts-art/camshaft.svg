@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="img">
+  <rect width="600" height="600" fill="#f7f8f8"/>
+  <circle cx="300" cy="300" r="238" fill="#ffffff"/>
+  <circle cx="300" cy="300" r="238" fill="none" stroke="#e5e7eb" stroke-width="4"/>
+  <path d="M110 300 h380" fill="none" stroke="#1f2937" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+    <ellipse cx="200" cy="300" rx="40" ry="70" fill="none" stroke="#c62828" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <ellipse cx="400" cy="300" rx="40" ry="70" fill="none" stroke="#c62828" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M370.0 300.0 L368.2 315.6 L354.6 312.5 L350.5 324.3 L363.1 330.4 L354.7 343.6 L343.8 334.9 L334.9 343.8 L343.6 354.7 L330.4 363.1 L324.3 350.5 L312.5 354.6 L315.6 368.2 L300.0 370.0 L300.0 356.0 L287.5 354.6 L284.4 368.2 L269.6 363.1 L275.7 350.5 L265.1 343.8 L256.4 354.7 L245.3 343.6 L256.2 334.9 L249.5 324.3 L236.9 330.4 L231.8 315.6 L245.4 312.5 L244.0 300.0 L230.0 300.0 L231.8 284.4 L245.4 287.5 L249.5 275.7 L236.9 269.6 L245.3 256.4 L256.2 265.1 L265.1 256.2 L256.4 245.3 L269.6 236.9 L275.7 249.5 L287.5 245.4 L284.4 231.8 L300.0 230.0 L300.0 244.0 L312.5 245.4 L315.6 231.8 L330.4 236.9 L324.3 249.5 L334.9 256.2 L343.6 245.3 L354.7 256.4 L343.8 265.1 L350.5 275.7 L363.1 269.6 L368.2 284.4 L354.6 287.5 L356.0 300.0 Z" fill="none" stroke="#1f2937" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
