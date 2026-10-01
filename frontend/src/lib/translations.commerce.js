@@ -105,6 +105,10 @@ export const commerce = {
     'Headlights, indicators & horns': 'हेडलाइट, इंडिकेटर और हॉर्न',
     'LED motorcycle headlight': 'LED मोटरसाइकिल हेडलाइट',
     'Shop lighting': 'लाइटिंग खरीदें',
+    'Parts that keep your ride on the road.': 'पार्ट्स जो आपकी सवारी को सड़क पर बनाए रखें।',
+    'Brakes, chain kits, tyres, engine and electrical parts for every major bike and scooter brand, with the fitment listed on each part.':
+      'हर बड़े बाइक और स्कूटर ब्रांड के लिए ब्रेक, चेन किट, टायर, इंजन और इलेक्ट्रिकल पार्ट्स — हर पार्ट पर फ़िटमेंट लिखा हुआ।',
+    'Brake disc, chain sprocket kit and motorcycle tyre': 'ब्रेक डिस्क, चेन स्प्रॉकेट किट और मोटरसाइकिल टायर',
 
     // admin
     'Auto-generated when saved': 'सेव करने पर अपने आप बनेगा',
@@ -235,6 +239,10 @@ export const commerce = {
     'Headlights, indicators & horns': 'हेडलाइट, इंडिकेटर आणि हॉर्न',
     'LED motorcycle headlight': 'LED मोटरसायकल हेडलाइट',
     'Shop lighting': 'लाइटिंग खरेदी करा',
+    'Parts that keep your ride on the road.': 'तुमची गाडी रस्त्यावर ठेवणारे पार्ट्स.',
+    'Brakes, chain kits, tyres, engine and electrical parts for every major bike and scooter brand, with the fitment listed on each part.':
+      'प्रत्येक प्रमुख बाइक आणि स्कूटर ब्रँडसाठी ब्रेक, चेन किट, टायर, इंजिन आणि इलेक्ट्रिकल पार्ट्स — प्रत्येक पार्टवर फिटमेंट दिलेले.',
+    'Brake disc, chain sprocket kit and motorcycle tyre': 'ब्रेक डिस्क, चेन स्प्रॉकेट किट आणि मोटरसायकल टायर',
 
     'Auto-generated when saved': 'सेव्ह केल्यावर आपोआप तयार होईल',
     Generate: 'तयार करा',
@@ -364,6 +372,10 @@ export const commerce = {
     'Headlights, indicators & horns': 'હેડલાઇટ, ઇન્ડિકેટર અને હોર્ન',
     'LED motorcycle headlight': 'LED મોટરસાયકલ હેડલાઇટ',
     'Shop lighting': 'લાઇટિંગ ખરીદો',
+    'Parts that keep your ride on the road.': 'તમારી સવારીને રસ્તા પર રાખતા પાર્ટ્સ.',
+    'Brakes, chain kits, tyres, engine and electrical parts for every major bike and scooter brand, with the fitment listed on each part.':
+      'દરેક મુખ્ય બાઇક અને સ્કૂટર બ્રાન્ડ માટે બ્રેક, ચેઇન કિટ, ટાયર, એન્જિન અને ઇલેક્ટ્રિકલ પાર્ટ્સ — દરેક પાર્ટ પર ફિટમેન્ટ લખેલું.',
+    'Brake disc, chain sprocket kit and motorcycle tyre': 'બ્રેક ડિસ્ક, ચેઇન સ્પ્રોકેટ કિટ અને મોટરસાયકલ ટાયર',
 
     'Auto-generated when saved': 'સેવ કરતાં આપોઆપ બનશે',
     Generate: 'બનાવો',

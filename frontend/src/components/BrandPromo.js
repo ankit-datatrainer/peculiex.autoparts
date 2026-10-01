@@ -11,26 +11,22 @@ export default function BrandPromo() {
   return (
     <section className="brand-promo page-shell">
       <div className="promo-copy">
-        <span className="eyebrow">{t('RIDER PROTECT')}</span>
-        <h2>{t('Gear that works as hard as you ride.')}</h2>
+        <span className="eyebrow">{t('GENUINE SPARES')}</span>
+        <h2>{t('Parts that keep your ride on the road.')}</h2>
         <p>
           {t(
-            'ISI-certified helmets, CE-rated gloves and high-visibility essentials from trusted riding brands.'
+            'Brakes, chain kits, tyres, engine and electrical parts for every major bike and scooter brand, with the fitment listed on each part.'
           )}
         </p>
-        <button
-          className="outline-cta"
-          type="button"
-          onClick={() => router.push('/search?category=Riding%20Gear')}
-        >
-          {t('Explore protective gear')}
+        <button className="outline-cta" type="button" onClick={() => router.push('/brands')}>
+          {t('Shop spare parts by brand')}
         </button>
       </div>
 
       <div className="promo-visual">
         <img
-          src="/assets/ai-riding-essentials.png"
-          alt={t('Motorcycle helmet, gloves and phone mount')}
+          src="/assets/ai-genuine-parts.jpg"
+          alt={t('Brake disc, chain sprocket kit and motorcycle tyre')}
           loading="lazy"
         />
         <div className="floating-stat">

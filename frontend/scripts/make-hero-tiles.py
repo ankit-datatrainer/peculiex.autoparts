@@ -1,11 +1,14 @@
 """
-Builds the two hero tiles that replaced the helmet promos:
+Builds the home-page artwork that replaced the helmet promos:
 
-  public/assets/ai-brakes-wheels.jpg        (dark tile)  brake disc + tyre
-  public/assets/ai-lighting-electricals.jpg (amber tile) LED headlight
+  public/assets/ai-brakes-wheels.jpg        hero, dark tile   brake disc + tyre
+  public/assets/ai-lighting-electricals.jpg hero, amber tile  LED headlight
+  public/assets/ai-genuine-parts.jpg        "Genuine spares" banner
+                                            tyre + brake disc + chain kit
 
 Composited from the product photos already in public/assets, cut out of their
-white studio backgrounds, at the same 1122x1402 size as the other hero tiles.
+white studio backgrounds. Hero tiles are 1122x1402 like the others; the banner
+is landscape to fill its half of the promo strip.
 
     python scripts/make-hero-tiles.py
 """
@@ -64,17 +67,18 @@ def fit(img, max_w, max_h):
     return img.resize((int(img.width * scale), int(img.height * scale)), Image.LANCZOS)
 
 
-def gradient(top, bottom):
-    bg = Image.new("RGB", (W, H), top)
+def gradient(top, bottom, size=(W, H)):
+    w, h = size
+    bg = Image.new("RGB", (w, h), top)
     d = ImageDraw.Draw(bg)
-    for y in range(H):
-        t = y / (H - 1)
-        d.line([(0, y), (W, y)], fill=tuple(int(top[i] + (bottom[i] - top[i]) * t) for i in range(3)))
+    for y in range(h):
+        t = y / (h - 1)
+        d.line([(0, y), (w, y)], fill=tuple(int(top[i] + (bottom[i] - top[i]) * t) for i in range(3)))
     return bg.convert("RGBA")
 
 
 def glow(canvas, center, radius, color, alpha):
-    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    layer = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
     d = ImageDraw.Draw(layer)
     cx, cy = center
     d.ellipse([cx - radius, cy - radius, cx + radius, cy + radius], fill=color + (alpha,))
@@ -83,14 +87,14 @@ def glow(canvas, center, radius, color, alpha):
 
 
 def floor_shadow(canvas, box, alpha=110, blur=28):
-    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    layer = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
     ImageDraw.Draw(layer).ellipse(box, fill=(0, 0, 0, alpha))
     layer = layer.filter(ImageFilter.GaussianBlur(blur))
     return Image.alpha_composite(canvas, layer)
 
 
 def paste(canvas, img, x, y):
-    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    layer = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
     layer.paste(img, (x, y), img)
     return Image.alpha_composite(canvas, layer)
 
@@ -118,7 +122,26 @@ def lighting():
     return canvas.convert("RGB")
 
 
+def parts_banner():
+    # Wide (about 1.7:1) to match the promo box, with the parts kept to the
+    # middle so a phone-width crop still shows all three.
+    BW, BH = 1300, 760
+    canvas = gradient((250, 251, 252), (232, 236, 240), (BW, BH))
+    canvas = glow(canvas, (680, 420), 300, (198, 40, 40), 38)
+
+    tyre = fit(crop_to_content(cut_all_white(Image.open(ASSETS / "michelin-tyre.webp"))), 520, 640)
+    disc = fit(crop_to_content(cut_all_white(Image.open(ASSETS / "brake-disc.png"))), 440, 440)
+    chain = fit(crop_to_content(cut_all_white(Image.open(ASSETS / "chain-kit.jpg"), lo=236, hi=252)), 520, 390)
+
+    canvas = floor_shadow(canvas, (200, 650, 1120, 720), alpha=70, blur=24)
+    canvas = paste(canvas, tyre, 1120 - tyre.width, 690 - tyre.height)
+    canvas = paste(canvas, disc, 200, 700 - disc.height)
+    canvas = paste(canvas, chain, (BW - chain.width) // 2 + 30, 715 - chain.height)
+    return canvas.convert("RGB")
+
+
 if __name__ == "__main__":
     brakes_and_wheels().save(ASSETS / "ai-brakes-wheels.jpg", quality=86, optimize=True, progressive=True)
     lighting().save(ASSETS / "ai-lighting-electricals.jpg", quality=86, optimize=True, progressive=True)
-    print("wrote ai-brakes-wheels.jpg and ai-lighting-electricals.jpg")
+    parts_banner().save(ASSETS / "ai-genuine-parts.jpg", quality=86, optimize=True, progressive=True)
+    print("wrote ai-brakes-wheels.jpg, ai-lighting-electricals.jpg and ai-genuine-parts.jpg")
