@@ -303,15 +303,27 @@ export async function searchProducts({ q = '', brand = '', category = '', limit 
   let query = supabase.from('products').select(PRODUCT_COLUMNS).eq('is_active', true);
 
   if (q) {
-    // A reference number (MM-100123) finds its product directly.
-    query = /^mm-\d{3,}$/i.test(q.trim())
-      ? query.eq('reference_no', q.trim().toUpperCase())
-      : query.ilike('name', `%${q}%`);
+    if (/^mm-\d{3,}$/i.test(q.trim())) {
+      // A reference number (MM-100123) finds its product directly.
+      query = query.eq('reference_no', q.trim().toUpperCase());
+    } else {
+      // Every word must appear somewhere in the name, in any order, so
+      // "activa brake shoe" finds "Brake Shoe for Honda Activa".
+      const words = q
+        .toLowerCase()
+        .replace(/[%_,()*\\]/g, ' ')
+        .split(/\s+/)
+        .filter((w) => w.length > 1)
+        .slice(0, 6);
+      for (const w of words) query = query.ilike('name', `%${w}%`);
+    }
   }
   if (brand) query = query.eq('brand_id', brand);
   if (category) query = query.eq('category_id', category);
 
-  const { data } = await query.limit(limit);
+  // Parts in stock first, then alphabetical, so results are stable.
+  const { data, error } = await query.order('stock', { ascending: false }).order('name').limit(limit);
+  if (error) console.warn('catalog.searchProducts:', error.message);
   return (data || []).map(mapProduct);
 }
 

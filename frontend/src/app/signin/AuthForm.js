@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useFormState, useFormStatus } from 'react-dom';
 import { signIn, signUp } from '../auth/actions';
 import { useLanguage } from '../../context/LanguageContext';
+import PasswordInput from '../../components/PasswordInput';
 
 function SubmitButton({ label, waiting }) {
   const { pending } = useFormStatus();
@@ -63,14 +64,21 @@ export default function AuthForm({ mode = 'signin', next = '/account' }) {
 
         <label>
           <span>{t('Password')}</span>
-          <input
-            name="password"
-            type="password"
-            required
+          <PasswordInput
             autoComplete={isSignUp ? 'new-password' : 'current-password'}
             placeholder={isSignUp ? t('At least 8 characters') : t('Your password')}
+            minLength={isSignUp ? 8 : undefined}
           />
         </label>
+
+        {!isSignUp && (
+          <p className="auth-forgot">
+            <Link href={`/forgot-password?next=${encodeURIComponent(next)}`}>{t('Forgot password?')}</Link>
+          </p>
+        )}
+        {isSignUp && (
+          <p className="auth-hint">{t('We will email you a 6-digit code to verify your address.')}</p>
+        )}
 
         {state?.error && (
           <p className="auth-error" role="alert">

@@ -758,3 +758,20 @@ footer,.footer-main,.footer-brand,.footer-bottom{background:#111111;color:#fff}
   .price-lock-lg .price-lock-blur{font-size:1.5rem}
   .p3d-controls button{height:32px;padding:0 .55rem}
 }
+
+/* The buy box grew (quantity, GST totals); left sticky it slid down over the
+   benefits row and "Customers also viewed". It now stays in its own column. */
+.detail-layout .buy-box{position:static;top:auto;align-self:start}
+.detail-layout .main-image-wrap.pg-stage{position:relative;top:auto}
+.detail-benefits,.related-detail{position:relative;z-index:1;background:#fff}
+
+/* Password field with Show / Hide */
+.password-field{position:relative;display:block}
+.password-field input{width:100%;padding-right:4.2rem}
+.password-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:#f3f4f6;color:#111;font-size:.74rem;font-weight:800;border-radius:999px;padding:.3rem .65rem;cursor:pointer}
+.password-toggle:hover{background:#e5e7eb}
+.auth-forgot{margin:-.3rem 0 .8rem;text-align:right;font-size:.82rem}
+.auth-forgot a{color:#c62828;font-weight:700}
+.auth-hint{margin:-.3rem 0 .8rem;font-size:.78rem;color:#6b7280}
+.auth-card label .password-field{margin-bottom:0;font-size:.92rem;font-weight:400;color:inherit}
+.auth-card .password-field input{padding-right:4.2rem}

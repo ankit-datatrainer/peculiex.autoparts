@@ -6,6 +6,7 @@ import ProductCard from '../../components/ProductCard';
 import Link from 'next/link';
 import { fetchProducts } from '../../lib/api';
 import { forViewer } from '../../lib/priceAccess';
+import { searchProducts, usingDatabase } from '../../lib/catalog';
 import { companyBrands, bikePartTypes } from '../../lib/catalogData';
 
 export const revalidate = 0;
@@ -37,7 +38,14 @@ export default async function SearchPage({ searchParams }) {
     (b) => b.name.toLowerCase() === brand.toLowerCase() || b.id.toLowerCase() === brand.toLowerCase()
   );
 
-  const [rawProducts, rawAllProducts] = await Promise.all([
+  // The real catalog lives in the database; the curated feed below is only
+  // the fallback when it is not configured or has nothing for this search.
+  const term = q === 'all' ? '' : String(q || '').trim();
+  const brandId = String(brand || '').toLowerCase();
+  const dbResults =
+    usingDatabase && (term || brandId) ? await searchProducts({ q: term, brand: brandId, limit: 120 }) : [];
+
+  const [feedProducts, rawAllProducts] = await Promise.all([
     fetchProducts({
       search: q === 'all' ? '' : q,
       category: category === 'all' ? '' : category,
@@ -47,6 +55,7 @@ export default async function SearchPage({ searchParams }) {
     }),
     fetchProducts()
   ]);
+  const rawProducts = dbResults.length ? dbResults : feedProducts;
   const [products, allProducts] = await forViewer([rawProducts, rawAllProducts]);
 
   const displayTitle = brand

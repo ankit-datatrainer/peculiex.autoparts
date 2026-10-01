@@ -29,7 +29,7 @@ export default async function VerifyEmailPage({ searchParams }) {
     <div>
       <SiteHeader />
       <main id="main">
-        <VerifyEmailClient email={access.email || ''} next={next} />
+        <VerifyEmailClient email={access.email || ''} next={next} autoSend={searchParams?.send === '1'} />
       </main>
       <Footer />
     </div>

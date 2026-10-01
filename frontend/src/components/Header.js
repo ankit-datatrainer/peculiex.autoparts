@@ -8,6 +8,7 @@ import { useCart } from '../context/CartContext';
 import BrandNavStrip from './BrandNavStrip';
 import catalogIndex from '../data/eauto/index.json';
 import { LANGUAGES } from '../lib/translations';
+import { suggestProducts } from '../app/search/actions';
 
 export default function Header({ products = [], brands = [], user = null }) {
   const router = useRouter();
@@ -21,6 +22,8 @@ export default function Header({ products = [], brands = [], user = null }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const searchBoxRef = useRef(null);
+  const suggestTimer = useRef(null);
+  const suggestSeq = useRef(0);
 
   // Close search suggestions on click outside
   useEffect(() => {
@@ -36,16 +39,31 @@ export default function Header({ products = [], brands = [], user = null }) {
   const handleSearchInput = (val) => {
     setSearchQuery(val);
     const q = val.trim().toLowerCase();
+    clearTimeout(suggestTimer.current);
     if (!q) {
       setSuggestions([]);
       setIsSuggestOpen(false);
       return;
     }
-    const hits = products
-      .filter((p) => `${p.name} ${p.brand} ${p.category}`.toLowerCase().includes(q))
+    const words = q.split(/\s+/);
+    const local = products
+      .filter((p) => {
+        const hay = `${p.name} ${p.brand} ${p.category}`.toLowerCase();
+        return words.every((w) => hay.includes(w));
+      })
       .slice(0, 5);
-    setSuggestions(hits);
+    setSuggestions(local);
     setIsSuggestOpen(true);
+
+    // Then ask the real catalog, a moment after typing stops.
+    const seq = ++suggestSeq.current;
+    suggestTimer.current = setTimeout(() => {
+      suggestProducts(q)
+        .then((rows) => {
+          if (seq === suggestSeq.current && rows?.length) setSuggestions(rows);
+        })
+        .catch(() => {});
+    }, 250);
   };
 
   const handleSearchSubmit = (e) => {

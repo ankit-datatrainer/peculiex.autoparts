@@ -325,9 +325,44 @@ const OTP_COPY = {
   }
 };
 
+const RESET_COPY = {
+  en: {
+    subject: (code) => `${code} is your MotoMart password reset code`,
+    heading: 'Reset your password',
+    body: 'Enter this code on MotoMart to choose a new password. It expires in 10 minutes.',
+    ignore: 'If you did not ask to reset your password, you can ignore this email. Your password stays the same.'
+  },
+  hi: {
+    subject: (code) => `${code} आपका MotoMart पासवर्ड रीसेट कोड है`,
+    heading: 'अपना पासवर्ड रीसेट करें',
+    body: 'नया पासवर्ड चुनने के लिए यह कोड MotoMart पर डालें। यह 10 मिनट में समाप्त हो जाएगा।',
+    ignore: 'अगर आपने पासवर्ड रीसेट नहीं माँगा था, तो इस ईमेल को अनदेखा करें। आपका पासवर्ड नहीं बदलेगा।'
+  },
+  mr: {
+    subject: (code) => `${code} हा तुमचा MotoMart पासवर्ड रीसेट कोड आहे`,
+    heading: 'तुमचा पासवर्ड रीसेट करा',
+    body: 'नवीन पासवर्ड निवडण्यासाठी हा कोड MotoMart वर टाका. तो 10 मिनिटांत कालबाह्य होईल.',
+    ignore: 'तुम्ही पासवर्ड रीसेट मागितला नसेल, तर हा ईमेल दुर्लक्षित करा. तुमचा पासवर्ड बदलणार नाही.'
+  },
+  gu: {
+    subject: (code) => `${code} તમારો MotoMart પાસવર્ડ રીસેટ કોડ છે`,
+    heading: 'તમારો પાસવર્ડ રીસેટ કરો',
+    body: 'નવો પાસવર્ડ પસંદ કરવા માટે આ કોડ MotoMart પર દાખલ કરો. તે 10 મિનિટમાં સમાપ્ત થશે.',
+    ignore: 'જો તમે પાસવર્ડ રીસેટ માંગ્યો ન હોય, તો આ ઇમેઇલને અવગણો. તમારો પાસવર્ડ બદલાશે નહીં.'
+  }
+};
+
+/** The one-time code for choosing a new password. */
+export async function sendPasswordResetEmail({ to, code, lang = 'en' }) {
+  return sendCodeEmail({ to, code, C: RESET_COPY[lang] || RESET_COPY.en, lang });
+}
+
 /** The one-time code that unlocks prices for a signed-in customer. */
 export async function sendVerificationEmail({ to, code, lang = 'en' }) {
-  const C = OTP_COPY[lang] || OTP_COPY.en;
+  return sendCodeEmail({ to, code, C: OTP_COPY[lang] || OTP_COPY.en, lang });
+}
+
+async function sendCodeEmail({ to, code, C, lang }) {
   const html = `<!doctype html>
 <html lang="${lang}">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width"></head>

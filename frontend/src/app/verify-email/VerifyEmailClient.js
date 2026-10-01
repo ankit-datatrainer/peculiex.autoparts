@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useTransition } from 'react';
+import React, { useEffect, useRef, useState, useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
@@ -17,7 +17,7 @@ function VerifyButton() {
   );
 }
 
-export default function VerifyEmailClient({ email, next = '/' }) {
+export default function VerifyEmailClient({ email, next = '/', autoSend = false }) {
   const { t, local } = useLanguage();
   const router = useRouter();
   const [sending, startSending] = useTransition();
@@ -58,6 +58,16 @@ export default function VerifyEmailClient({ email, next = '/' }) {
         }
       }
     });
+
+  // Straight after sign-up the first code goes out without a click.
+  const autoSent = useRef(false);
+  useEffect(() => {
+    if (autoSend && !autoSent.current) {
+      autoSent.current = true;
+      send();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoSend]);
 
   if (state?.verified) {
     return (
