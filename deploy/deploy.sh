@@ -71,6 +71,11 @@ for probe in "products?select=reference_no,moq,gst_rate&limit=1" "profiles?selec
   code=$(curl -s -o /dev/null -w '%{http_code}' "$SB_URL/rest/v1/$probe" -H "apikey: $SB_KEY" -H "Authorization: Bearer $SB_KEY")
   [ "$code" = "200" ] || fail "database update 0003 is not applied (HTTP $code for ${probe%%\?*}). In Supabase open SQL Editor, paste all of supabase/migrations/0003_gst_moq_refs_price_access.sql, click Run, then run this deploy again"
 done
+# 0004 adds bulk pricing to the store settings and to place_order(); without it
+# checkout would charge the old selling price while the site shows MRP tiers.
+settings=$(curl -s "$SB_URL/rest/v1/settings?key=eq.store&select=value" -H "apikey: $SB_KEY" -H "Authorization: Bearer $SB_KEY")
+echo "$settings" | grep -q '"bulkDiscount"' \
+  || fail "database update 0004 is not applied. In Supabase open SQL Editor, paste all of supabase/migrations/0004_bulk_pricing.sql, click Run, then run this deploy again"
 echo "database ok"
 
 step "Installing dependencies"
