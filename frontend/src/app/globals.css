@@ -775,3 +775,32 @@ footer,.footer-main,.footer-brand,.footer-bottom{background:#111111;color:#fff}
 .auth-hint{margin:-.3rem 0 .8rem;font-size:.78rem;color:#6b7280}
 .auth-card label .password-field{margin-bottom:0;font-size:.92rem;font-weight:400;color:inherit}
 .auth-card .password-field input{padding-right:4.2rem}
+
+/* ---- Bulk "sale" pricing: MRP struck through, % off, price for 10+ pieces ---- */
+.sale-price{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:.15rem .4rem}
+.sale-off{display:inline-block;background:#c62828;color:#fff;font-weight:900;font-size:.72rem;letter-spacing:.02em;padding:.12rem .45rem;border-radius:4px;line-height:1.3}
+.sale-off.big{font-size:.95rem;padding:.2rem .6rem}
+.sale-now{font-size:1.15rem;font-weight:900;color:#0f1111}
+.sale-mrp{font-size:.78rem;color:#6b7280}
+.sale-note{flex-basis:100%;font-size:.68rem;font-weight:700;color:#8a4b00}
+.card-ref,.detail-ref-chip{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.68rem;font-weight:700;color:#475569}
+.card-ref{display:block;margin:.1rem 0 .2rem}
+.detail-ref-chip{background:#eef2f6;color:#1e293b;padding:2px 8px;border-radius:4px;font-size:11px}
+.tier-price{display:grid;gap:.35rem;justify-items:start}
+.tier-price .detail-price{margin-left:0;color:#c62828}
+.tier-table{border-collapse:collapse;font-size:.82rem;min-width:260px}
+.tier-table td{padding:.35rem .6rem;border:1px solid #e5e7eb}
+.tier-table tr.on td{background:#fff7ed;font-weight:800;border-color:#fdba74}
+.buy-price{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem;margin-bottom:.3rem}
+.buy-totals .saving{color:#047857;font-weight:800}
+
+/* Image credits */
+.credits-page{padding-block:2rem 3rem}
+.credits-page h1{font-size:1.6rem;margin:0 0 .5rem}
+.credits-page>p{color:#565959;max-width:720px}
+.credits-list{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.8rem}
+.credits-list li{display:flex;gap:.7rem;align-items:center;border:1px solid #e5e7eb;border-radius:10px;padding:.5rem}
+.credits-list img{width:64px;height:64px;object-fit:cover;border-radius:6px;flex:none}
+.credits-list div{display:grid;gap:.15rem;font-size:.78rem;min-width:0}
+.credits-list a{color:#0f1111;font-weight:700;overflow-wrap:anywhere}
+.credits-list span{color:#565959}

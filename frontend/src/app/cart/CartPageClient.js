@@ -59,7 +59,7 @@ export default function CartPageClient({ products = [], storeNotice = '' }) {
                   )}
                   {item.amounts && (
                     <p className="cart-unit">
-                      {formatCurrency(item.price)} × {item.qty} + {t('GST')} {item.gstRate}% ={' '}
+                      {formatCurrency(item.unit)} × {item.qty} + {t('GST')} {item.gstRate}% ={' '}
                       <strong>{formatCurrency(item.amounts.total)}</strong>
                     </p>
                   )}

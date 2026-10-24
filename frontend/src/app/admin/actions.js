@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { createClient, isSupabaseConfigured, isAdmin } from '../../lib/supabase/server';
 import { createAdminClient } from '../../lib/supabase/admin';
-import { DEFAULT_GST_RATE, DEFAULT_MOQ } from '../../lib/commerce';
+import { DEFAULT_GST_RATE, DEFAULT_MOQ, DEFAULT_BULK_DISCOUNT, DEFAULT_BULK_MIN_QTY } from '../../lib/commerce';
 
 const DENIED = { error: 'Super admin access required.' };
 const NOT_CONFIGURED = { error: 'Supabase is not configured for this site.' };
@@ -581,6 +581,10 @@ export async function saveSettings(_prevState, formData) {
   if (gstRate < 0 || gstRate > 100) return { error: 'GST % must be between 0 and 100.' };
   const defaultMoq = Math.round(num(formData, 'defaultMoq', DEFAULT_MOQ));
   if (defaultMoq < 1) return { error: 'Minimum order quantity must be at least 1.' };
+  const bulkDiscount = num(formData, 'bulkDiscount', DEFAULT_BULK_DISCOUNT);
+  if (bulkDiscount < 0 || bulkDiscount > 100) return { error: 'Bulk discount must be between 0 and 100%.' };
+  const bulkMinQty = Math.round(num(formData, 'bulkMinQty', DEFAULT_BULK_MIN_QTY));
+  if (bulkMinQty < 1) return { error: 'Bulk quantity must be at least 1.' };
 
   const supabase = createClient();
   const { data: current } = await supabase.from('settings').select('value').eq('key', 'store').maybeSingle();
@@ -594,6 +598,8 @@ export async function saveSettings(_prevState, formData) {
     shippingFee: num(formData, 'shippingFee', 59),
     gstRate,
     defaultMoq,
+    bulkDiscount,
+    bulkMinQty,
     cartNotice: str(formData, 'cartNotice')
   };
 

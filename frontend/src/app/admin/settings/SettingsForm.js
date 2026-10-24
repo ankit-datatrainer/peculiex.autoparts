@@ -83,6 +83,28 @@ export default function SettingsForm({ settings = {} }) {
         {t('Selling prices are before GST; this rate is added at checkout and on the invoice. A product can override both on its edit page, or in bulk from the product list.')}
       </p>
 
+      <h2 className="admin-subhead">{t('Bulk pricing (on MRP)')}</h2>
+      <div className="admin-form-row">
+        <label>
+          <span>{t('Discount off MRP (%)')}</span>
+          <input
+            name="bulkDiscount"
+            type="number"
+            min="0"
+            max="100"
+            step="0.01"
+            defaultValue={settings.bulkDiscount ?? 60}
+          />
+        </label>
+        <label>
+          <span>{t('Applies from this many pieces')}</span>
+          <input name="bulkMinQty" type="number" min="1" step="1" defaultValue={settings.bulkMinQty ?? 10} />
+        </label>
+      </div>
+      <p className="admin-hint">
+        {t('Below that quantity a piece is sold at MRP; from it upwards at MRP minus this discount. Set the discount to 0 to sell at each product’s own selling price instead.')}
+      </p>
+
       <h2 className="admin-subhead">{t('Cart message')}</h2>
       <label>
         <span>{t('Notice shown on the cart and checkout pages')}</span>

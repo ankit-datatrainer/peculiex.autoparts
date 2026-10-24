@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import { formatCurrency } from '../lib/translations';
-import Price from './Price';
+import { SalePrice } from './Price';
 import { useStore } from '../context/StoreContext';
 
 const FALLBACK =
@@ -17,10 +17,13 @@ const FALLBACK =
 export default function PartCard({ part }) {
   const { addToCart } = useCart();
   const { t, tName, tCat } = useLanguage();
-  const { access, moqFor } = useStore();
+  const { access, moqFor, tiersFor } = useStore();
   if (!part) return null;
 
-  const saving = access.canSee && part.mrp > part.price ? part.mrp - part.price : 0;
+  // With bulk pricing the sale badge carries the discount; the old
+  // "Save ₹x" ribbon only applies when bulk pricing is switched off.
+  const tiers = access.canSee ? tiersFor(part) : null;
+  const saving = tiers && !tiers.bulk && part.mrp > part.price ? part.mrp - part.price : 0;
 
   return (
     <article className="part-card" data-product={part.id}>
@@ -44,14 +47,13 @@ export default function PartCard({ part }) {
 
       <div className="part-card-body">
         <div className="part-price-line">
-          <Price amount={part.price} className="part-price" />
-          {saving > 0 && <span className="part-mrp">{formatCurrency(part.mrp)}</span>}
-          {part.discountPercent > 0 && (
-            <span className="part-off">
-              {part.discountPercent}% {t('off')}
-            </span>
-          )}
+          <SalePrice product={part} />
         </div>
+        {part.referenceNo && (
+          <span className="card-ref">
+            {t('Ref')}: {part.referenceNo}
+          </span>
+        )}
 
         <Link href={`/product/${part.id}`} className="part-title">
           {tName(part.name, part.category)}

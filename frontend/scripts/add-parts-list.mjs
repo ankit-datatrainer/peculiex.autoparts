@@ -27,6 +27,9 @@ import { PARTS, GROUPS, FI_ONLY, BS6_ERA, BIKE, SCOOTER, EV } from './parts-list
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const WRITE = process.argv.includes('--write');
+// --from-sheet=101 limits the run to part types numbered 101 and up, so adding
+// a new list does not rewrite (and undo admin edits to) the earlier rows.
+const FROM_SHEET = Number((process.argv.find((x) => x.startsWith('--from-sheet=')) || '').split('=')[1]) || 0;
 const TAG = 'motomart-parts-list';
 
 for (const file of ['.env.local', '.env']) {
@@ -233,6 +236,7 @@ for (const m of models) {
   const vName = vehicleName(m);
 
   for (const part of PARTS) {
+    if (part.sheet < FROM_SHEET) continue;
     const stat = perPart.get(part.key);
     const applies =
       part.fits.includes(cls) &&

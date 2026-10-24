@@ -429,12 +429,18 @@ const base = {
   }
 };
 
-export const formatCurrency = value =>
-  new Intl.NumberFormat('en-IN', {
+// Whole rupees print as ₹1,299; bulk prices with paise (60 % off ₹109 is
+// ₹43.60) keep both decimals so "₹43.60 × 10 = ₹436" adds up on screen.
+export const formatCurrency = (value) => {
+  const n = Number(value) || 0;
+  const whole = Math.abs(n - Math.round(n)) < 0.005;
+  return new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
-    maximumFractionDigits: 0
-  }).format(value);
+    minimumFractionDigits: whole ? 0 : 2,
+    maximumFractionDigits: whole ? 0 : 2
+  }).format(n);
+};
 
 // Merge the session-added strings and the part glossary into every language so
 // t() resolves category names and part terms too, not just page copy.

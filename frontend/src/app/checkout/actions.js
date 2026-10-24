@@ -7,7 +7,7 @@ import { renderInvoicePdf } from '../../lib/invoice';
 import { sendInvoiceEmail } from '../../lib/email';
 import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from '../../lib/translations';
 import { getPriceAccess } from '../../lib/priceAccess';
-import { storeCommerce, gstRateFor, moqFor, clampQty, lineAmounts } from '../../lib/commerce';
+import { storeCommerce, gstRateFor, moqFor, clampQty, lineAmounts, unitPriceFor } from '../../lib/commerce';
 import { cookies, headers } from 'next/headers';
 
 /**
@@ -41,9 +41,11 @@ export async function loadCart(cart) {
     const requested = Number(cart[row.id]) || moq;
     // Quantity is not capped by stock any more; only lifted to the MOQ.
     const qty = clampQty(requested, moq);
-    const amounts = lineAmounts(product.price, qty, gstRate);
+    const unit = unitPriceFor(product, qty, commerce);
+    const amounts = lineAmounts(unit, qty, gstRate);
     return {
       ...product,
+      unit,
       moq,
       gstRate,
       requestedQty: requested,

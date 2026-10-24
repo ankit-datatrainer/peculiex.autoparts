@@ -11,6 +11,12 @@
 export const DEFAULT_GST_RATE = 18;
 export const DEFAULT_MOQ = 10;
 
+// Bulk pricing: 1-9 pieces sell at MRP, 10 or more at 60 % off MRP.
+// Both numbers are editable in Admin -> Settings; 0 % turns it off and the
+// product's own selling price is used instead.
+export const DEFAULT_BULK_DISCOUNT = 60;
+export const DEFAULT_BULK_MIN_QTY = 10;
+
 /** Safety ceiling per cart line; place_order() refuses anything larger. */
 export const MAX_QTY = 99999;
 
@@ -34,8 +40,47 @@ const asMoq = (value, fallback) => {
 export function storeCommerce(settings = {}) {
   return {
     gstRate: asRate(settings?.gstRate, DEFAULT_GST_RATE),
-    defaultMoq: asMoq(settings?.defaultMoq, DEFAULT_MOQ)
+    defaultMoq: asMoq(settings?.defaultMoq, DEFAULT_MOQ),
+    bulkDiscount: asRate(settings?.bulkDiscount, DEFAULT_BULK_DISCOUNT),
+    bulkMinQty: asMoq(settings?.bulkMinQty, DEFAULT_BULK_MIN_QTY)
   };
+}
+
+/** True when the MRP-based bulk pricing applies to this product. */
+export function usesBulkPricing(product, store = {}) {
+  const pct = asRate(store.bulkDiscount, DEFAULT_BULK_DISCOUNT);
+  return pct > 0 && Number(product?.mrp) > 0;
+}
+
+/** The discounted unit price for bulk quantities (MRP minus the bulk %). */
+export function bulkUnitPrice(product, store = {}) {
+  const pct = asRate(store.bulkDiscount, DEFAULT_BULK_DISCOUNT);
+  return round2(Number(product.mrp) * (1 - pct / 100));
+}
+
+/**
+ * Price of ONE piece when buying `qty` pieces. Mirrors place_order():
+ *   bulk pricing on  -> qty below the threshold pays MRP, at/above it pays
+ *                       MRP minus the bulk discount
+ *   bulk pricing off -> the product's selling price
+ */
+export function unitPriceFor(product, qty, store = {}) {
+  if (product?.price === null || product?.price === undefined) {
+    if (product?.mrp === null || product?.mrp === undefined) return null;
+  }
+  if (!usesBulkPricing(product, store)) return Number(product.price);
+  const min = asMoq(store.bulkMinQty, DEFAULT_BULK_MIN_QTY);
+  return Number(qty) >= min ? bulkUnitPrice(product, store) : round2(Number(product.mrp));
+}
+
+/** Everything the storefront needs to show the price tiers of a product. */
+export function priceTiers(product, store = {}) {
+  const bulk = usesBulkPricing(product, store);
+  const minQty = asMoq(store.bulkMinQty, DEFAULT_BULK_MIN_QTY);
+  const pct = asRate(store.bulkDiscount, DEFAULT_BULK_DISCOUNT);
+  return bulk
+    ? { bulk, minQty, pct, mrp: Number(product.mrp), bulkPrice: bulkUnitPrice(product, store) }
+    : { bulk, minQty, pct: 0, mrp: Number(product?.mrp) || 0, bulkPrice: Number(product?.price) };
 }
 
 export function gstRateFor(product, store = {}) {

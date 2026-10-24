@@ -13,7 +13,7 @@ import { lineAmounts, orderTotals } from './commerce';
  */
 export function useCartLines(products = []) {
   const { cart, cartSnapshots } = useCart();
-  const { access, moqFor, gstFor } = useStore();
+  const { access, moqFor, gstFor, unitPrice } = useStore();
   const [fresh, setFresh] = useState({});
 
   const ids = Object.keys(cart)
@@ -42,12 +42,15 @@ export function useCartLines(products = []) {
       const qty = cart[id];
       const gstRate = gstFor(item);
       const hasPrice = access.canSee && item.price !== null && item.price !== undefined;
+      // Quantity decides the unit price (MRP below the bulk threshold).
+      const unit = hasPrice ? unitPrice(item, qty) : null;
       return {
         ...item,
         qty,
+        unit,
         moq: moqFor(item),
         gstRate,
-        amounts: hasPrice ? lineAmounts(item.price, qty, gstRate) : null
+        amounts: hasPrice ? lineAmounts(unit, qty, gstRate) : null
       };
     })
     .filter(Boolean);
@@ -55,7 +58,7 @@ export function useCartLines(products = []) {
   const priced = lines.filter((l) => l.amounts);
   const allPriced = lines.length > 0 && priced.length === lines.length;
   const sums = orderTotals(
-    priced.map((l) => ({ price: l.price, qty: l.qty, gstRate: l.gstRate })),
+    priced.map((l) => ({ price: l.unit, qty: l.qty, gstRate: l.gstRate })),
     { freeShippingAbove: 0, shippingFee: 0 }
   );
 

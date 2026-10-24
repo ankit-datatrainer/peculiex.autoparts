@@ -77,6 +77,7 @@ export default function Footer() {
         <a href="#help">{t('Conditions of use')}</a>
         <a href="#help">{t('Privacy notice')}</a>
         <a href="#help">{t('Interest-based ads')}</a>
+        <Link href="/image-credits">{t('Image credits')}</Link>
         <span>© 2026 MotoMart Commerce</span>
       </div>
     </footer>

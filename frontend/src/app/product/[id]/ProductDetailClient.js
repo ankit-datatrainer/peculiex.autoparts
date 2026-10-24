@@ -17,7 +17,7 @@ export default function ProductDetailClient({ product, related = [] }) {
   const router = useRouter();
   const { t, tName, tCat, local, language } = useLanguage();
   const { addToCart, openCartDrawer, deliveryLocation } = useCart();
-  const { access, moqFor, gstFor } = useStore();
+  const { access, moqFor, gstFor, unitPrice, tiersFor } = useStore();
 
   const moq = moqFor(product);
   const gstRate = gstFor(product);
@@ -25,7 +25,12 @@ export default function ProductDetailClient({ product, related = [] }) {
   // What the shopper is typing, so the field can be emptied mid-edit.
   const [qtyText, setQtyText] = useState(String(moq));
   const canSee = access.canSee && product.price !== null && product.price !== undefined;
-  const amounts = canSee ? lineAmounts(product.price, quantity, gstRate) : null;
+  const tiers = canSee ? tiersFor(product) : null;
+  // The unit price follows the quantity: MRP below the bulk threshold,
+  // MRP minus the bulk discount at or above it.
+  const unit = canSee ? unitPrice(product, quantity) : null;
+  const amounts = canSee ? lineAmounts(unit, quantity, gstRate) : null;
+  const bulkActive = Boolean(tiers?.bulk && quantity >= tiers.minQty);
 
   const changeQty = (next) => {
     const q = clampQty(next, moq);
@@ -124,17 +129,9 @@ export default function ProductDetailClient({ product, related = [] }) {
               >
                 {product.brand} {t('Official Store')}
               </Link>
-              {product.oemPartNumber && (
-                <span style={{
-                  background: '#EEF2F6',
-                  color: '#1E293B',
-                  fontSize: '11px',
-                  fontWeight: '700',
-                  padding: '2px 8px',
-                  borderRadius: '4px',
-                  fontFamily: 'monospace'
-                }}>
-                  {t('OEM')}: {product.oemPartNumber}
+              {product.referenceNo && (
+                <span className="detail-ref-chip">
+                  {t('Ref')}: {product.referenceNo}
                 </span>
               )}
               <span style={{
@@ -210,15 +207,50 @@ export default function ProductDetailClient({ product, related = [] }) {
             <div className="price-block">
               {canSee ? (
                 <>
-                  {discountPercent > 0 && <span className="discount">-{discountPercent}%</span>}
-                  <strong className="detail-price">
-                    <Price amount={product.price} />
-                  </strong>
-                  <span className="per-unit">/ {t('unit')}</span>
-                  {product.mrp > product.price && (
-                    <p>
-                      {t('M.R.P.')}: <s><Price amount={product.mrp} /></s>
-                    </p>
+                  {tiers.bulk ? (
+                    <div className="tier-price">
+                      <span className="sale-off big">
+                        {tiers.pct}% {t('OFF')}
+                      </span>
+                      <strong className="detail-price">{formatCurrency(tiers.bulkPrice)}</strong>
+                      <span className="per-unit">/ {t('piece')}</span>
+                      <p>
+                        {t('M.R.P.')}: <s>{formatCurrency(tiers.mrp)}</s>
+                      </p>
+                      <table className="tier-table">
+                        <tbody>
+                          <tr className={!bulkActive ? 'on' : ''}>
+                            <td>
+                              1–{tiers.minQty - 1} {t('pcs')}
+                            </td>
+                            <td>{formatCurrency(tiers.mrp)}</td>
+                            <td>{t('MRP')}</td>
+                          </tr>
+                          <tr className={bulkActive ? 'on' : ''}>
+                            <td>
+                              {tiers.minQty}+ {t('pcs')}
+                            </td>
+                            <td>{formatCurrency(tiers.bulkPrice)}</td>
+                            <td>
+                              {tiers.pct}% {t('off MRP')}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <>
+                      {discountPercent > 0 && <span className="discount">-{discountPercent}%</span>}
+                      <strong className="detail-price">
+                        <Price amount={product.price} />
+                      </strong>
+                      <span className="per-unit">/ {t('unit')}</span>
+                      {product.mrp > product.price && (
+                        <p>
+                          {t('M.R.P.')}: <s><Price amount={product.mrp} /></s>
+                        </p>
+                      )}
+                    </>
                   )}
                   <p className="gst-note">
                     + {t('GST')} {formatRate(gstRate)}% ({t('added at checkout')})
@@ -332,10 +364,18 @@ export default function ProductDetailClient({ product, related = [] }) {
           {/* Buy Box */}
           <aside className="buy-box">
             {canSee ? (
-              <strong className="detail-price">
-                <Price amount={product.price} />
-                <small className="per-unit"> / {t('unit')}</small>
-              </strong>
+              <div className="buy-price">
+                {bulkActive && (
+                  <span className="sale-off">
+                    {tiers.pct}% {t('OFF')}
+                  </span>
+                )}
+                <strong className="detail-price">
+                  {formatCurrency(unit)}
+                  <small className="per-unit"> / {t('piece')}</small>
+                </strong>
+                {bulkActive && <s className="sale-mrp">{formatCurrency(tiers.mrp)}</s>}
+              </div>
             ) : (
               <PriceLock size="lg" />
             )}
@@ -400,7 +440,7 @@ export default function ProductDetailClient({ product, related = [] }) {
               <dl className="buy-totals" aria-live="polite">
                 <div>
                   <dt>
-                    {formatCurrency(product.price)} × {quantity}
+                    {formatCurrency(unit)} × {quantity}
                   </dt>
                   <dd>{formatCurrency(amounts.base)}</dd>
                 </div>
@@ -414,6 +454,12 @@ export default function ProductDetailClient({ product, related = [] }) {
                   <dt>{t('Total')}</dt>
                   <dd>{formatCurrency(amounts.total)}</dd>
                 </div>
+                {bulkActive && (
+                  <div className="saving">
+                    <dt>{t('You save')}</dt>
+                    <dd>{formatCurrency(Math.round((tiers.mrp - unit) * quantity * 100) / 100)}</dd>
+                  </div>
+                )}
               </dl>
             ) : (
               <p className="buy-locked-note">

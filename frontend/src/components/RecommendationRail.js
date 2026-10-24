@@ -4,8 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
-import Price from './Price';
-import { useStore } from '../context/StoreContext';
+import { SalePrice } from './Price';
 import { cartRecommendations } from '../app/cart/recommendActions';
 
 const FALLBACK =
@@ -30,7 +29,6 @@ export default function RecommendationRail({
 }) {
   const { cart, addToCart } = useCart();
   const { t, tName } = useLanguage();
-  const { access } = useStore();
   const [derived, setDerived] = useState([]);
   const [loading, setLoading] = useState(items === null);
 
@@ -100,13 +98,7 @@ export default function RecommendationRail({
               </Link>
 
               <div className="rec-price">
-                <Price amount={p.price} as="strong" />
-                {access.canSee && p.mrp > p.price && <Price amount={p.mrp} as="s" />}
-                {p.discountPercent > 0 && (
-                  <em>
-                    {p.discountPercent}% {t('off')}
-                  </em>
-                )}
+                <SalePrice product={p} />
               </div>
 
               <button

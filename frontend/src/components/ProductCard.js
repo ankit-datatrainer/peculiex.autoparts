@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
-import Price from './Price';
+import { SalePrice } from './Price';
 import { useStore } from '../context/StoreContext';
 
 export default function ProductCard({ product }) {
@@ -43,7 +43,7 @@ export default function ProductCard({ product }) {
         />
       </Link>
 
-      {product.badge && (
+      {!access.canSee && product.badge && (
         <span className="discount-badge">
           {/* Feed badges read "20% off • 100% Genuine" — the name walker keeps
               the numbers and translates every word it recognises. */}
@@ -56,16 +56,11 @@ export default function ProductCard({ product }) {
           <span className="card-brand" style={{ fontWeight: '800' }}>
             {product.brand} {product.partType ? `• ${tCat(product.partType)}` : ''}
           </span>
-          {product.oemPartNumber && (
-            <span style={{ fontSize: '10px', background: '#F1F5F9', color: '#475569', padding: '1px 6px', borderRadius: '4px', fontWeight: 'bold' }}>
-              OEM
-            </span>
-          )}
         </div>
 
-        {product.oemPartNumber && (
-          <div style={{ fontSize: '10px', color: '#64748B', fontFamily: 'monospace', fontWeight: '600', marginBottom: '4px' }}>
-            {product.oemPartNumber}
+        {product.referenceNo && (
+          <div className="card-ref">
+            {t('Ref')}: {product.referenceNo}
           </div>
         )}
 
@@ -103,10 +98,7 @@ export default function ProductCard({ product }) {
         )}
 
         <div className="price-line">
-          <Price amount={product.price} className="price" />
-          {access.canSee && product.mrp > product.price && (
-            <Price amount={product.mrp} className="mrp" />
-          )}
+          <SalePrice product={product} />
           {access.canSee && <span className="plus-gst">+ {t('GST')}</span>}
         </div>
         <span className="card-moq">

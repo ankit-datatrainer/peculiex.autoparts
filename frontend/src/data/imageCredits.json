@@ -1,0 +1,722 @@
+[
+ {
+  "key": "air-filter",
+  "image": "/assets/parts-photos/air-filter.jpg",
+  "title": "Filtro aria pannello.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Filtro_aria_pannello.JPG",
+  "author": "Elwood",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "ball-racer",
+  "image": "/assets/parts-photos/ball-racer.jpg",
+  "title": "Steuersatz-kugel.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Steuersatz-kugel.jpg",
+  "author": "Ralf Roletschek",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+ },
+ {
+  "key": "bearing",
+  "image": "/assets/parts-photos/bearing.jpg",
+  "title": "Ball bearing.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Ball_bearing.jpg",
+  "author": "Solaris2006",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+ },
+ {
+  "key": "brake-caliper",
+  "image": "/assets/parts-photos/brake-caliper.jpg",
+  "title": "2009-02-10 2008 Yamaha FZ6 rear brake.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:2009-02-10_2008_Yamaha_FZ6_rear_brake.jpg",
+  "author": "Ildar Sagdejev (Specious)",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "brake-disc",
+  "image": "/assets/parts-photos/brake-disc.jpg",
+  "title": "2009-02-10 2008 Yamaha FZ6 front rotor.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:2009-02-10_2008_Yamaha_FZ6_front_rotor.jpg",
+  "author": "Ildar Sagdejev (Specious)",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "brake-drum",
+  "image": "/assets/parts-photos/brake-drum.jpg",
+  "title": "W800 drum brake.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:W800_drum_brake.jpg",
+  "author": "Centovalli",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+ },
+ {
+  "key": "brake-plate",
+  "image": "/assets/parts-photos/brake-plate.jpg",
+  "title": "Kampas Rem Belakang Sepeda Motor Yamaha.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kampas_Rem_Belakang_Sepeda_Motor_Yamaha.jpg",
+  "author": "SATELIT BM",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "brake-shoe",
+  "image": "/assets/parts-photos/brake-shoe.jpg",
+  "title": "Kampas Rem Belakang Sepeda Motor Yamaha 2.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kampas_Rem_Belakang_Sepeda_Motor_Yamaha_2.jpg",
+  "author": "SATELIT BM",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "bulb",
+  "image": "/assets/parts-photos/bulb.jpg",
+  "title": "H4 Philips Premium used.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:H4_Philips_Premium_used.JPG",
+  "author": "MattiPaavola",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+ },
+ {
+  "key": "bush",
+  "image": "/assets/parts-photos/bush.jpg",
+  "title": "Silentblock 500 1.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Silentblock_500_1.jpg",
+  "author": "Cav",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "buzzer",
+  "image": "/assets/parts-photos/buzzer.jpg",
+  "title": "KS-3206 6VDC Electronic Buzzer.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:KS-3206_6VDC_Electronic_Buzzer.jpg",
+  "author": "Nvtj",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+ },
+ {
+  "key": "camshaft",
+  "image": "/assets/parts-photos/camshaft.jpg",
+  "title": "Gebaute Nockenwellen ThyssenKrupp Presta Chemnitz GmbH.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Gebaute_Nockenwellen_ThyssenKrupp_Presta_Chemnitz_GmbH.jpg",
+  "author": "ThyssenKrupp Presta Chemnitz GmbH",
+  "license": "CC BY-SA 3.0 de",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en"
+ },
+ {
+  "key": "carbon-brush",
+  "image": "/assets/parts-photos/carbon-brush.jpg",
+  "title": "Carbon brushes.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Carbon_brushes.jpg",
+  "author": "Stan Zurek",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+ },
+ {
+  "key": "carburetor",
+  "image": "/assets/parts-photos/carburetor.jpg",
+  "title": "Cvk karburator.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Cvk_karburator.jpg",
+  "author": "Scootergrisen at da.wikipedia",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "cdi",
+  "image": "/assets/parts-photos/cdi.jpg",
+  "title": "Capacitor Discharge Ignition 1.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Capacitor_Discharge_Ignition_1.jpg",
+  "author": "Gophi",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "chain-cover",
+  "image": "/assets/parts-photos/chain-cover.jpg",
+  "title": "Royal Enfield Crusader Cassington rear hub left.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Royal_Enfield_Crusader_Cassington_rear_hub_left.jpg",
+  "author": "Motacilla",
+  "license": "CC BY 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+ },
+ {
+  "key": "chain-sprocket",
+  "image": "/assets/parts-photos/chain-sprocket.jpg",
+  "title": "Garelli Cross 1968 08.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Garelli_Cross_1968_08.jpg",
+  "author": "Huhu Uet",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+ },
+ {
+  "key": "clutch-assembly",
+  "image": "/assets/parts-photos/clutch-assembly.jpg",
+  "title": "Honda CBR600RR teardown 2015-10-19 14.44.13.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Honda_CBR600RR_teardown_2015-10-19_14.44.13.jpg",
+  "author": "Spheroidite",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "clutch-housing",
+  "image": "/assets/parts-photos/clutch-housing.jpg",
+  "title": "2000 Honda VFR800 V4 engine with right crankcase cover removed.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:2000_Honda_VFR800_V4_engine_with_right_crankcase_cover_removed.jpg",
+  "author": "Yanko Malinov",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "clutch-hub",
+  "image": "/assets/parts-photos/clutch-hub.jpg",
+  "title": "Honda CBR600RR teardown 2015-10-17 12.20.17.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Honda_CBR600RR_teardown_2015-10-17_12.20.17.jpg",
+  "author": "Spheroidite",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "clutch-plate",
+  "image": "/assets/parts-photos/clutch-plate.jpg",
+  "title": "Honda CBR600RR teardown 2015-10-17 12.20.12.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Honda_CBR600RR_teardown_2015-10-17_12.20.12.jpg",
+  "author": "Spheroidite",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "clutch-pulley",
+  "image": "/assets/parts-photos/clutch-pulley.jpg",
+  "title": "Skutr variator.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Skutr_variator.jpg",
+  "author": "Hpridal at Czech Wikipedia",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "connecting-rod",
+  "image": "/assets/parts-photos/connecting-rod.jpg",
+  "title": "Motorcycles-Honda-MVX250F-Conrod-Piston 01.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Motorcycles-Honda-MVX250F-Conrod-Piston_01.JPG",
+  "author": "TuckerBag",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "control-cable",
+  "image": "/assets/parts-photos/control-cable.jpg",
+  "title": "Bowden.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Bowden.jpg",
+  "author": "Baran Ivo",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+ },
+ {
+  "key": "crankshaft",
+  "image": "/assets/parts-photos/crankshaft.jpg",
+  "title": "Albero motore.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Albero_motore.jpg",
+  "author": "DanielBucala",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "cylinder-block",
+  "image": "/assets/parts-photos/cylinder-block.jpg",
+  "title": "Malossi 70cc Morini cylinder.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Malossi_70cc_Morini_cylinder.jpg",
+  "author": "Kallemax at English Wikipedia",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "disc-pad",
+  "image": "/assets/parts-photos/disc-pad.jpg",
+  "title": "Aisobrake1.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Aisobrake1.jpg",
+  "author": "Braker1234",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "engine",
+  "image": "/assets/parts-photos/engine.jpg",
+  "title": "139FMB.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:139FMB.jpg",
+  "author": "Polak PL",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "engine-guard",
+  "image": "/assets/parts-photos/engine-guard.jpg",
+  "title": "BMW R1200GS Adv engine left.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:BMW_R1200GS_Adv_engine_left.jpg",
+  "author": "Jostein Nymoen from Kongsberg, Norway",
+  "license": "CC BY-SA 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+ },
+ {
+  "key": "engine-oil",
+  "image": "/assets/parts-photos/engine-oil.jpg",
+  "title": "SIGAUS aceite.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:SIGAUS_aceite.jpg",
+  "author": "SIGAUS",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "flasher",
+  "image": "/assets/parts-photos/flasher.jpg",
+  "title": "Blinkrelais.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Blinkrelais.jpg",
+  "author": "Stefan Riepl (Quark48)",
+  "license": "CC BY-SA 2.0 de",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/de/deed.en"
+ },
+ {
+  "key": "foam-filter",
+  "image": "/assets/parts-photos/foam-filter.jpg",
+  "title": "Filtro aria a coppa.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Filtro_aria_a_coppa.jpg",
+  "author": "A7N8X",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+ },
+ {
+  "key": "footrest",
+  "image": "/assets/parts-photos/footrest.jpg",
+  "title": "Triumph Speed Triple right footpeg.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Triumph_Speed_Triple_right_footpeg.jpg",
+  "author": "S de Santi",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+ },
+ {
+  "key": "front-fork",
+  "image": "/assets/parts-photos/front-fork.jpg",
+  "title": "USD Fork.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:USD_Fork.jpg",
+  "author": "Cancun",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "fuel-filter",
+  "image": "/assets/parts-photos/fuel-filter.jpg",
+  "title": "Small fuel filter-2.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Small_fuel_filter-2.jpg",
+  "author": "Cjp24",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+ },
+ {
+  "key": "fuel-injector",
+  "image": "/assets/parts-photos/fuel-injector.jpg",
+  "title": "Deka VII Standard Standard.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Deka_VII_Standard_Standard.jpg",
+  "author": "David DeGrace",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+ },
+ {
+  "key": "fuel-pump",
+  "image": "/assets/parts-photos/fuel-pump.jpg",
+  "title": "Bosch Fuel Pump 0 580 254 957-92467.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Bosch_Fuel_Pump_0_580_254_957-92467.jpg",
+  "author": "Raimond Spekking",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "fuse",
+  "image": "/assets/parts-photos/fuse.jpg",
+  "title": "Car fuses.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Car_fuses.jpg",
+  "author": "M.Minderhoud",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+ },
+ {
+  "key": "gasket",
+  "image": "/assets/parts-photos/gasket.jpg",
+  "title": "Gasket01.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Gasket01.jpg",
+  "author": "Miya.m",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+ },
+ {
+  "key": "gear",
+  "image": "/assets/parts-photos/gear.jpg",
+  "title": "Kassettengetriebe Aprilia RS 250.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kassettengetriebe_Aprilia_RS_250.jpg",
+  "author": "Helfer1982",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "handlebar",
+  "image": "/assets/parts-photos/handlebar.jpg",
+  "title": "FatbarRed.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:FatbarRed.JPG",
+  "author": "Renthal1969 at English Wikipedia",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "handlebar-switch",
+  "image": "/assets/parts-photos/handlebar-switch.jpg",
+  "title": "Lenkerschalter rechts.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Lenkerschalter_rechts.jpg",
+  "author": "HHE99 at German Wikipedia",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "headlight",
+  "image": "/assets/parts-photos/headlight.jpg",
+  "title": "Honda VTX 1800 C 2007 - headlight.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Honda_VTX_1800_C_2007_-_headlight.jpg",
+  "author": "W.carter",
+  "license": "CC0",
+  "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "key": "horn",
+  "image": "/assets/parts-photos/horn.jpg",
+  "title": "Hella Supertones 85115 horns rear.jpeg",
+  "page": "https://commons.wikimedia.org/wiki/File:Hella_Supertones_85115_horns_rear.jpeg",
+  "author": "Zuzu",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+ },
+ {
+  "key": "ignition-coil",
+  "image": "/assets/parts-photos/ignition-coil.jpg",
+  "title": "Bobine.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Bobine.jpg",
+  "author": "Michiel1972 at Dutch Wikipedia",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+ },
+ {
+  "key": "indicator",
+  "image": "/assets/parts-photos/indicator.jpg",
+  "title": "2009-02-10 2008 Yamaha FZ6 rear right turn signal.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:2009-02-10_2008_Yamaha_FZ6_rear_right_turn_signal.jpg",
+  "author": "Ildar Sagdejev (Specious)",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "kick-starter",
+  "image": "/assets/parts-photos/kick-starter.jpg",
+  "title": "Kickstarter.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Kickstarter.JPG",
+  "author": "Mitko-ml",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+ },
+ {
+  "key": "lever",
+  "image": "/assets/parts-photos/lever.jpg",
+  "title": "Gasdrehgriff Bremshebel NSU OSL 251.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Gasdrehgriff_Bremshebel_NSU_OSL_251.jpg",
+  "author": "Stahlkocher",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+ },
+ {
+  "key": "lock",
+  "image": "/assets/parts-photos/lock.jpg",
+  "title": "Fuel tank cap of Honda CBR1000RR Fireblade from ca. 2005.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Fuel_tank_cap_of_Honda_CBR1000RR_Fireblade_from_ca._2005.jpg",
+  "author": "Pittigrilli",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "main-stand",
+  "image": "/assets/parts-photos/main-stand.jpg",
+  "title": "Middenbok.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Middenbok.jpg",
+  "author": "Piero at Dutch Wikipedia",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+ },
+ {
+  "key": "master-cylinder",
+  "image": "/assets/parts-photos/master-cylinder.jpg",
+  "title": "Honda VTX 1800 C 2007 - mirror.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Honda_VTX_1800_C_2007_-_mirror.jpg",
+  "author": "W.carter",
+  "license": "CC0",
+  "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "key": "mirror",
+  "image": "/assets/parts-photos/mirror.jpg",
+  "title": "JGSDF Police Motorcycle (YAMAHA MT-03, 11-0476) left side mirror at Camp Uji September 14, 2024.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:JGSDF_Police_Motorcycle_(YAMAHA_MT-03,_11-0476)_left_side_mirror_at_Camp_Uji_September_14,_2024.jpg",
+  "author": "Hunini",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "oil-seal",
+  "image": "/assets/parts-photos/oil-seal.jpg",
+  "title": "Dichtungsring.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Dichtungsring.jpg",
+  "author": "Robert-info",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+ },
+ {
+  "key": "one-way-clutch",
+  "image": "/assets/parts-photos/one-way-clutch.jpg",
+  "title": "CamClutch.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:CamClutch.jpg",
+  "author": "Michael Bender",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "petrol-tank",
+  "image": "/assets/parts-photos/petrol-tank.jpg",
+  "title": "Gas Tank Powder Coated.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Gas_Tank_Powder_Coated.jpg",
+  "author": "Scott Pargett from Sacramento, CA, USA",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+ },
+ {
+  "key": "piston",
+  "image": "/assets/parts-photos/piston.jpg",
+  "title": "Cummins Diesel engine piston head 45deg.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Cummins_Diesel_engine_piston_head_45deg.jpg",
+  "author": "S. Diddy",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+ },
+ {
+  "key": "radiator",
+  "image": "/assets/parts-photos/radiator.jpg",
+  "title": "Automobile radiator.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Automobile_radiator.jpg",
+  "author": "Bill Wrigley",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "relay",
+  "image": "/assets/parts-photos/relay.jpg",
+  "title": "4 pin and 5 pin -12v and 24v.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:4_pin_and_5_pin_-12v_and_24v.jpg",
+  "author": "Sargunautoelectricals",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "rocker-arm",
+  "image": "/assets/parts-photos/rocker-arm.jpg",
+  "title": "Bilancieri.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Bilancieri.JPG",
+  "author": "Riccardo Nicola",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "seat",
+  "image": "/assets/parts-photos/seat.jpg",
+  "title": "Asiento de moto.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Asiento_de_moto.JPG",
+  "author": "Tapicero de motos",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "shaft",
+  "image": "/assets/parts-photos/shaft.jpg",
+  "title": "Honda CBR600RR teardown 2015-10-19 13.53.05.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Honda_CBR600RR_teardown_2015-10-19_13.53.05.jpg",
+  "author": "Spheroidite",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "shock-absorber",
+  "image": "/assets/parts-photos/shock-absorber.jpg",
+  "title": "GSXR Shock (3639723588).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:GSXR_Shock_(3639723588).jpg",
+  "author": "Andrew Napier",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+ },
+ {
+  "key": "side-panel",
+  "image": "/assets/parts-photos/side-panel.jpg",
+  "title": "Yamaha DS6 Hill End side panel.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Yamaha_DS6_Hill_End_side_panel.jpg",
+  "author": "Motacilla",
+  "license": "CC BY 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+ },
+ {
+  "key": "side-stand",
+  "image": "/assets/parts-photos/side-stand.jpg",
+  "title": "Sidestand.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Sidestand.jpg",
+  "author": "pragaduo",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "silencer",
+  "image": "/assets/parts-photos/silencer.jpg",
+  "title": "Kawa Est Detail Auspuff.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Kawa_Est_Detail_Auspuff.JPG",
+  "author": "17Eck",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+ },
+ {
+  "key": "spark-plug",
+  "image": "/assets/parts-photos/spark-plug.jpg",
+  "title": "Spark plug.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Spark_plug.jpg",
+  "author": "Socyo",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "speedometer",
+  "image": "/assets/parts-photos/speedometer.jpg",
+  "title": "Tableau compteur dream Honda.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Tableau_compteur_dream_Honda.jpg",
+  "author": "KODJOME Romaric",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "speedometer-gear",
+  "image": "/assets/parts-photos/speedometer-gear.jpg",
+  "title": "Royal Enfield Crusader Cassington rear hub right.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Royal_Enfield_Crusader_Cassington_rear_hub_right.jpg",
+  "author": "Motacilla",
+  "license": "CC BY 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+ },
+ {
+  "key": "spokes",
+  "image": "/assets/parts-photos/spokes.jpg",
+  "title": "Roue et jante moto dans un atelier à Cotonou au Bénin.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Roue_et_jante_moto_dans_un_atelier_%C3%A0_Cotonou_au_B%C3%A9nin.jpg",
+  "author": "Adoscam",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ },
+ {
+  "key": "starter-motor",
+  "image": "/assets/parts-photos/starter-motor.jpg",
+  "title": "Automobile starter.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Automobile_starter.JPG",
+  "author": "Willdre",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+ },
+ {
+  "key": "stator-coil",
+  "image": "/assets/parts-photos/stator-coil.jpg",
+  "title": "New stator (18089632306).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:New_stator_(18089632306).jpg",
+  "author": "Andrew Napier",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+ },
+ {
+  "key": "tail-light",
+  "image": "/assets/parts-photos/tail-light.jpg",
+  "title": "Tombstone taillight.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Tombstone_taillight.jpg",
+  "author": "Piero at Dutch Wikipedia",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+ },
+ {
+  "key": "throttle",
+  "image": "/assets/parts-photos/throttle.jpg",
+  "title": "Lenkerschalter rechts.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Lenkerschalter_rechts.jpg",
+  "author": "HHE99 at German Wikipedia",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "timing-chain",
+  "image": "/assets/parts-photos/timing-chain.jpg",
+  "title": "Nockenwellenantrieb.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Nockenwellenantrieb.jpg",
+  "author": "Kolossos",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+ },
+ {
+  "key": "triple-clamp",
+  "image": "/assets/parts-photos/triple-clamp.jpg",
+  "title": "Steeringdamper.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Steeringdamper.JPG",
+  "author": "Bumper12",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "tyre",
+  "image": "/assets/parts-photos/tyre.jpg",
+  "title": "Honda NTV650 Motorcycle (1990) Front Tyre (14584756788).png",
+  "page": "https://commons.wikimedia.org/wiki/File:Honda_NTV650_Motorcycle_(1990)_Front_Tyre_(14584756788).png",
+  "author": "Dennis van Zuijlekom from Ermelo, The Netherlands",
+  "license": "CC BY-SA 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+ },
+ {
+  "key": "v-belt",
+  "image": "/assets/parts-photos/v-belt.jpg",
+  "title": "Pas klinowy uzębiony przekładni wariatora.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Pas_klinowy_uz%C4%99biony_przek%C5%82adni_wariatora.jpg",
+  "author": "Silar",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+ },
+ {
+  "key": "valve",
+  "image": "/assets/parts-photos/valve.jpg",
+  "title": "Motor valve.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Motor_valve.jpg",
+  "author": "Spazzo",
+  "license": "Public domain",
+  "licenseUrl": ""
+ },
+ {
+  "key": "wheel-rim",
+  "image": "/assets/parts-photos/wheel-rim.jpg",
+  "title": "Comstar Rim 01.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Comstar_Rim_01.JPG",
+  "author": "Pierotreruote",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+ },
+ {
+  "key": "wiring-harness",
+  "image": "/assets/parts-photos/wiring-harness.jpg",
+  "title": "2008-04-17 Geo Storm instrument cluster wiring harness.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:2008-04-17_Geo_Storm_instrument_cluster_wiring_harness.jpg",
+  "author": "Ildar Sagdejev (Specious)",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+ }
+]

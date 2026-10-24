@@ -69,7 +69,7 @@ export default function CheckoutClient({ profile, email, notFromCart }) {
   const items = data.items.filter((i) => !i.unavailable);
   const settings = data.settings || { freeShippingAbove: 999, shippingFee: 59 };
   const { subtotal, shipping, total } = orderTotals(
-    items.map((i) => ({ price: i.price, qty: i.qty, gstRate: i.gstRate })),
+    items.map((i) => ({ price: i.unit, qty: i.qty, gstRate: i.gstRate })),
     settings
   );
   // One GST line per rate, so a mixed cart shows 18% and 12% separately.
@@ -216,7 +216,7 @@ export default function CheckoutClient({ profile, email, notFromCart }) {
                 <div>
                   <Link href={`/product/${item.id}`}>{tName(item.name, item.category)}</Link>
                   <small>
-                    {formatCurrency(item.price)} × {item.qty} · {t('GST')} {formatRate(item.gstRate)}%
+                    {formatCurrency(item.unit)} × {item.qty} · {t('GST')} {formatRate(item.gstRate)}%
                     {item.referenceNo && <> · {item.referenceNo}</>}
                     {item.raisedToMoq && (
                       <em>

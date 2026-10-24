@@ -89,6 +89,7 @@ export function fitmentLine(product, lang) {
 const SPEC_LABELS = {
   Brand: { hi: 'ब्रांड', mr: 'ब्रँड', gu: 'બ્રાન્ડ' },
   'Part Number': { hi: 'पार्ट नंबर', mr: 'पार्ट नंबर', gu: 'પાર્ટ નંબર' },
+  'Reference No.': { hi: 'संदर्भ संख्या', mr: 'संदर्भ क्रमांक', gu: 'સંદર્ભ નંબર' },
   'Part Type': { hi: 'पार्ट का प्रकार', mr: 'पार्टचा प्रकार', gu: 'પાર્ટનો પ્રકાર' },
   'Vehicle Brand': { hi: 'गाड़ी का ब्रांड', mr: 'वाहनाचा ब्रँड', gu: 'વાહનની બ્રાન્ડ' },
   Availability: { hi: 'उपलब्धता', mr: 'उपलब्धता', gu: 'ઉપલબ્ધતા' }

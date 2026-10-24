@@ -59,3 +59,38 @@ export default function Price({ amount, className = '', size = 'sm', as: Tag = '
   if (amount === null || amount === undefined) return <Tag className={className}>…</Tag>;
   return <Tag className={className}>{formatCurrency(amount)}</Tag>;
 }
+
+/**
+ * Card price in "sale" style: bulk price, struck-through MRP, the % off and
+ * the quantity it applies from — or the blurred lock when prices are hidden.
+ */
+export function SalePrice({ product, className = '' }) {
+  const { t } = useLanguage();
+  const { access, tiersFor } = useStore();
+  if (!access.canSee) return <PriceLock size="sm" className={className} />;
+  if (product?.price === null || product?.price === undefined) return <span className={className}>…</span>;
+
+  const tiers = tiersFor(product);
+  if (!tiers.bulk) {
+    return (
+      <span className={`sale-price ${className}`.trim()}>
+        <strong className="sale-now">{formatCurrency(product.price)}</strong>
+        {product.mrp > product.price && <s className="sale-mrp">{formatCurrency(product.mrp)}</s>}
+      </span>
+    );
+  }
+  return (
+    <span className={`sale-price ${className}`.trim()}>
+      <span className="sale-off">
+        {tiers.pct}% {t('OFF')}
+      </span>
+      <strong className="sale-now">{formatCurrency(tiers.bulkPrice)}</strong>
+      <s className="sale-mrp">
+        {t('MRP')} {formatCurrency(tiers.mrp)}
+      </s>
+      <small className="sale-note">
+        {t('per piece on')} {tiers.minQty}+ {t('pcs')}
+      </small>
+    </span>
+  );
+}

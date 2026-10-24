@@ -228,6 +228,9 @@ export default function ProductForm({
           <p className="admin-hint">
             {t('Selling price is before GST. Leave GST % or MOQ blank to use the store default from Settings.')}
           </p>
+          <p className="admin-hint">
+            {t('With bulk pricing on (Settings), shoppers pay the MRP below the bulk quantity and the MRP minus the bulk discount at or above it, so keep the MRP correct.')}
+          </p>
 
           <label>
             <span>{t('Stock quantity')}</span>

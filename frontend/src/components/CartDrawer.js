@@ -62,7 +62,7 @@ export default function CartDrawer({ products = [] }) {
                   </strong>
                   {item.amounts && (
                     <small className="cart-unit">
-                      {formatCurrency(item.price)} × {item.qty}
+                      {formatCurrency(item.unit)} × {item.qty}
                     </small>
                   )}
                   <QtyStepper value={item.qty} min={item.moq} onChange={(q) => setQty(item.id, q)} />

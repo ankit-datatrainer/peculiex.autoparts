@@ -261,7 +261,7 @@ export async function getProductById(id) {
       : [`Genuine replacement ${product.category} for the ${product.brand}.`],
     specs: {
       Brand: product.vendor || product.brand,
-      'Part Number': product.sku || '—',
+      'Reference No.': product.referenceNo || '—',
       'Part Type': product.category,
       'Vehicle Brand': product.brand,
       Availability: product.available ? `In stock (${product.stock})` : 'Out of stock'
@@ -303,8 +303,8 @@ export async function searchProducts({ q = '', brand = '', category = '', limit 
   let query = supabase.from('products').select(PRODUCT_COLUMNS).eq('is_active', true);
 
   if (q) {
-    if (/^mm-\d{3,}$/i.test(q.trim())) {
-      // A reference number (MM-100123) finds its product directly.
+    if (/^(mm|prs)-\d{2,}[a-z]*$/i.test(q.trim())) {
+      // A reference number (MM-100123, PRS-102B) finds its product directly.
       query = query.eq('reference_no', q.trim().toUpperCase());
     } else {
       // Every word must appear somewhere in the name, in any order, so
@@ -353,6 +353,8 @@ export async function getStoreSettings() {
     shippingFee: 59,
     gstRate: 18,
     defaultMoq: 10,
+    bulkDiscount: 60,
+    bulkMinQty: 10,
     cartNotice:
       'Orders are dispatched within 24 hours. Pay on delivery available across 18,000+ pin codes.'
   };

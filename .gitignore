@@ -35,3 +35,6 @@ Thumbs.db
 
 # local scratch for one-off checks
 frontend/scripts/.tmp/
+
+# image backups written by scripts/replace-eauto-images.mjs
+frontend/scripts/backups/
